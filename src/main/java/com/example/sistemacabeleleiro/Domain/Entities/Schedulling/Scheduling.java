@@ -60,4 +60,13 @@ public class Scheduling {
     public void setDataRealizacao(LocalDateTime dataRealizacao) {
         this.dataRealizacao = dataRealizacao;
     }
+    public SchedulingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SchedulingStatus status) {
+        this.status = status;
+    }
 }
+
+
