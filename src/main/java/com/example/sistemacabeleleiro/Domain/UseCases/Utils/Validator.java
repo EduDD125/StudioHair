@@ -23,4 +23,7 @@ public abstract class Validator<T>{
         return collection == null || collection.isEmpty();
     }
 
+    public static boolean nullOrNegativePrice(Double price) {
+        return price == null || price < 0;
+    }
 }
