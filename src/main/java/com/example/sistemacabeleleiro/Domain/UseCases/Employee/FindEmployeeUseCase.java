@@ -1,4 +1,4 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Employee;
 
-public class UpdateClienteUseCase {
+public class FindEmployeeUseCase {
 }
