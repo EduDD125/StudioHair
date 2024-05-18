@@ -1,4 +1,4 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Employee;
 
-public class ClientInputRequestValidator {
+public class EmployeeDAO {
 }
