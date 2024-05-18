@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.Domain.Entities.Client;
 
 public class Client {
-    private Long id;
+    private Integer id;
     private String name;
     private String phone;
     private String email;
@@ -12,11 +12,19 @@ public class Client {
         this.email = email;
     }
 
-    public Long getId() {
+    public Client(Integer id, String name, String phone, String email) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+    }
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -5,7 +5,7 @@ import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 import java.util.List;
 
 public class Employee {
-    private int id;
+    private Integer id;
     private String name;
     private List<Service> expertise;
     private String phone;
@@ -18,6 +18,24 @@ public class Employee {
         this.phone = phone;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Employee(int id, String name, List<Service> expertise, String phone, String email, String dateOfBirth) {
+        this.id = id;
+        this.name = name;
+        this.expertise = expertise;
+        this.phone = phone;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
