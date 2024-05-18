@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.Domain.Entities.Employee;
 
+import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 
 import java.util.List;
@@ -7,26 +8,38 @@ import java.util.List;
 public class Employee {
     private Integer id;
     private String name;
+    private CPF cpf;
     private List<Service> expertise;
     private String phone;
     private String email;
     private String dateOfBirth;
+    private EmployeeStatus status;
 
-    public Employee(String name, List<Service> expertise, String phone, String email, String dateOfBirth) {
-        this.name = name;
-        this.expertise = expertise;
-        this.phone = phone;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
+    public Employee(){
+        this.status = EmployeeStatus.ACTIVE;
     }
 
-    public Employee(int id, String name, List<Service> expertise, String phone, String email, String dateOfBirth) {
-        this.id = id;
+    public Employee(String name, CPF cpf, List<Service> expertise, String phone,
+                    String email, String dateOfBirth, EmployeeStatus status) {
         this.name = name;
+        this.cpf = cpf;
         this.expertise = expertise;
         this.phone = phone;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+        this.status = status;
+    }
+
+    public Employee(Integer id, String name, CPF cpf, List<Service> expertise, String phone,
+                    String email, String dateOfBirth, EmployeeStatus status) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+        this.expertise = expertise;
+        this.phone = phone;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.status = status;
     }
 
 
@@ -40,6 +53,14 @@ public class Employee {
 
     public String getName() {
         return name;
+    }
+
+    public CPF getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(CPF cpf) {
+        this.cpf = cpf;
     }
 
     public void setName(String name) {
@@ -76,5 +97,12 @@ public class Employee {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public EmployeeStatus getStatus() {
+        return status;
+    }
+    public void setStatus(EmployeeStatus status) {
+        this.status = status;
     }
 }

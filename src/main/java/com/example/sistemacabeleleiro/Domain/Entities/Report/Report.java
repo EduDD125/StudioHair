@@ -3,27 +3,30 @@ package com.example.sistemacabeleleiro.Domain.Entities.Report;
 import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Report {
     private Integer id;
     private LocalDateTime initialDate;
     private LocalDateTime finalDate;
     private Employee employee;
-    private Scheduling scheduling;
+    private List<Scheduling> schedules;
 
-    public Report(LocalDateTime initialDate, LocalDateTime finalDate, Employee employee, Scheduling scheduling) {
+    public Report(LocalDateTime initialDate, LocalDateTime finalDate,
+                  Employee employee, List<Scheduling> schedules) {
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.employee = employee;
-        this.scheduling = scheduling;
+        this.schedules = schedules;
     }
 
-    public Report(Integer id, LocalDateTime initialDate, LocalDateTime finalDate, Employee employee, Scheduling scheduling) {
+    public Report(Integer id, LocalDateTime initialDate, LocalDateTime finalDate,
+                  Employee employee, List<Scheduling> schedules) {
         this.id = id;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.employee = employee;
-        this.scheduling = scheduling;
+        this.schedules = schedules;
     }
 
     public Integer getId() {
@@ -58,11 +61,11 @@ public class Report {
         this.employee = employee;
     }
 
-    public Scheduling getScheduling() {
-        return scheduling;
+    public List<Scheduling> getSchedules() {
+        return schedules;
     }
 
-    public void setScheduling(Scheduling scheduling) {
-        this.scheduling = scheduling;
+    public void setSchedules(List<Scheduling> schedules) {
+        this.schedules = schedules;
     }
 }

@@ -1,8 +1,11 @@
 package com.example.sistemacabeleleiro.Domain.Entities.Client;
 
+import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
+
 public class Client {
     private Integer id;
     private String name;
+    private CPF cpf;
     private String phone;
     private String email;
 
@@ -34,6 +37,14 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public CPF getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(CPF cpf) {
+        this.cpf = cpf;
     }
 
     public String getPhone() {
