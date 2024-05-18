@@ -10,7 +10,9 @@ public class Scheduling {
     private Client client;
     private Employee employee;
     private LocalDateTime dataRealizacao;
+    private SchedulingStatus status;
 
+    public Scheduling(){this.status = SchedulingStatus.SCHEDULED;}
 
     public Scheduling(Client client, Employee employee, LocalDateTime dataRealizacao) {
         this.client = client;
@@ -23,6 +25,7 @@ public class Scheduling {
         this.client = client;
         this.employee = employee;
         this.dataRealizacao = dataRealizacao;
+        this.status = status;
     }
 
 
