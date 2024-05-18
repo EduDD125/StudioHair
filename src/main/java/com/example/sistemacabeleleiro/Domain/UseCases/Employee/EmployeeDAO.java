@@ -1,4 +1,4 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Employee;
 
-public class EmployeeDAO {
+public interface EmployeeDAO {
 }
