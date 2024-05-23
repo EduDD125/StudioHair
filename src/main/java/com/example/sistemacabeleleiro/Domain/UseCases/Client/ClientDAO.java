@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface ClientDAO extends DAO<Client, String> {
     Optional<Client> findOneCPF(String cpf);
+
+    String inactivate(Client client);
 }
