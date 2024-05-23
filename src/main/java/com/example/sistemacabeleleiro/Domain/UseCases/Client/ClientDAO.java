@@ -1,4 +1,12 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Client;
 
-public class ClientDAO {
+import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
+import com.example.sistemacabeleleiro.Domain.UseCases.Utils.DAO;
+
+import java.util.Optional;
+
+public interface ClientDAO extends DAO<Client, String> {
+    Optional<Client> findOneCPF(String cpf);
+
+    String inactivate(Client client);
 }

@@ -1,21 +1,22 @@
 package com.example.sistemacabeleleiro.Domain.Entities.Client;
 
 import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
+import com.example.sistemacabeleleiro.Domain.Entities.Email.Email;
 
 public class Client {
     private Integer id;
     private String name;
     private CPF cpf;
     private String phone;
-    private String email;
+    private Email email;
 
-    public Client(String name, String phone, String email) {
+    public Client(String name, String phone, Email email) {
         this.name = name;
         this.phone = phone;
         this.email = email;
     }
 
-    public Client(Integer id, String name, String phone, String email) {
+    public Client(Integer id, String name, String phone, Email email) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -55,11 +56,11 @@ public class Client {
         this.phone = phone;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email.setValue(email);
     }
 }
