@@ -1,0 +1,173 @@
+[33mcommit 7e401c17aff045f7032559d3e6dcc6406618e01f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mcreateServiceUseCase[m[33m)[m
+Merge: be0f23f 984e6e3
+Author: Ariadne Rezende <136824118+ariadnerezende@users.noreply.github.com>
+Date:   Sat May 18 15:08:47 2024 -0300
+
+    Merge pull request #8 from EduDD125/createServiceUseCase
+    
+    feat: added Create Service use case
+
+[33mcommit 984e6e38ace02a52fc449b5f3e1c706ad0bdf3a6[m[33m ([m[1;31morigin/createServiceUseCase[m[33m)[m
+Author: Ariadne <ariadnederezende@gmail.com>
+Date:   Sat May 18 15:11:43 2024 -0300
+
+    feat: added Create Service use case
+
+[33mcommit be0f23fb05d01586ec92345f63b7bc6baaf0ff79[m
+Author: Ariadne <ariadnederezende@gmail.com>
+Date:   Sat May 18 13:39:29 2024 -0300
+
+    feat: add validator and notification
+
+[33mcommit cea90cfc127e206f2186ad66bc620661fb8e1856[m
+Merge: 09490e3 afbe738
+Author: Victor Lopes <115103220+fictorl@users.noreply.github.com>
+Date:   Sat May 18 13:12:18 2024 -0300
+
+    Merge pull request #7 from EduDD125/Scheduling-UseCases
+    
+    feat: adding Scheduling entity getters and setters
+
+[33mcommit afbe738b61645abeae51d088e929773b55b506af[m
+Author: fictorl <fictorlps@gmail.com>
+Date:   Sat May 18 13:09:20 2024 -0300
+
+    feat: adding Scheduling entity getters and setters
+
+[33mcommit 09490e386b0d535cad364fb578827f0bb6b2c8cb[m
+Merge: 7398883 c01e51c
+Author: EDUARDO DUARTE DERISSO <115571853+EduDD125@users.noreply.github.com>
+Date:   Sat May 18 13:08:58 2024 -0300
+
+    Merge pull request #6 from EduDD125/createUtilsTools
+    
+    Create utils tools
+
+[33mcommit 7398883b498c4f280d73cc68e7eff7a2a2206e9a[m
+Merge: 9e2cdf5 e8bf644
+Author: emanuel-j-silva <121190716+emanuel-j-silva@users.noreply.github.com>
+Date:   Sat May 18 13:02:15 2024 -0300
+
+    Merge pull request #5 from EduDD125/entity-review
+    
+    feat: review of model entities
+
+[33mcommit e8bf64446a69cf0938025a9ec673aabbd0e5719b[m
+Author: emanuel-j-silva <emanuel.josesilva04@gmail.com>
+Date:   Sat May 18 12:57:40 2024 -0300
+
+    feat: review of model entities
+
+[33mcommit 9e2cdf58bb1ea5ba8eb329e6de90e35b53785302[m
+Merge: ad5aeb3 50456c1
+Author: Victor Lopes <115103220+fictorl@users.noreply.github.com>
+Date:   Sat May 18 12:45:48 2024 -0300
+
+    Merge pull request #4 from EduDD125/Scheduling-UseCases
+    
+    feat: adding status to Scheduling entity
+
+[33mcommit 50456c15ca72d9dbe1a26b47991ad5aece6b0134[m[33m ([m[1;31morigin/Scheduling-UseCases[m[33m)[m
+Author: fictorl <fictorlps@gmail.com>
+Date:   Sat May 18 12:43:29 2024 -0300
+
+    feat: adding status to Scheduling entity
+
+[33mcommit c01e51cc03adf5c2b8fa864be366f407c242abde[m[33m ([m[1;31morigin/createUtilsTools[m[33m)[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Sat May 18 12:42:07 2024 -0300
+
+    feat: created EntityAlreadyExistsException class
+
+[33mcommit 8124d1279e20412795ea9dae041971c6d3948379[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Sat May 18 12:39:09 2024 -0300
+
+    feat: created DAO interface
+
+[33mcommit ad5aeb30442428e0cb5a4dfede6710a68b8b7f9d[m
+Merge: e5f9eb6 4f32848
+Author: Victor Lopes <115103220+fictorl@users.noreply.github.com>
+Date:   Sat May 18 12:28:51 2024 -0300
+
+    Merge pull request #3 from EduDD125/Scheduling-UseCases
+    
+    feat: adding scheduling usecases
+
+[33mcommit e5f9eb611bc301a197d4716dec51e85cad6575a2[m
+Merge: e4bf91c b9a889e
+Author: Ariadne Rezende <136824118+ariadnerezende@users.noreply.github.com>
+Date:   Sat May 18 12:27:39 2024 -0300
+
+    Merge pull request #2 from EduDD125/ServiceUseCases
+    
+    feat: adding services use cases
+
+[33mcommit b9a889efe697c4cc9e7f7ab84f1623b5d24df580[m[33m ([m[1;31morigin/ServiceUseCases[m[33m)[m
+Author: Ariadne <ariadnederezende@gmail.com>
+Date:   Sat May 18 12:30:55 2024 -0300
+
+    feat: adding services use cases
+
+[33mcommit 4f32848193240dac86e55a75e9ce6f5c91b33493[m
+Author: fictorl <fictorlps@gmail.com>
+Date:   Sat May 18 12:23:44 2024 -0300
+
+    feat: adding scheduling usecases
+
+[33mcommit e4bf91c7d8eeb5bc746f8ae00c544ae8684164ae[m
+Merge: 22139de cd39fd7
+Author: EDUARDO DUARTE DERISSO <115571853+EduDD125@users.noreply.github.com>
+Date:   Sat May 18 12:22:28 2024 -0300
+
+    Merge pull request #1 from EduDD125/EmployeeUC
+    
+    Employee uc
+
+[33mcommit cd39fd739efd3b63695196a08e9811e0a4900419[m[33m ([m[1;31morigin/EmployeeUC[m[33m)[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Sat May 18 12:18:53 2024 -0300
+
+    feat: add interface Employee
+
+[33mcommit 073455a3d34a8852e7b5aa1ea5f6124990c03fb7[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Sat May 18 12:10:24 2024 -0300
+
+    refactore: renomeando classes do pacote Employee
+
+[33mcommit 22139defc7b7ab2ddc6d0694a9b12ec77d04a5b5[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Sat May 18 11:56:36 2024 -0300
+
+    feat: alteracoes novas
+
+[33mcommit f30a560aff7463f2324c6ea905f8b355e9448b66[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Sat May 18 11:02:45 2024 -0300
+
+    feat: add atributos das entidades puras
+
+[33mcommit b79119a8da7a827e86126cf6d9e8676d340e52fe[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Wed May 15 22:08:38 2024 -0300
+
+    projectStruct: reestruturando projeto para aceitar futuras classes
+
+[33mcommit 339313c9f647ce620e525b67582e479e64779474[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Wed May 15 21:59:57 2024 -0300
+
+    projectStruct: reestruturando projeto para aceitar futuras classes
+
+[33mcommit 37677d3ae2071ec00651ea4d4df8a0d75924896b[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Wed May 15 21:37:44 2024 -0300
+
+    refactore: mudanca de nome de pacotes
+
+[33mcommit 4d3d41c2fe1fd0184e818b96a54de78066014192[m
+Author: Eduardo Derisso <dudu.derisso@gmail.com>
+Date:   Wed May 15 21:28:07 2024 -0300
+
+    first commit
