@@ -23,8 +23,7 @@ public class CreateSchedulingUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
         }
 
-        LocalDateTime scheduledDate = scheduling.getDataRealizacao();
-        if (scheduledDate.isBefore(LocalDateTime.now())) {
+        if (scheduling.getDataRealizacao().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("The scheduling date cannot be in the past.");
         }
 
@@ -35,7 +34,7 @@ public class CreateSchedulingUseCase {
 
         for(Scheduling existing: schedulings){
             if(existing.getEmployee().equals(employee)
-                    && schedulingDAO.findByScheduledDate(scheduledDate).isPresent()){
+                    && schedulingDAO.findByScheduledDate(scheduling.getDataRealizacao()).isPresent()){
                 throw new EntityAlreadyExistsException("The employee has a schedule for this date and time.");
             }
         }
