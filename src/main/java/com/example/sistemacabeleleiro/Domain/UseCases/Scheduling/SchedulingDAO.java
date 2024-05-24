@@ -15,4 +15,6 @@ public interface SchedulingDAO extends DAO<Scheduling, Integer> {
     List<Scheduling> findByClient(Integer id);
     List<Scheduling> findByService(Integer id);
     List<Scheduling> findByTimePeriod(LocalDate startDate, LocalDate endDate);
+
+    List<Scheduling> findAllByServiceId(Integer serviceId);
 }
