@@ -42,6 +42,13 @@ public class Employee {
         this.status = status;
     }
 
+    public void addExpertise(Service service){
+        this.expertise.add(service);
+    }
+    public void removeExpertise(Service service){
+        this.expertise.remove(service);
+    }
+
 
     public int getId() {
         return id;

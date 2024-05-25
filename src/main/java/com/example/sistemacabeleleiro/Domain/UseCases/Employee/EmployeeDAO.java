@@ -11,4 +11,6 @@ public interface EmployeeDAO extends DAO<Employee,Integer> {
 
     Optional<Employee> findByCpf(CPF cpf);
     List<Employee> findAll();
+    boolean inactivate(Employee employee);
+    boolean activate(Employee employee);
 }
