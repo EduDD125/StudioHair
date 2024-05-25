@@ -1,18 +1,19 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Employee;
 
 import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
+import com.example.sistemacabeleleiro.Domain.Entities.Employee.EmployeeStatus;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityNotFoundException;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Notification;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Validator;
 
-public class UpdateEmployeeUseCase {
+public class ActivateEmployeeUseCase {
     private EmployeeDAO employeeDAO;
 
-    public UpdateEmployeeUseCase(EmployeeDAO employeeDAO) {
+    public ActivateEmployeeUseCase(EmployeeDAO employeeDAO) {
         this.employeeDAO = employeeDAO;
     }
 
-    public boolean update(Employee employee){
+    public boolean activate(Employee employee){
         Validator<Employee> validator = new EmployeeInputRequestValidator();
         Notification notification = validator.validate(employee);
 
@@ -24,6 +25,9 @@ public class UpdateEmployeeUseCase {
         if (employeeDAO.findOne(id).isEmpty()){
             throw new EntityNotFoundException("Employee not found");
         }
-        return employeeDAO.update(employee);
+        if (employee.getStatus() == EmployeeStatus.ACTIVE){
+            throw new IllegalArgumentException("Employee is already active");
+        }
+        return employeeDAO.activate(employee);
     }
 }
