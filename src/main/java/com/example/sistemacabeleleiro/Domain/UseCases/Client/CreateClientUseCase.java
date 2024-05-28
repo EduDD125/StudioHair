@@ -12,7 +12,7 @@ public class CreateClientUseCase {
         this.clientDAO = clientDAO;
     }
 
-    public String insert(Client client) {
+    public Integer insert(Client client) {
         Validator<Client> validator = new ClientInputRequestValidator();
         Notification notification = validator.validate(client);
 
@@ -20,7 +20,7 @@ public class CreateClientUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
         String cpf = client.getCpf().toString();
-        if(clientDAO.findOneCPF(cpf).isPresent())
+        if(clientDAO.findOneByCPF(cpf).isPresent())
             throw new EntityAlreadyExistsException("This CPF is already in use.");
 
         return clientDAO.create(client);

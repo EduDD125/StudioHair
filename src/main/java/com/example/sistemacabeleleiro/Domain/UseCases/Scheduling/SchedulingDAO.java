@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SchedulingDAO extends DAO<Scheduling, Integer> {
+    Integer cancel(Scheduling schedule);
     Optional<Scheduling> findByScheduledDate(LocalDateTime scheduledDate);
     List<Scheduling> findByEmployee(Integer id);
     List<Scheduling> findByClient(Integer id);

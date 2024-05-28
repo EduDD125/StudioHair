@@ -18,7 +18,7 @@ public class UpdateClienteUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
         String cpf = client.getCpf().toString();
-        if(clientDAO.findOneCPF(cpf).isEmpty())
+        if(clientDAO.findOneByCPF(cpf).isEmpty())
             throw new EntityNotFoundException("This CPF isn´t registered");
 
         return clientDAO.update(client);
