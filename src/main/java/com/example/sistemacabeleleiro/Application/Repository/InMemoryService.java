@@ -3,10 +3,7 @@ package com.example.sistemacabeleleiro.Application.Repository;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 import com.example.sistemacabeleleiro.Domain.UseCases.Service.ServiceDAO;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class InMemoryService implements ServiceDAO {
 
@@ -68,23 +65,35 @@ public class InMemoryService implements ServiceDAO {
     }
 
     @Override
-    public List<Service> findMostFrequent() {
-        return null;
-    }
-
-    @Override
     public List<Service> findByPriceRange(double minPrice, double maxPrice) {
-        return null;
+        List<Service> allServices = findAll();
+        List<Service> filteredServices = new ArrayList<>();
+        for (Service service : allServices)
+            if (service.getPrice() >= minPrice && service.getPrice() <= maxPrice)
+                filteredServices.add(service);
+
+        return filteredServices;
     }
 
     @Override
     public List<Service> findByCategory(String category) {
-        return null;
+        List<Service> allServices = findAll();
+        List<Service> filteredServices = new ArrayList<>();
+        for (Service service : allServices)
+            if (service.getCategory().equalsIgnoreCase(category))
+                filteredServices.add(service);
+
+        return filteredServices;
     }
 
     @Override
     public List<Service> findWithDiscount(Double discount) {
-        return null;
-    }
+        List<Service> allServices = findAll();
+        List<Service> discountedServices = new ArrayList<>();
+        for (Service service : allServices)
+            if (service.getDiscount() > 0.0)
+                discountedServices.add(service);
 
+        return discountedServices;
+    }
 }
