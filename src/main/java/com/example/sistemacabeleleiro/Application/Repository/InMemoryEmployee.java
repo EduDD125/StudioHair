@@ -1,4 +1,4 @@
 package com.example.sistemacabeleleiro.Application.Repository;
 
-public class InMemoryReport {
+public class InMemoryEmployee {
 }
