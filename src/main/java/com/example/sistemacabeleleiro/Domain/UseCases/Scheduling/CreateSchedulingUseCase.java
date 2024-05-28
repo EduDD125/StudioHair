@@ -2,7 +2,11 @@ package com.example.sistemacabeleleiro.Domain.UseCases.Scheduling;
 
 import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
+import com.example.sistemacabeleleiro.Domain.UseCases.Client.ClientDAO;
+import com.example.sistemacabeleleiro.Domain.UseCases.Employee.EmployeeDAO;
+import com.example.sistemacabeleleiro.Domain.UseCases.Service.ServiceDAO;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityAlreadyExistsException;
+import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityNotFoundException;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Notification;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Validator;
 
@@ -12,6 +16,9 @@ import java.util.List;
 
 public class CreateSchedulingUseCase {
     private SchedulingDAO schedulingDAO;
+    private ClientDAO clientDAO;
+    private EmployeeDAO employeeDAO;
+    private ServiceDAO serviceDAO;
 
     public CreateSchedulingUseCase(SchedulingDAO schedulingDAO){ this.schedulingDAO = schedulingDAO; }
 
@@ -22,22 +29,36 @@ public class CreateSchedulingUseCase {
         if(notification.hasErros()){
             throw new IllegalArgumentException(notification.errorMessage());
         }
-
         if (scheduling.getDataRealizacao().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("The scheduling date cannot be in the past.");
         }
+        if(!clientDAO.findOneByCPF(scheduling.getClient().getCpf().toString()).isPresent()){
+            throw new EntityNotFoundException("This client does not exist");
+        }
+        if(!employeeDAO.findByCpf(scheduling.getEmployee().getCpf()).isPresent()){
+            throw new EntityNotFoundException("This employee does not exist");
+        }
+        if(!schedulingDAO.findOne(scheduling.getService().getId()).isPresent()){
+            throw new EntityNotFoundException("This service does not exist");
+        }
 
-        Employee employee = scheduling.getEmployee();
-        List<Scheduling> schedulings;
+        List<Scheduling> employeeSchedulings;
+        List<Scheduling> clientSchedulings;
 
-        schedulings = schedulingDAO.findAll();
+        employeeSchedulings = schedulingDAO.findByEmployee(scheduling.getEmployee().getId());
+        clientSchedulings = schedulingDAO.findByClient(scheduling.getClient().getId());
 
-        for(Scheduling existing: schedulings){
-            if(existing.getEmployee().equals(employee)
-                    && schedulingDAO.findByScheduledDate(scheduling.getDataRealizacao()).isPresent()){
+        for(Scheduling existingDateAndTime: employeeSchedulings){
+            if(existingDateAndTime.getDataRealizacao() == scheduling.getDataRealizacao()) {
                 throw new EntityAlreadyExistsException("The employee has a schedule for this date and time.");
             }
         }
+        for(Scheduling existingDateAndTime: clientSchedulings){
+            if(existingDateAndTime.getDataRealizacao() == scheduling.getDataRealizacao()) {
+                throw new EntityAlreadyExistsException("The client has a schedule for this date and time.");
+            }
+        }
+
         return schedulingDAO.create(scheduling);
     }
 }
