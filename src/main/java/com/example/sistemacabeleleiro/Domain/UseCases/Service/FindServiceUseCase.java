@@ -22,10 +22,6 @@ public class FindServiceUseCase {
         return serviceDAO.findAll();
     }
 
-    public List<Service> findMostFrequent() {
-        return serviceDAO.findMostFrequent();
-    }
-
     public List<Service> findByPriceRange(double minPrice, double maxPrice) {
         if (minPrice >= maxPrice)
             throw new IllegalArgumentException("Minimum price can not be greater than maximum price.");
