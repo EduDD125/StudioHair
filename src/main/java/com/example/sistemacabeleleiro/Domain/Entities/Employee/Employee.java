@@ -109,7 +109,6 @@ public class Employee {
     public EmployeeStatus getStatus() {
         return status;
     }
-    public void setStatus(EmployeeStatus status) {
-        this.status = status;
-    }
+    public void activateStatus() {this.status = EmployeeStatus.ACTIVE;}
+    public void inactivateStatus() {this.status = EmployeeStatus.INACTIVE;}
 }
