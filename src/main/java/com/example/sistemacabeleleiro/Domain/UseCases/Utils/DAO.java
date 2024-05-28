@@ -10,5 +10,4 @@ public interface DAO <T, K> {
     boolean update(T type);
     boolean deleteByKey(K key);
     boolean delete(T type);
-    Integer cancel(T type);
 }
