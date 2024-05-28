@@ -21,4 +21,26 @@ public class FindServiceUseCase {
     public List<Service> findAll(){
         return serviceDAO.findAll();
     }
+
+    public List<Service> findMostFrequent() {
+        return serviceDAO.findMostFrequent();
+    }
+
+    public List<Service> findByPriceRange(double minPrice, double maxPrice) {
+        if (minPrice >= maxPrice)
+            throw new IllegalArgumentException("Minimum price can not be greater than maximum price.");
+        return serviceDAO.findByPriceRange(minPrice, maxPrice);
+    }
+
+    public List<Service> findByCategory(String category) {
+        if (category == null || category.isEmpty())
+            throw new IllegalArgumentException("The category is null or empty.");
+        return serviceDAO.findByCategory(category);
+    }
+
+    public List<Service> findWithDiscount(Double discount) {
+        if (discount == 0.0)
+            throw new IllegalArgumentException("This service does not have a discount.");
+        return serviceDAO.findWithDiscount(discount);
+    }
 }

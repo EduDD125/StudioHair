@@ -67,4 +67,24 @@ public class InMemoryService implements ServiceDAO {
         return null;
     }
 
+    @Override
+    public List<Service> findMostFrequent() {
+        return null;
+    }
+
+    @Override
+    public List<Service> findByPriceRange(double minPrice, double maxPrice) {
+        return null;
+    }
+
+    @Override
+    public List<Service> findByCategory(String category) {
+        return null;
+    }
+
+    @Override
+    public List<Service> findWithDiscount(Double discount) {
+        return null;
+    }
+
 }
