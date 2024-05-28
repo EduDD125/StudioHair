@@ -2,6 +2,7 @@ package com.example.sistemacabeleleiro.Domain.Entities.Schedulling;
 
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
+import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 
 import java.time.LocalDateTime;
 
@@ -11,21 +12,25 @@ public class Scheduling {
     private Employee employee;
     private LocalDateTime dataRealizacao;
     private SchedulingStatus status;
+    private Service service;
 
     public Scheduling(){this.status = SchedulingStatus.SCHEDULED;}
 
-    public Scheduling(Client client, Employee employee, LocalDateTime dataRealizacao) {
+    public Scheduling(Client client, Employee employee, LocalDateTime dataRealizacao, Service service) {
         this.client = client;
         this.employee = employee;
         this.dataRealizacao = dataRealizacao;
+        this.service = service;
     }
 
-    public Scheduling(Integer id, Client client, Employee employee, LocalDateTime dataRealizacao) {
+    public Scheduling(Integer id, Client client, Employee employee,
+                      LocalDateTime dataRealizacao, Service service) {
         this.id = id;
         this.client = client;
         this.employee = employee;
         this.dataRealizacao = dataRealizacao;
         this.status = status;
+        this.service = service;
     }
 
 
@@ -64,8 +69,14 @@ public class Scheduling {
         return status;
     }
 
-    public void setStatus(SchedulingStatus status) {
-        this.status = status;
+    public void schedule(SchedulingStatus status) {
+        this.status = SchedulingStatus.SCHEDULED;
+    }
+    public void cancel(SchedulingStatus status) {
+        this.status = SchedulingStatus.CANCELED;
+    }
+    public void finish(SchedulingStatus status) {
+        this.status = SchedulingStatus.SCHEDULED;
     }
 }
 
