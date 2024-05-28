@@ -4,6 +4,7 @@ import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Scheduling {
@@ -65,19 +66,30 @@ public class Scheduling {
     public void setDataRealizacao(LocalDateTime dataRealizacao) {
         this.dataRealizacao = dataRealizacao;
     }
+
+    public boolean isDateInsidePeriod(LocalDate startDate, LocalDate endDate) {
+        return getDataRealizacao().isAfter(startDate.atStartOfDay()) &&
+               getDataRealizacao().isBefore(endDate.atStartOfDay()) ||
+               getDataRealizacao().isEqual(startDate.atStartOfDay()) ||
+               getDataRealizacao().isEqual(endDate.atStartOfDay());
+    }
     public SchedulingStatus getStatus() {
         return status;
     }
 
-    public void schedule(SchedulingStatus status) {
+    public void schedule() {
         this.status = SchedulingStatus.SCHEDULED;
     }
-    public void cancel(SchedulingStatus status) {
+
+    public void cancel() {
         this.status = SchedulingStatus.CANCELED;
     }
-    public void finish(SchedulingStatus status) {
-        this.status = SchedulingStatus.SCHEDULED;
-    }
+
+    public void execute() {this.status = SchedulingStatus.PROVIDED;}
+
+    public Service getService() {return service;}
+
+    public void setService(Service service) {this.service = service;}
 }
 
 
