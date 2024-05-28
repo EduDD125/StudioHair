@@ -12,9 +12,9 @@ public class ShowClientUseCase {
 
     public ShowClientUseCase(ClientDAO clientDAO) {this.clientDAO = clientDAO;}
 
-    public Optional<Client> findOne(String id){
-        if (Validator.nullOrEmpty(id))
-            throw new IllegalArgumentException("ID can not be null or empty.");
+    public Optional<Client> findOne(Integer id){
+        if (id == null)
+            throw new IllegalArgumentException("ID can not be null.");
         return clientDAO.findOne(id);
     }
 
