@@ -13,7 +13,6 @@ public class EmployeeInputRequestValidator extends Validator<Employee> {
             notification.addError("Employee is null");
         }
 
-        //VALIDAR TODOS OS CAMPOS
         if (nullOrEmpty(employee.getName())){
             notification.addError("Name is null or empty");
         }
@@ -26,7 +25,7 @@ public class EmployeeInputRequestValidator extends Validator<Employee> {
         if (nullOrEmpty(employee.getPhone())){
             notification.addError("Phone is null or empty");
         }
-        if (nullOrEmpty(employee.getEmail())){
+        if (nullOrEmpty(employee.getEmail().toString())){
             notification.addError("Email is null or empty");
         }
         if (nullOrEmpty(employee.getDateOfBirth())){
@@ -37,6 +36,9 @@ public class EmployeeInputRequestValidator extends Validator<Employee> {
         }
         if (!validCPF(employee.getCpf())){
             notification.addError("CPF is not valid: " + employee.getCpf().getValue());
+        }
+        if (!validEmail(employee.getEmail())){
+            notification.addError("E-mail is not valid: " + employee.getEmail().getValue());
         }
 
         return notification;
