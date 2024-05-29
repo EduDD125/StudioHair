@@ -5,7 +5,7 @@ import com.example.sistemacabeleleiro.Domain.UseCases.Service.ServiceDAO;
 
 import java.util.*;
 
-public class InMemoryService implements ServiceDAO {
+public class InMemoryServiceDAO implements ServiceDAO {
 
     private static final Map<Integer, Service> db = new LinkedHashMap<>();
     private int idCounter;

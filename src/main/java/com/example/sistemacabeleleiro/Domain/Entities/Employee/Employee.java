@@ -4,6 +4,7 @@ import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
 import com.example.sistemacabeleleiro.Domain.Entities.Email.Email;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Employee {
@@ -18,6 +19,7 @@ public class Employee {
 
     public Employee(){
         this.status = EmployeeStatus.ACTIVE;
+        this.expertise = new ArrayList<>();
     }
 
     public Employee(String name, CPF cpf, List<Service> expertise, String phone,
@@ -29,6 +31,17 @@ public class Employee {
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.status = status;
+    }
+
+    public Employee(String name, CPF cpf, String phone, Email email,
+                    String dateOfBirth) {
+        this.name = name;
+        this.cpf = cpf;
+        this.expertise = new ArrayList<>();
+        this.phone = phone;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.status = EmployeeStatus.ACTIVE;
     }
 
     public Employee(Integer id, String name, CPF cpf, List<Service> expertise, String phone,

@@ -6,7 +6,7 @@ import com.example.sistemacabeleleiro.Domain.UseCases.Employee.EmployeeDAO;
 
 import java.util.*;
 
-public class InMemoryEmployee implements EmployeeDAO {
+public class InMemoryEmployeeDAO implements EmployeeDAO {
 
     private static final Map<Integer, Employee> db = new LinkedHashMap<>();
     int idCounter;

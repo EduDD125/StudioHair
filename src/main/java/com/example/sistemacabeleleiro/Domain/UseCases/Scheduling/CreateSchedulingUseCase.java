@@ -20,7 +20,12 @@ public class CreateSchedulingUseCase {
     private EmployeeDAO employeeDAO;
     private ServiceDAO serviceDAO;
 
-    public CreateSchedulingUseCase(SchedulingDAO schedulingDAO){ this.schedulingDAO = schedulingDAO; }
+    public CreateSchedulingUseCase(SchedulingDAO schedulingDAO, ClientDAO clientDAO, EmployeeDAO employeeDAO, ServiceDAO serviceDAO) {
+        this.schedulingDAO = schedulingDAO;
+        this.clientDAO = clientDAO;
+        this.employeeDAO = employeeDAO;
+        this.serviceDAO = serviceDAO;
+    }
 
     public Integer insert(Scheduling scheduling){
         Validator<Scheduling> validator = new SchedulingInputRequestValidator();
@@ -38,7 +43,7 @@ public class CreateSchedulingUseCase {
         if(!employeeDAO.findByCpf(scheduling.getEmployee().getCpf()).isPresent()){
             throw new EntityNotFoundException("This employee does not exist");
         }
-        if(!schedulingDAO.findOne(scheduling.getService().getId()).isPresent()){
+        if(serviceDAO.findOne(scheduling.getService().getId()).isEmpty()){
             throw new EntityNotFoundException("This service does not exist");
         }
 

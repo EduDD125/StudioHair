@@ -33,4 +33,23 @@ public class AddEmployeeExpertiseUseCase {
         employee.addExpertise(service);
         return updateEmployeeUseCase.update(employee);
     }
+
+    public boolean addExpertise(Employee employee, Service service){
+        if (employee == null || service == null){
+            throw new IllegalArgumentException("Employee and/or Service are/is null");
+        }
+        if (employeeDAO.findOne(employee.getId()).isEmpty()){
+            throw new EntityNotFoundException("Can not find an employee");
+        }
+        if (serviceDAO.findOne(service.getId()).isEmpty()){
+            throw new EntityNotFoundException("Can not find a service");
+        }
+
+        if (employee.getExpertise().contains(service)){
+            throw new IllegalArgumentException("Employee already has this expertise");
+        }
+
+        employee.addExpertise(service);
+        return updateEmployeeUseCase.update(employee);
+    }
 }
