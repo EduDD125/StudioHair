@@ -10,5 +10,5 @@ public interface ServiceDAO extends DAO<Service, Integer> {
     Optional<Service> findById(Integer id);
     List<Service> findByPriceRange(double minPrice, double maxPrice);
     List<Service> findByCategory(String category);
-    List<Service> findWithDiscount(Double discount);
+    List<Service> findByDiscount(Double discount);
 }

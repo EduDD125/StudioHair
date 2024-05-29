@@ -34,9 +34,9 @@ public class FindServiceUseCase {
         return serviceDAO.findByCategory(category);
     }
 
-    public List<Service> findWithDiscount(Double discount) {
+    public List<Service> findByDiscount(Double discount) {
         if (discount == 0.0)
             throw new IllegalArgumentException("This service does not have a discount.");
-        return serviceDAO.findWithDiscount(discount);
+        return serviceDAO.findByDiscount(discount);
     }
 }

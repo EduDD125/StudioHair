@@ -45,12 +45,12 @@ public class InMemoryService implements ServiceDAO {
     @Override
     public Optional<Service> findById(Integer id) {
         return db.values().stream().filter(service ->
-                service.getId().equals(id)) .findAny();
+                service.getId().equals(id)).findAny();
     }
 
     @Override
     public Optional<Service> findOne(Integer key) {
-        if(db.containsKey(key)) {
+        if (db.containsKey(key)) {
             return Optional.of(db.get(key));
         }
         return Optional.empty();
@@ -58,7 +58,7 @@ public class InMemoryService implements ServiceDAO {
 
     @Override
     public List<Service> findAll() {
-        if(!db.isEmpty()) {
+        if (!db.isEmpty()) {
             return db.values().stream().toList();
         }
         return null;
@@ -66,34 +66,22 @@ public class InMemoryService implements ServiceDAO {
 
     @Override
     public List<Service> findByPriceRange(double minPrice, double maxPrice) {
-        List<Service> allServices = findAll();
-        List<Service> filteredServices = new ArrayList<>();
-        for (Service service : allServices)
-            if (service.getPrice() >= minPrice && service.getPrice() <= maxPrice)
-                filteredServices.add(service);
-
-        return filteredServices;
+        return findAll().stream()
+                .filter(service -> service.getPrice() >= minPrice && service.getPrice() <= maxPrice)
+                .toList();
     }
 
     @Override
     public List<Service> findByCategory(String category) {
-        List<Service> allServices = findAll();
-        List<Service> filteredServices = new ArrayList<>();
-        for (Service service : allServices)
-            if (service.getCategory().equalsIgnoreCase(category))
-                filteredServices.add(service);
-
-        return filteredServices;
+        return findAll().stream()
+                .filter(service -> service.getCategory().equalsIgnoreCase(category))
+                .toList();
     }
 
     @Override
-    public List<Service> findWithDiscount(Double discount) {
-        List<Service> allServices = findAll();
-        List<Service> discountedServices = new ArrayList<>();
-        for (Service service : allServices)
-            if (service.getDiscount() > 0.0)
-                discountedServices.add(service);
-
-        return discountedServices;
+    public List<Service> findByDiscount(Double discount) {
+        return findAll().stream()
+                .filter(service -> service.getDiscount() > 0.0)
+                .toList();
     }
 }
