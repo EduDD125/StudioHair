@@ -5,7 +5,7 @@ import com.example.sistemacabeleleiro.Domain.UseCases.Client.ClientDAO;
 
 import java.util.*;
 
-public class InMemoryClient implements ClientDAO {
+public class InMemoryClientDAO implements ClientDAO {
 
     private static final Map<Integer, Client> db = new LinkedHashMap<>();
     private static int idCounter;

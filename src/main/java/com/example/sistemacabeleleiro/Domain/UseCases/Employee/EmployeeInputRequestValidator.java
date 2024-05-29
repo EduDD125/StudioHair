@@ -19,9 +19,6 @@ public class EmployeeInputRequestValidator extends Validator<Employee> {
         if (nullOrEmpty(employee.getCpf().toString())){
             notification.addError("CPF is null or empty");
         }
-        if (nullOrEmpty(employee.getExpertise())){
-            notification.addError("Expertise list is null or empty");
-        }
         if (nullOrEmpty(employee.getPhone())){
             notification.addError("Phone is null or empty");
         }

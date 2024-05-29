@@ -5,10 +5,10 @@ import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityNotFoundExcept
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Notification;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Validator;
 
-public class UpdateClienteUseCase {
+public class UpdateClientUseCase {
     private ClientDAO clientDAO;
 
-    public UpdateClienteUseCase(ClientDAO clientDAO){this.clientDAO = clientDAO;}
+    public UpdateClientUseCase(ClientDAO clientDAO){this.clientDAO = clientDAO;}
 
     public boolean update(Client client) {
         Validator validator = new ClientInputRequestValidator();

@@ -5,10 +5,9 @@ import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.SchedulingDAO;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
-public class InMemorySchedulling implements SchedulingDAO {
+public class InMemorySchedulingDAO implements SchedulingDAO {
 
     private static final Map<Integer, Scheduling> db = new LinkedHashMap<>();
     int idCounter;
