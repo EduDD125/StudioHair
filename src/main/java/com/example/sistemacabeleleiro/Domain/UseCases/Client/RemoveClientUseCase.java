@@ -27,10 +27,10 @@ public class RemoveClientUseCase {
         if (clientDAO.findOneByCPF(cpf).isEmpty())
             throw new EntityNotFoundException("This CPF isn´t registered");
 
-        List<Scheduling> scheduelesToDelete = schedulingDAO.findAll().stream().
+        List<Scheduling> schedulesToDelete = schedulingDAO.findAll().stream().
                 filter(schedule -> schedule.getClient().equals(client)).toList();
-        if(!scheduelesToDelete.isEmpty()) {
-            for (Scheduling scheduling : scheduelesToDelete) {
+        if(!schedulesToDelete.isEmpty()) {
+            for (Scheduling scheduling : schedulesToDelete) {
                 schedulingDAO.delete(scheduling);
             }
         }

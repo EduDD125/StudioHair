@@ -1,6 +1,7 @@
 package com.example.sistemacabeleleiro.Domain.Entities.Employee;
 
 import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
+import com.example.sistemacabeleleiro.Domain.Entities.Email.Email;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class Employee {
     private CPF cpf;
     private List<Service> expertise;
     private String phone;
-    private String email;
+    private Email email;
     private String dateOfBirth;
     private EmployeeStatus status;
 
@@ -20,7 +21,7 @@ public class Employee {
     }
 
     public Employee(String name, CPF cpf, List<Service> expertise, String phone,
-                    String email, String dateOfBirth, EmployeeStatus status) {
+                    Email email, String dateOfBirth, EmployeeStatus status) {
         this.name = name;
         this.cpf = cpf;
         this.expertise = expertise;
@@ -31,7 +32,7 @@ public class Employee {
     }
 
     public Employee(Integer id, String name, CPF cpf, List<Service> expertise, String phone,
-                    String email, String dateOfBirth, EmployeeStatus status) {
+                    Email email, String dateOfBirth, EmployeeStatus status) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -90,11 +91,11 @@ public class Employee {
         this.phone = phone;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Email email) {
         this.email = email;
     }
 
