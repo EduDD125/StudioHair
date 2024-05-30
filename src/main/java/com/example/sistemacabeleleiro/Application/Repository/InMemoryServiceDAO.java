@@ -84,4 +84,16 @@ public class InMemoryServiceDAO implements ServiceDAO {
                 .filter(service -> service.getDiscount() > 0.0)
                 .toList();
     }
+
+    @Override
+    public boolean inactivate(Service service) {
+        service.inactivateStatus();
+        return update(service);
+    }
+
+    @Override
+    public boolean activate(Service service) {
+        service.activateStatus();
+        return update(service);
+    }
 }
