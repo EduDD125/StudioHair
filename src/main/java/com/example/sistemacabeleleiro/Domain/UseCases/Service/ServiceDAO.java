@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Service;
 
+import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.DAO;
 
@@ -11,4 +12,7 @@ public interface ServiceDAO extends DAO<Service, Integer> {
     List<Service> findByPriceRange(double minPrice, double maxPrice);
     List<Service> findByCategory(String category);
     List<Service> findByDiscount(Double discount);
+
+    boolean inactivate(Service service);
+    boolean activate(Service service);
 }
