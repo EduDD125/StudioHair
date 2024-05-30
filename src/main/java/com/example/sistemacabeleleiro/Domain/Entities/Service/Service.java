@@ -1,5 +1,7 @@
 package com.example.sistemacabeleleiro.Domain.Entities.Service;
 
+import com.example.sistemacabeleleiro.Domain.Entities.Employee.EmployeeStatus;
+
 public class Service {
     private Integer id;
     private String name;
@@ -8,14 +10,21 @@ public class Service {
     private String category;
     private String subCategory;
     private Double discount;
+    private ServiceStatus status;
 
-    public Service(String name, String description, Double price, String category, String subCategory, Double discount) {
+    public Service() {
+        this.status = ServiceStatus.ACTIVE;
+    }
+
+    public Service(String name, String description, Double price, String category, String subCategory,
+                   Double discount, ServiceStatus status) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.subCategory = subCategory;
         this.discount = discount;
+        this.status = status;
     }
 
     public Service(Integer id, String name, String description, Double price) {
@@ -26,15 +35,17 @@ public class Service {
         this.category = null;
         this.subCategory = null;
         this.discount = 0.0;
+        this.status = ServiceStatus.ACTIVE;
     }
 
-    public Service(String name, String description, Double price) {
+    public Service(String name, String description, Double price, ServiceStatus status) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = null;
         this.subCategory = null;
         this.discount = 0.0;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -92,4 +103,10 @@ public class Service {
     public void setDiscount(Double discount) {
         this.discount = discount;
     }
+
+    public ServiceStatus getStatus() {
+        return status;
+    }
+    public void activateStatus() {this.status = ServiceStatus.ACTIVE;}
+    public void inactivateStatus() {this.status = ServiceStatus.INACTIVE;}
 }

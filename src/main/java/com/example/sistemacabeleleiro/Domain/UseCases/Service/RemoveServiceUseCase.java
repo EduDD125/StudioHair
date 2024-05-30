@@ -1,9 +1,8 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Service;
 
-import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
+
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 import com.example.sistemacabeleleiro.Domain.UseCases.Employee.EmployeeDAO;
-import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.CancelSchedulingUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.SchedulingDAO;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityNotFoundException;
 
@@ -14,33 +13,27 @@ public class RemoveServiceUseCase {
     private ServiceDAO serviceDAO;
     private EmployeeDAO employeeDAO;
     private SchedulingDAO schedulingDAO;
-    private CancelSchedulingUseCase cancelSchedulingUseCase;
 
 
     public RemoveServiceUseCase(ServiceDAO serviceDAO, EmployeeDAO employeeDAO, SchedulingDAO schedulingDAO) {
         this.serviceDAO = serviceDAO;
         this.employeeDAO = employeeDAO;
         this.schedulingDAO = schedulingDAO;
-        this.cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
     }
 
-    public void removeExpertiseFromAllEmployees(Integer serviceId) {
-        employeeDAO.findAll().forEach(employee -> {
-            employee.getExpertise().removeIf(service -> service.getId().equals(serviceId));
-        });
+    public boolean hasSchedulingsForService(Integer serviceId) {
+        return !schedulingDAO.findAllByServiceId(serviceId).isEmpty();
     }
 
-    public void cancelAllSchedulingsForService(Integer serviceId) {
-        List<Scheduling> schedulings = schedulingDAO.findAllByServiceId(serviceId);
-        schedulings.forEach(scheduling -> cancelSchedulingUseCase.cancel(scheduling));
+    public boolean isServiceInEmployeeExpertise(Integer serviceId) {
+        return employeeDAO.findAll().stream()
+                .anyMatch(employee -> employee.getExpertise().stream()
+                        .anyMatch(service -> service.getId().equals(serviceId)));
     }
-
     public boolean remove(Integer id){
         if(id == null || serviceDAO.findOne(id).isEmpty())
             throw new EntityNotFoundException("Service not found.");
 
-        removeExpertiseFromAllEmployees(id);
-        cancelAllSchedulingsForService(id);
 
         return serviceDAO.deleteByKey(id);
     }
@@ -49,8 +42,11 @@ public class RemoveServiceUseCase {
         if(service == null || serviceDAO.findOne(service.getId()).isEmpty())
             throw new EntityNotFoundException("Service not found.");
 
-        removeExpertiseFromAllEmployees(service.getId());
-        cancelAllSchedulingsForService(service.getId());
+        if (hasSchedulingsForService(service.getId()))
+            throw new IllegalStateException("Cannot delete service with existing schedulings.");
+
+        if (isServiceInEmployeeExpertise(service.getId()))
+            throw new IllegalStateException("Cannot delete service linked to employee expertise.");
 
         return serviceDAO.delete(service);
     }
