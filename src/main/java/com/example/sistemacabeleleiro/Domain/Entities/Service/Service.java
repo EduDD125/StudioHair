@@ -1,6 +1,5 @@
 package com.example.sistemacabeleleiro.Domain.Entities.Service;
 
-import com.example.sistemacabeleleiro.Domain.Entities.Employee.EmployeeStatus;
 
 public class Service {
     private Integer id;
@@ -29,6 +28,16 @@ public class Service {
 
     public Service(Integer id, String name, String description, Double price) {
         this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = null;
+        this.subCategory = null;
+        this.discount = 0.0;
+        this.status = ServiceStatus.ACTIVE;
+    }
+
+    public Service(String name, String description, Double price) {
         this.name = name;
         this.description = description;
         this.price = price;

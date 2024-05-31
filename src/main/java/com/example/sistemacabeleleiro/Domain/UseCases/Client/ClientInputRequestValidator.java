@@ -20,7 +20,9 @@ public class ClientInputRequestValidator extends Validator<Client> {
         if(!validEmail(client.getEmail()))
             notification.addError("Email is not valid: " + client.getEmail().getValue());
         if(nullOrEmpty(client.getPhone()))
-            notification.addError("phone is null or empty");
+            notification.addError("Phone is null or empty");
+        if(nullOrEmpty(client.getStatus().toString()))
+            notification.addError("Client status is null or empty");
         if(!validCPF(client.getCpf()))
             notification.addError("CPF is not valid: " + client.getCpf().getValue());
 
