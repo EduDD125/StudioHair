@@ -10,4 +10,6 @@ public interface ClientDAO extends DAO<Client, Integer> {
     Optional<Client> findOneByCPF(String cpf);
     Optional<Client> findOneByName(String name);
     List<Client> findAll();
+    boolean inactivate(Client client);
+    boolean activate(Client client);
 }

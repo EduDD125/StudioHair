@@ -24,6 +24,8 @@ public class Main {
     private static RemoveClientUseCase removeClientUseCase;
     private static ShowClientUseCase showClientUseCase;
     private static UpdateClientUseCase updateClientUseCase;
+    private static ActivateClientUseCase activateClientUseCase;
+    private static InactivateClientUseCase inactivateClientUseCase;
 
     private static ActivateEmployeeUseCase activateEmployeeUseCase;
     private static AddEmployeeExpertiseUseCase addEmployeeExpertiseUseCase;
@@ -43,6 +45,8 @@ public class Main {
     private static FindServiceUseCase findServiceUseCase;
     private static RemoveServiceUseCase removeServiceUseCase;
     private static UpdateServiceUseCase updateServiceUseCase;
+    private static ActivateServiceUseCase activateServiceUseCase;
+    private static InactivateServiceUseCase inactivateServiceUseCase;
 
     public static void main(String[] args) {
         configureInjection();
@@ -140,6 +144,8 @@ public class Main {
         removeClientUseCase = new RemoveClientUseCase(clientDAO,schedulingDAO);
         showClientUseCase = new ShowClientUseCase(clientDAO);
         updateClientUseCase = new UpdateClientUseCase(clientDAO);
+        inactivateClientUseCase = new InactivateClientUseCase(clientDAO);
+        activateClientUseCase = new ActivateClientUseCase(clientDAO);
 
         activateEmployeeUseCase = new ActivateEmployeeUseCase(employeeDAO);
         updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
@@ -154,6 +160,8 @@ public class Main {
         createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO,clientDAO,employeeDAO,serviceDAO);
         findSchedulingUseCase = new FindSchedulingUseCase(schedulingDAO);
         updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO);
+        inactivateServiceUseCase = new InactivateServiceUseCase(serviceDAO);
+        activateServiceUseCase = new ActivateServiceUseCase(serviceDAO);
 
         createServiceUseCase = new CreateServiceUseCase(serviceDAO);
         findServiceUseCase = new FindServiceUseCase(serviceDAO);
