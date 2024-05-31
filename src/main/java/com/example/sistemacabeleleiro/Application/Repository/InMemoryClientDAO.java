@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.Application.Repository;
 
+import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.UseCases.Client.ClientDAO;
 
@@ -67,7 +68,7 @@ public class InMemoryClientDAO implements ClientDAO {
     }
 
     @Override
-    public Optional<Client> findOneByCPF(String cpf) {
+    public Optional<Client> findOneByCPF(CPF cpf) {
         return db.values().stream().
                 filter( client -> client.getCpf().equals(cpf)).findAny();
     }

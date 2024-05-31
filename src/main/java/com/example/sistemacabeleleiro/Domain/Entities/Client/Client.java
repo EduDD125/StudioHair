@@ -88,4 +88,16 @@ public class Client {
 
     public void activateStatus() {this.status = ClientStatus.ACTIVE;}
     public void inactivateStatus() {this.status = ClientStatus.INACTIVE;}
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cpf=" + cpf +
+                ", phone='" + phone + '\'' +
+                ", email=" + email +
+                ", status=" + status +
+                '}';
+    }
 }

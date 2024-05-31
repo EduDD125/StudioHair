@@ -22,6 +22,7 @@ public class Scheduling {
         this.employee = employee;
         this.dataRealizacao = dataRealizacao;
         this.service = service;
+        this.status = SchedulingStatus.SCHEDULED;
     }
 
     public Scheduling(Integer id, Client client, Employee employee,
@@ -30,10 +31,18 @@ public class Scheduling {
         this.client = client;
         this.employee = employee;
         this.dataRealizacao = dataRealizacao;
-        this.status = status;
+        this.status = SchedulingStatus.SCHEDULED;
         this.service = service;
     }
 
+    public Scheduling(Integer id, Client client, Employee employee, LocalDateTime dataRealizacao, SchedulingStatus status, Service service) {
+        this.id = id;
+        this.client = client;
+        this.employee = employee;
+        this.dataRealizacao = dataRealizacao;
+        this.status = status;
+        this.service = service;
+    }
 
     public Integer getId() {
         return id;
@@ -90,6 +99,19 @@ public class Scheduling {
     public Service getService() {return service;}
 
     public void setService(Service service) {this.service = service;}
+
+    @Override
+    public String toString() {
+        return "Scheduling{" +
+                "id=" + id +
+                ", client=" + client.getName() +
+                ", employee=" + employee.getName() +
+                ", employee expertises=" + employee.getExpertise() +
+                ", dataRealizacao=" + dataRealizacao +
+                ", status=" + status +
+                ", service=" + service +
+                '}';
+    }
 }
 
 

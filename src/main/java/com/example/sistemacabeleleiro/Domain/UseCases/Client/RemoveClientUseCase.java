@@ -32,8 +32,8 @@ public class RemoveClientUseCase {
 
     public boolean remove(Client client) {
 
-        String cpf = client.getCpf().toString();
-        if (client == null || clientDAO.findOneByCPF(cpf).toString().isEmpty())
+        CPF cpf = client.getCpf();
+        if (client == null || clientDAO.findOneByCPF(cpf).isEmpty())
             throw new EntityNotFoundException("This CPF isn´t registered");
 
         deleteClientSchedules(client);

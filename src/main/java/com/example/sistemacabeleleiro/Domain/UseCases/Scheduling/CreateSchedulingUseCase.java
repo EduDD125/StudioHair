@@ -37,7 +37,7 @@ public class CreateSchedulingUseCase {
         if (scheduling.getDataRealizacao().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("The scheduling date cannot be in the past.");
         }
-        if(!clientDAO.findOneByCPF(scheduling.getClient().getCpf().toString()).isPresent()){
+        if(!clientDAO.findOneByCPF(scheduling.getClient().getCpf()).isPresent()){
             throw new EntityNotFoundException("This client does not exist");
         }
         if(!employeeDAO.findByCpf(scheduling.getEmployee().getCpf()).isPresent()){
