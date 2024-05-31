@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Client;
 
+import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Validator;
 
@@ -18,8 +19,8 @@ public class ShowClientUseCase {
         return clientDAO.findOne(id);
     }
 
-    public Optional<Client> findOneByCPF(String cpf) {
-        if (Validator.nullOrEmpty(cpf))
+    public Optional<Client> findOneByCPF(CPF cpf) {
+        if (Validator.nullOrEmpty(cpf.toString()))
             throw new IllegalArgumentException("CPF can not be null empty.");
         return clientDAO.findOneByCPF(cpf);
     }
