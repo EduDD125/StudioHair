@@ -5,9 +5,9 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.io.IOException;
 
-public class ReportGenerator {
+public class ExportSchedules {
 
-    public void generateReport(String fileName) {
+    public void exportSchedules(String fileName) {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
             document.addPage(page);
@@ -28,7 +28,7 @@ public class ReportGenerator {
     }
 
     public static void main(String[] args) {
-        ReportGenerator generator = new ReportGenerator();
-        generator.generateReport("sample_report");
+        ExportSchedules generator = new ExportSchedules();
+        generator.exportSchedules("sample_report");
     }
 }
