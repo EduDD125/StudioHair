@@ -18,18 +18,18 @@ public class RemoveExpertiseFromEmployeeUseCase {
     }
 
     public boolean removeExpertise(Integer employeeId, Integer serviceId){
-        if (employeeId == null || serviceId == null){
+        if (employeeId == null || serviceId == null)
             throw new IllegalArgumentException("Employee ID and/or Service ID are/is null");
-        }
+
         Employee employee = employeeDAO.findOne(employeeId)
                 .orElseThrow(() -> new EntityNotFoundException("Can not find an employee with id " + employeeId));
 
         Service service = serviceDAO.findOne(serviceId)
                 .orElseThrow(() -> new EntityNotFoundException("Can not find a service with id " + serviceId));
 
-        if (!employee.getExpertise().contains(service)){
+        if (!employee.getExpertise().contains(service))
             throw new IllegalArgumentException("Employee does not have this specialty");
-        }
+
         employee.removeExpertise(service);
         return updateEmployeeUseCase.update(employee);
     }
