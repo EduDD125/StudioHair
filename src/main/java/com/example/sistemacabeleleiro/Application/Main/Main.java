@@ -9,7 +9,6 @@ import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.Entities.Email.Email;
 import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
-import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.SchedulingStatus;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 import com.example.sistemacabeleleiro.Domain.UseCases.Client.*;
 import com.example.sistemacabeleleiro.Domain.UseCases.Employee.*;
@@ -74,30 +73,82 @@ public class Main {
         for (Scheduling s:schedules){
             System.out.println(s);
         }
+
+        System.out.println("-- CASOS DE TESTE --");
+
+
+        // CASOS DE TESTE PARA FUNCIONÁRIO
+        findFuncionarioComIdNull();
+        findFuncionarioComCpfInvalido();
+        criarFuncionarioVazio();
+        criarFuncionarioComCpfExistente();
+        criarFuncionarioComEmailECpfInvalidos();
+
+        // CASOS DE TESTE PARA CLIENTE
+        findClienteComIdNull();
+        findClienteComCpfInvalido();
+        criarClienteVazio();
+        criarClienteComCpfExistente();
+        criarClienteComEmailECpfInvalidos();
+
+        // CASOS DE TESTE PARA SERVIÇOS
+        // CASOS DE TESTE PARA AGENDAMENTO
     }
 
 
-    public static void scheduleService(Client client, Employee employee,
-                                       LocalDateTime localDateTime, Service service){
-        try {
-            Scheduling scheduling = new Scheduling(client,employee,localDateTime,service);
-            createSchedulingUseCase.insert(scheduling);
-            System.out.println("Schedule completed successfully");
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+    private static void findFuncionarioComIdNull(){
+        findEmployeeUseCase.findOne(null);
+    }
+    private static void findFuncionarioComCpfInvalido(){
+        CPF invalidCpf = CPF.of("12e.344.88");
+        findEmployeeUseCase.findOneByCpf(invalidCpf);
+    }
+    private static void findClienteComIdNull(){
+        findClientUseCase.findOne(null);
+    }
+    private static void findClienteComCpfInvalido(){
+        CPF invalidCpf = CPF.of("12e.344.88");
+        findClientUseCase.findOneByCPF(invalidCpf);
+    }
+    private static void criarFuncionarioVazio(){
+        Employee employee = new Employee();
+        createEmployeeUseCase.insert(employee);
+        System.out.println(employee);
+    }
+    private static void criarFuncionarioComCpfExistente(){
+        Email email = Email.of("test@gmail.com");
+        CPF cpf = CPF.of("123.456.789-10");
+        Employee employee = new Employee("João",cpf,"16998765443",email,"21/01/2000");
+        createEmployeeUseCase.insert(employee);
+        System.out.println(employee);
     }
 
-    public static void cancelScheduleService(Scheduling scheduling){
-        if (scheduling.getStatus().equals(SchedulingStatus.CANCELED)){
-            return;
-        }
-        try {
-            cancelSchedulingUseCase.cancel(scheduling);
-            System.out.println("Cancellation of the scheduled service successfully");
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+    private static void criarFuncionarioComEmailECpfInvalidos(){
+        Email invalidEmail = Email.of("invalidEmail.com");
+        CPF invalidCPF = CPF.of("12e.344.77");
+        Employee invalidEmployee = new Employee("João",invalidCPF,"16990001234",invalidEmail,"10/10/2000");
+        createEmployeeUseCase.insert(invalidEmployee);
+    }
+
+    private static void criarClienteVazio(){
+        Client client = new Client();
+        createClientUseCase.insert(client);
+        System.out.println(client);
+    }
+
+    private static void criarClienteComCpfExistente(){
+        Email email = Email.of("test@gmail.com");
+        CPF cpf = CPF.of("999.888.777-66");
+        Client client = new Client("João",cpf,"16990001122",email);
+        createClientUseCase.insert(client);
+        System.out.println(client);
+    }
+
+    private static void criarClienteComEmailECpfInvalidos(){
+        Email invalidEmail = Email.of("invalidEmail.com");
+        CPF invalidCPF = CPF.of("12e.344.77");
+        Client invalidClient = new Client("João",invalidCPF,"16990001122",invalidEmail);
+        createClientUseCase.insert(invalidClient);
     }
 
     private static void mockData(){
@@ -185,15 +236,15 @@ public class Main {
         addEmployeeExpertiseUseCase.addExpertise(employee5,service5);
 
         Scheduling scheduling1 = new Scheduling(client1,employee1,
-                LocalDateTime.of(2024,6,1,19,0),service1);
+                LocalDateTime.of(2025,6,1,19,0),service1);
         Scheduling scheduling2 = new Scheduling(client2,employee2,
-                LocalDateTime.of(2024,6,1,20,0),service2);
+                LocalDateTime.of(2025,6,1,20,0),service2);
         Scheduling scheduling3 = new Scheduling(client3,employee3,
-                LocalDateTime.of(2024,6,1,21,0),service3);
+                LocalDateTime.of(2025,6,1,21,0),service3);
         Scheduling scheduling4 = new Scheduling(client4,employee4,
-                LocalDateTime.of(2024,6,1,22,0),service4);
+                LocalDateTime.of(2025,6,1,22,0),service4);
         Scheduling scheduling5 = new Scheduling(client5,employee5,
-                LocalDateTime.of(2024,6,1,18,0),service5);
+                LocalDateTime.of(2025,6,1,18,0),service5);
 
         createSchedulingUseCase.insert(scheduling1);
         createSchedulingUseCase.insert(scheduling2);
@@ -208,17 +259,17 @@ public class Main {
         SchedulingDAO schedulingDAO = new InMemorySchedulingDAO();
         ServiceDAO serviceDAO = new InMemoryServiceDAO();
 
-        createClientUseCase = new CreateClientUseCase(clientDAO);
+        createClientUseCase = new CreateClientUseCase(clientDAO,employeeDAO);
         removeClientUseCase = new RemoveClientUseCase(clientDAO,schedulingDAO);
-        findClientUseCase = new findClientUseCase(clientDAO);
+        findClientUseCase = new FindClientUseCase(clientDAO);
         updateClientUseCase = new UpdateClientUseCase(clientDAO);
         inactivateClientUseCase = new InactivateClientUseCase(clientDAO);
         activateClientUseCase = new ActivateClientUseCase(clientDAO);
 
         activateEmployeeUseCase = new ActivateEmployeeUseCase(employeeDAO);
         updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
-        addEmployeeExpertiseUseCase = new AddEmployeeExpertiseUseCase(employeeDAO,serviceDAO,updateEmployeeUseCase);
-        createEmployeeUseCase = new CreateEmployeeUseCase(employeeDAO);
+        addEmployeeExpertiseUseCase = new AddEmployeeExpertiseUseCase(employeeDAO,serviceDAO);
+        createEmployeeUseCase = new CreateEmployeeUseCase(employeeDAO,clientDAO);
         findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
         inactivateEmployeeUseCase = new InactivateEmployeeUseCase(employeeDAO);
         removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO,schedulingDAO);
