@@ -23,7 +23,7 @@ public class Main {
 
     private static CreateClientUseCase createClientUseCase;
     private static RemoveClientUseCase removeClientUseCase;
-    private static ShowClientUseCase showClientUseCase;
+    private static FindClientUseCase findClientUseCase;
     private static UpdateClientUseCase updateClientUseCase;
     private static ActivateClientUseCase activateClientUseCase;
     private static InactivateClientUseCase inactivateClientUseCase;
@@ -56,7 +56,7 @@ public class Main {
         /* TESTS OF SYSTEM USE CASES */
 
         /* MOCK DE DADOS, CRIAÇÃO DE AGENDAMENTO NO "SUNNY DAY" */
-        List<Client> clients = showClientUseCase.findAll();
+        List<Client> clients = findClientUseCase.findAll();
         for(Client c:clients){
             System.out.println(c);
         }
@@ -210,7 +210,7 @@ public class Main {
 
         createClientUseCase = new CreateClientUseCase(clientDAO);
         removeClientUseCase = new RemoveClientUseCase(clientDAO,schedulingDAO);
-        showClientUseCase = new ShowClientUseCase(clientDAO);
+        findClientUseCase = new findClientUseCase(clientDAO);
         updateClientUseCase = new UpdateClientUseCase(clientDAO);
         inactivateClientUseCase = new InactivateClientUseCase(clientDAO);
         activateClientUseCase = new ActivateClientUseCase(clientDAO);

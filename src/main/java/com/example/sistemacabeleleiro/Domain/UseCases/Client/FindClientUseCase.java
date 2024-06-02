@@ -4,14 +4,13 @@ import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Validator;
 
-import java.lang.ref.Cleaner;
 import java.util.List;
 import java.util.Optional;
 
-public class ShowClientUseCase {
+public class FindClientUseCase {
     private ClientDAO clientDAO;
 
-    public ShowClientUseCase(ClientDAO clientDAO) {this.clientDAO = clientDAO;}
+    public FindClientUseCase(ClientDAO clientDAO) {this.clientDAO = clientDAO;}
 
     public Optional<Client> findOne(Integer id){
         if (id == null)
