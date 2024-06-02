@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Client;
 
+import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityNotFoundException;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Notification;
@@ -17,7 +18,7 @@ public class UpdateClientUseCase {
         if(notification.hasErros())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        String cpf = client.getCpf().toString();
+        CPF cpf = client.getCpf();
         if(clientDAO.findOneByCPF(cpf).isEmpty())
             throw new EntityNotFoundException("This CPF isn´t registered");
 

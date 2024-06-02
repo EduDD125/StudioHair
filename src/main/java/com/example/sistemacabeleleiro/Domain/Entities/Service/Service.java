@@ -1,6 +1,5 @@
 package com.example.sistemacabeleleiro.Domain.Entities.Service;
 
-import com.example.sistemacabeleleiro.Domain.Entities.Employee.EmployeeStatus;
 
 public class Service {
     private Integer id;
@@ -17,18 +16,28 @@ public class Service {
     }
 
     public Service(String name, String description, Double price, String category, String subCategory,
-                   Double discount, ServiceStatus status) {
+                   Double discount) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.subCategory = subCategory;
         this.discount = discount;
-        this.status = status;
+        this.status = ServiceStatus.ACTIVE;
     }
 
     public Service(Integer id, String name, String description, Double price) {
         this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = null;
+        this.subCategory = null;
+        this.discount = 0.0;
+        this.status = ServiceStatus.ACTIVE;
+    }
+
+    public Service(String name, String description, Double price) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -109,4 +118,18 @@ public class Service {
     }
     public void activateStatus() {this.status = ServiceStatus.ACTIVE;}
     public void inactivateStatus() {this.status = ServiceStatus.INACTIVE;}
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", category='" + category + '\'' +
+                ", subCategory='" + subCategory + '\'' +
+                ", discount=" + discount +
+                ", status=" + status +
+                '}';
+    }
 }

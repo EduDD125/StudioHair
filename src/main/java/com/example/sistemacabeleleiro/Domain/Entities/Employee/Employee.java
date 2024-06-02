@@ -125,4 +125,18 @@ public class Employee {
     }
     public void activateStatus() {this.status = EmployeeStatus.ACTIVE;}
     public void inactivateStatus() {this.status = EmployeeStatus.INACTIVE;}
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cpf=" + cpf +
+                ", expertise=" + expertise +
+                ", phone='" + phone + '\'' +
+                ", email=" + email +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

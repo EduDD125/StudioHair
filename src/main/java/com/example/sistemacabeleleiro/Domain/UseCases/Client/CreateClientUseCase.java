@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.Domain.UseCases.Client;
 
+import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityAlreadyExistsException;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.Notification;
@@ -19,7 +20,7 @@ public class CreateClientUseCase {
         if(notification.hasErros())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        String cpf = client.getCpf().toString();
+        CPF cpf = client.getCpf();
         if(clientDAO.findOneByCPF(cpf).isPresent())
             throw new EntityAlreadyExistsException("This CPF is already in use.");
 
