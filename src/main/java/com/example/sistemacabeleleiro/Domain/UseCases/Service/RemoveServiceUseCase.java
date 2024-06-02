@@ -34,6 +34,13 @@ public class RemoveServiceUseCase {
         if(id == null || serviceDAO.findOne(id).isEmpty())
             throw new EntityNotFoundException("Service not found.");
 
+        if (hasSchedulingsForService(id)) {
+            throw new IllegalStateException("Cannot delete service with existing schedulings.");
+        }
+
+        if (isServiceInEmployeeExpertise(id)) {
+            throw new IllegalStateException("Cannot delete service linked to employee expertise.");
+        }
 
         return serviceDAO.deleteByKey(id);
     }
