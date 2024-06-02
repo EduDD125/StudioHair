@@ -7,7 +7,7 @@ import com.example.sistemacabeleleiro.Domain.Entities.Employee.EmployeeStatus;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.ServiceStatus;
-import com.example.sistemacabeleleiro.Domain.UseCases.Client.ShowClientUseCase;
+import com.example.sistemacabeleleiro.Domain.UseCases.Client.FindClientUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Employee.FindEmployeeUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Service.FindServiceUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityAlreadyExistsException;
@@ -21,16 +21,16 @@ import java.util.List;
 
 public class CreateSchedulingUseCase {
     private SchedulingDAO schedulingDAO;
-    private ShowClientUseCase showClientUseCase;
+    private FindClientUseCase findClientUseCase;
     private FindEmployeeUseCase findEmployeeUseCase;
     private FindServiceUseCase findServiceUseCase;
 
     public CreateSchedulingUseCase(SchedulingDAO schedulingDAO,
-                                   ShowClientUseCase showClientUseCase,
+                                   FindClientUseCase findClientUseCase,
                                    FindEmployeeUseCase findEmployeeUseCase,
                                    FindServiceUseCase findServiceUseCase) {
         this.schedulingDAO = schedulingDAO;
-        this.showClientUseCase = showClientUseCase;
+        this.findClientUseCase = findClientUseCase;
         this.findEmployeeUseCase = findEmployeeUseCase;
         this.findServiceUseCase = findServiceUseCase;
     }
@@ -46,7 +46,7 @@ public class CreateSchedulingUseCase {
             throw new IllegalArgumentException("The scheduling date cannot be in the past.");
         }
 
-        Client client = showClientUseCase.findOne(scheduling.getClient().getId())
+        Client client = findClientUseCase.findOne(scheduling.getClient().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Can not find a client with CPF " + scheduling.getClient().getCpf()));
         Employee employee = findEmployeeUseCase.findOne(scheduling.getEmployee().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Can not find a employee with CPF " + scheduling.getEmployee().getCpf()));
