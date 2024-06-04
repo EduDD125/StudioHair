@@ -12,9 +12,12 @@ import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 import com.example.sistemacabeleleiro.Domain.UseCases.Client.*;
 import com.example.sistemacabeleleiro.Domain.UseCases.Employee.*;
+import com.example.sistemacabeleleiro.Domain.UseCases.Reports.ExportReportUseCase;
+import com.example.sistemacabeleleiro.Domain.UseCases.Reports.GenerateReportUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.*;
 import com.example.sistemacabeleleiro.Domain.UseCases.Service.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -48,6 +51,9 @@ public class Main {
     private static ActivateServiceUseCase activateServiceUseCase;
     private static InactivateServiceUseCase inactivateServiceUseCase;
 
+    private static GenerateReportUseCase generateReportUseCase;
+    private static ExportReportUseCase exportReportUseCase;
+
     public static void main(String[] args) {
         configureInjection();
         mockData();
@@ -76,6 +82,9 @@ public class Main {
 
         System.out.println("-- CASOS DE TESTE --");
 
+        // CASOS DE TESTE PARA RELATÓRIOS
+        gerarPDF();
+        gerarRelatoriosEmSunnyDay();
 
         // CASOS DE TESTE PARA FUNCIONÁRIO
         findFuncionarioComIdNull();
@@ -95,7 +104,51 @@ public class Main {
         // CASOS DE TESTE PARA AGENDAMENTO
     }
 
+    private static void gerarPDF(){
+        exportReportUseCase.exportSchedules("report_all");
+        System.out.println("PDF gerado com sucesso!");
+    }
 
+    private static void gerarRelatoriosEmSunnyDay(){
+        System.out.println("////////////");
+        System.out.println("Caso 1: Nenhum filtro");
+        System.out.println(generateReportUseCase.findSchedulesByFilters());
+
+        System.out.println("////////////");
+        System.out.println("Caso 2: Filtrar por funcionário");
+        System.out.println(generateReportUseCase.findSchedulesByFilters(3));
+
+        System.out.println("////////////");
+        System.out.println("Caso 3: Filtrar por data inicial");
+        System.out.println(generateReportUseCase.findSchedulesByFilters
+                (LocalDate.of(2025,06,15)));
+
+        System.out.println("////////////");
+        System.out.println("Caso 4: Filtrar por data final");
+        System.out.println(generateReportUseCase.findSchedulesByFilters
+                (LocalDate.of(2025,06,15),true));
+
+        System.out.println("////////////");
+        System.out.println("Caso 5: Filtrar por data inicial e data final");
+        System.out.println(generateReportUseCase.findSchedulesByFilters
+                (LocalDate.of(2025,06,10),LocalDate.of(2025,06,20)));
+
+        System.out.println("////////////");
+        System.out.println("Caso 6: Filtrar por data inicial e funcionário");
+        System.out.println(generateReportUseCase.findSchedulesByFilters
+                (LocalDate.of(2025,06,5),3));
+
+        System.out.println("////////////");
+        System.out.println("Caso 7: Filtrar por data final e funcionário");
+        System.out.println(generateReportUseCase.findSchedulesByFilters
+                (LocalDate.of(2025,06,30),true,4));
+
+
+        System.out.println("////////////");
+        System.out.println("Caso 8: Filtrar por data inicial, data final e funcionário");
+        System.out.println(generateReportUseCase.findSchedulesByFilters
+                (LocalDate.of(2025,06,1),LocalDate.of(2025,06,30),2));
+    }
     private static void findFuncionarioComIdNull(){
         findEmployeeUseCase.findOne(null);
     }
@@ -190,7 +243,7 @@ public class Main {
 
         Email client5Email = Email.of("fabiobd@gmail.com");
         CPF client5Cpf = CPF.of("123.456.789-12");
-        Client client5 = new Client("Pablo",client5Cpf,"16998765432",client5Email);
+        Client client5 = new Client("Fábio",client5Cpf,"16998765432",client5Email);
 
         createClientUseCase.insert(client1);
         createClientUseCase.insert(client2);
@@ -236,15 +289,15 @@ public class Main {
         addEmployeeExpertiseUseCase.addExpertise(employee5,service5);
 
         Scheduling scheduling1 = new Scheduling(client1,employee1,
-                LocalDateTime.of(2025,6,1,19,0),service1);
+                LocalDateTime.of(2025,6,5,19,0),service1);
         Scheduling scheduling2 = new Scheduling(client2,employee2,
-                LocalDateTime.of(2025,6,1,20,0),service2);
+                LocalDateTime.of(2025,6,10,20,0),service2);
         Scheduling scheduling3 = new Scheduling(client3,employee3,
-                LocalDateTime.of(2025,6,1,21,0),service3);
+                LocalDateTime.of(2025,6,15,21,0),service3);
         Scheduling scheduling4 = new Scheduling(client4,employee4,
-                LocalDateTime.of(2025,6,1,22,0),service4);
+                LocalDateTime.of(2025,6,20,22,0),service4);
         Scheduling scheduling5 = new Scheduling(client5,employee5,
-                LocalDateTime.of(2025,6,1,18,0),service5);
+                LocalDateTime.of(2025,6,25,18,0),service5);
 
         createSchedulingUseCase.insert(scheduling1);
         createSchedulingUseCase.insert(scheduling2);
@@ -286,6 +339,9 @@ public class Main {
         findServiceUseCase = new FindServiceUseCase(serviceDAO);
         removeServiceUseCase = new RemoveServiceUseCase(serviceDAO,employeeDAO,schedulingDAO);
         updateServiceUseCase = new UpdateServiceUseCase(serviceDAO);
+
+        generateReportUseCase = new GenerateReportUseCase(schedulingDAO,employeeDAO);
+        exportReportUseCase = new ExportReportUseCase(generateReportUseCase);
 
     }
 }

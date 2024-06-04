@@ -77,10 +77,13 @@ public class Scheduling {
     }
 
     public boolean isDateInsidePeriod(LocalDate startDate, LocalDate endDate) {
-        return getDataRealizacao().isAfter(startDate.atStartOfDay()) &&
-               getDataRealizacao().isBefore(endDate.atStartOfDay()) ||
-               getDataRealizacao().isEqual(startDate.atStartOfDay()) ||
-               getDataRealizacao().isEqual(endDate.atStartOfDay());
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+
+        LocalDateTime dataRealizacao = getDataRealizacao();
+
+        return (dataRealizacao.isEqual(startDateTime) || dataRealizacao.isAfter(startDateTime)) &&
+                (dataRealizacao.isEqual(endDateTime) || dataRealizacao.isBefore(endDateTime));
     }
     public SchedulingStatus getStatus() {
         return status;
