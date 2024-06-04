@@ -44,6 +44,17 @@ public class Employee {
         this.status = EmployeeStatus.ACTIVE;
     }
 
+    public Employee(String name, CPF cpf, String phone, Email email,
+                    String dateOfBirth, EmployeeStatus status) {
+        this.name = name;
+        this.cpf = cpf;
+        this.expertise = new ArrayList<>();
+        this.phone = phone;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.status = status;
+    }
+
     public Employee(Integer id, String name, CPF cpf, List<Service> expertise, String phone,
                     Email email, String dateOfBirth, EmployeeStatus status) {
         this.id = id;

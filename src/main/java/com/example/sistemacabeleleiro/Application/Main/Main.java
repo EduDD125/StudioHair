@@ -6,8 +6,10 @@ import com.example.sistemacabeleleiro.Application.Repository.InMemorySchedulingD
 import com.example.sistemacabeleleiro.Application.Repository.InMemoryServiceDAO;
 import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
+import com.example.sistemacabeleleiro.Domain.Entities.Client.ClientStatus;
 import com.example.sistemacabeleleiro.Domain.Entities.Email.Email;
 import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
+import com.example.sistemacabeleleiro.Domain.Entities.Employee.EmployeeStatus;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
 import com.example.sistemacabeleleiro.Domain.UseCases.Client.*;
@@ -16,10 +18,12 @@ import com.example.sistemacabeleleiro.Domain.UseCases.Reports.ExportReportUseCas
 import com.example.sistemacabeleleiro.Domain.UseCases.Reports.GenerateReportUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.*;
 import com.example.sistemacabeleleiro.Domain.UseCases.Service.*;
+import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityNotFoundException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class Main {
 
@@ -82,11 +86,17 @@ public class Main {
 
         System.out.println("-- CASOS DE TESTE --");
 
+
         // CASOS DE TESTE PARA RELATÓRIOS
         gerarPDF();
         gerarRelatoriosEmSunnyDay();
 
         // CASOS DE TESTE PARA FUNCIONÁRIO
+        removerFuncionarioAtivo();
+        removerFuncionarioComAgendamento();
+        inativarFuncionarioJaInativo();
+        ativarFuncionarioJaAtivo();
+        findFuncionarioComCpfInexistente();
         findFuncionarioComIdNull();
         findFuncionarioComCpfInvalido();
         criarFuncionarioVazio();
@@ -94,6 +104,12 @@ public class Main {
         criarFuncionarioComEmailECpfInvalidos();
 
         // CASOS DE TESTE PARA CLIENTE
+        removerClienteAtivo();
+        removerClienteComAgendamento();
+        inativarClienteJaInativo();
+        ativarClienteJaAtivo();
+        findClienteComCpfInexistente();
+        findClienteComNomeInexistente();
         findClienteComIdNull();
         findClienteComCpfInvalido();
         criarClienteVazio();
@@ -102,6 +118,65 @@ public class Main {
 
         // CASOS DE TESTE PARA SERVIÇOS
         // CASOS DE TESTE PARA AGENDAMENTO
+    }
+
+    private static void removerFuncionarioAtivo(){
+        removeEmployeeUseCase.remove(7);
+    }
+
+    private static void removerClienteAtivo(){
+        removeClientUseCase.remove(7);
+    }
+
+    private static void removerFuncionarioComAgendamento(){
+        removeEmployeeUseCase.remove(1);
+    }
+    private static void removerClienteComAgendamento(){
+        removeClientUseCase.remove(1);
+    }
+
+    private static void findClienteComCpfInexistente(){
+        Optional<Client> client = findClientUseCase.findOneByCPF(CPF.of("111.111.111-11"));
+        if (client.isEmpty()){
+            throw new EntityNotFoundException("Client not found");
+        }
+        System.out.println(client);
+    }
+
+    private static void findFuncionarioComCpfInexistente(){
+        Optional<Employee> employee = findEmployeeUseCase.findOneByCpf(CPF.of("111.111.111-11"));
+        if (employee.isEmpty()){
+            throw new EntityNotFoundException("Employee not found");
+        }
+        System.out.println(employee);
+    }
+
+    private static void findClienteComNomeInexistente(){
+        Optional<Client> client = findClientUseCase.findOneByName("Fulano");
+        if (client.isEmpty()){
+            throw new EntityNotFoundException("Client not found");
+        }
+        System.out.println(client);
+    }
+
+    private static void inativarClienteJaInativo(){
+        Client client = findClientUseCase.findOne(6).get();
+        inactivateClientUseCase.inactivate(client);
+    }
+
+    private static void inativarFuncionarioJaInativo(){
+        Employee employee = findEmployeeUseCase.findOne(6).get();
+        inactivateEmployeeUseCase.inactivate(employee);
+    }
+
+    private static void ativarClienteJaAtivo(){
+        Client client = findClientUseCase.findOne(1).get();
+        activateClientUseCase.activate(client);
+    }
+
+    private static void ativarFuncionarioJaAtivo(){
+        Employee employee = findEmployeeUseCase.findOne(1).get();
+        activateEmployeeUseCase.activate(employee);
     }
 
     private static void gerarPDF(){
@@ -245,11 +320,22 @@ public class Main {
         CPF client5Cpf = CPF.of("123.456.789-12");
         Client client5 = new Client("Fábio",client5Cpf,"16998765432",client5Email);
 
+        Email client6Email = Email.of("luciano@gmail.com");
+        CPF client6Cpf = CPF.of("123.456.789-13");
+        Client client6 = new Client("Luciano",client6Cpf,"16988765432",client6Email,
+                ClientStatus.INACTIVE);
+
+        Email client7Email = Email.of("bruno@gmail.com");
+        CPF client7Cpf = CPF.of("123.456.789-18");
+        Client client7 = new Client("Bruno",client7Cpf,"16988765432",client7Email);
+
         createClientUseCase.insert(client1);
         createClientUseCase.insert(client2);
         createClientUseCase.insert(client3);
         createClientUseCase.insert(client4);
         createClientUseCase.insert(client5);
+        createClientUseCase.insert(client6);
+        createClientUseCase.insert(client7);
 
         Email employee1Email = Email.of("eduardo@gmail.com");
         CPF employee1Cpf = CPF.of("999.888.777-66");
@@ -276,11 +362,24 @@ public class Main {
         Employee employee5 = new Employee
                 ("João",employee5Cpf,"16912345672",employee5Email,"30/11/1989");
 
+        Email employee6Email = Email.of("antonio@gmail.com");
+        CPF employee6Cpf = CPF.of("081.765.567-10");
+        Employee employee6 = new Employee
+                ("Antônio",employee6Cpf,"16912345672",employee6Email,"30/08/1982",
+                        EmployeeStatus.INACTIVE);
+
+        Email employee7Email = Email.of("lucia@gmail.com");
+        CPF employee7Cpf = CPF.of("088.965.567-11");
+        Employee employee7 = new Employee
+                ("Lúcia",employee7Cpf,"16912345672",employee7Email,"30/06/1980");
+
         createEmployeeUseCase.insert(employee1);
         createEmployeeUseCase.insert(employee2);
         createEmployeeUseCase.insert(employee3);
         createEmployeeUseCase.insert(employee4);
         createEmployeeUseCase.insert(employee5);
+        createEmployeeUseCase.insert(employee6);
+        createEmployeeUseCase.insert(employee7);
 
         addEmployeeExpertiseUseCase.addExpertise(employee1, service1);
         addEmployeeExpertiseUseCase.addExpertise(employee2,service2);

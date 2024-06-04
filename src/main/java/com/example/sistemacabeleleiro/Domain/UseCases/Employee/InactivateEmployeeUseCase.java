@@ -25,7 +25,7 @@ public class InactivateEmployeeUseCase {
         if (employeeDAO.findOne(id).isEmpty()){
             throw new EntityNotFoundException("Employee not found");
         }
-        if (employee.getStatus() == EmployeeStatus.INACTIVE){
+        if (employee.getStatus().equals(EmployeeStatus.INACTIVE)){
             throw new IllegalArgumentException("Employee is already inactive");
         }
         return employeeDAO.inactivate(employee);
