@@ -2,7 +2,9 @@ package com.example.sistemacabeleleiro.Domain.UseCases.Client;
 
 import com.example.sistemacabeleleiro.Domain.Entities.CPF.CPF;
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
+import com.example.sistemacabeleleiro.Domain.Entities.Client.ClientStatus;
 import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
+import com.example.sistemacabeleleiro.Domain.Entities.Employee.EmployeeStatus;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
 import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.SchedulingDAO;
 import com.example.sistemacabeleleiro.Domain.UseCases.Utils.EntityNotFoundException;
@@ -23,31 +25,40 @@ public class RemoveClientUseCase {
 
     public boolean remove(Integer id) {
         var client = clientDAO.findOne(id);
+
         if (id == null || client.isEmpty())
             throw new EntityNotFoundException("Client not found");
+        if (!clientSchedules(client.get()).isEmpty())
+            throw new IllegalArgumentException("It's not possible to exclude clients who already have a schedule");
 
-        deleteClientSchedules(client.get());
+        validateClientStatus(client.get());
+
         return clientDAO.deleteByKey(id);
     }
 
     public boolean remove(Client client) {
 
-        CPF cpf = client.getCpf();
-        if (client == null || clientDAO.findOneByCPF(cpf).isEmpty())
-            throw new EntityNotFoundException("This CPF isn´t registered");
+        if (client == null || clientDAO.findOne(client.getId()).isEmpty())
+            throw new EntityNotFoundException("This client isn´t registered");
+        if (!clientSchedules(client).isEmpty())
+            throw new IllegalArgumentException("It's not possible to exclude clients who already have a schedule");
 
-        deleteClientSchedules(client);
+        validateClientStatus(client);
+
         return clientDAO.delete(client);
     }
 
-    private void deleteClientSchedules(Client client) {
-        List<Scheduling> schedulesToDelete = schedulingDAO.findAll().stream()
+    private void validateClientStatus(Client client) {
+        if (client.getStatus().equals(ClientStatus.ACTIVE)) {
+            throw new IllegalArgumentException("Can't delete an active client");
+        }
+    }
+
+    private List<Scheduling> clientSchedules(Client client) {
+        List<Scheduling> schedules = schedulingDAO.findAll().stream()
                 .filter(schedule -> schedule.getClient().equals(client))
                 .toList();
-        if (!schedulesToDelete.isEmpty()){
-            for (Scheduling schedule : schedulesToDelete) {
-                schedulingDAO.delete(schedule);
-            }
-        }
+
+        return schedules;
     }
 }

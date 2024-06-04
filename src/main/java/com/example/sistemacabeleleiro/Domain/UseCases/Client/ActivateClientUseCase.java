@@ -25,7 +25,7 @@ public class ActivateClientUseCase {
         if (clientDAO.findOne(id).isEmpty()){
             throw new EntityNotFoundException("Client not found");
         }
-        if (client.getStatus() == ClientStatus.ACTIVE){
+        if (client.getStatus().equals(ClientStatus.ACTIVE)){
             throw new IllegalArgumentException("Client is already active");
         }
 

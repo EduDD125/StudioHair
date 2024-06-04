@@ -25,7 +25,7 @@ public class ActivateEmployeeUseCase {
         if (employeeDAO.findOne(id).isEmpty()){
             throw new EntityNotFoundException("Employee not found");
         }
-        if (employee.getStatus() == EmployeeStatus.ACTIVE){
+        if (employee.getStatus().equals(EmployeeStatus.ACTIVE)){
             throw new IllegalArgumentException("Employee is already active");
         }
         return employeeDAO.activate(employee);

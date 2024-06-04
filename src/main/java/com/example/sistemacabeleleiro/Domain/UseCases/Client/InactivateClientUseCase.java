@@ -25,7 +25,7 @@ public class InactivateClientUseCase {
         if (clientDAO.findOne(id).isEmpty()){
             throw new EntityNotFoundException("Client not found");
         }
-        if (client.getStatus() == ClientStatus.INACTIVE){
+        if (client.getStatus().equals(ClientStatus.INACTIVE)){
             throw new IllegalArgumentException("Client is already inactive");
         }
 
