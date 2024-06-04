@@ -117,9 +117,43 @@ public class Main {
         criarClienteComEmailECpfInvalidos();
 
         // CASOS DE TESTE PARA SERVIÇOS
+        criarServicoVazio();
+        procurarServico();
+        procurarTodosServicos();
+        procurarServicoPorFaixaDePreco();
+        procurarServicosPorCategoria();
+        procurarServicosComDesconto();
+
         // CASOS DE TESTE PARA AGENDAMENTO
     }
 
+    private static void procurarTodosServicos() {
+        List<Service> services = findServiceUseCase.findAll();
+        System.out.println(services);
+    }
+    private static void procurarServicosComDesconto() {
+        List<Service> services = findServiceUseCase.findByDiscount(0.1);
+        System.out.println(services);
+    }
+    private static void procurarServicosPorCategoria() {
+        List<Service> services = findServiceUseCase.findByCategory("Feminino");
+        System.out.println(services);
+    }
+    private static void procurarServicoPorFaixaDePreco(){
+        List<Service> services = findServiceUseCase.findByPriceRange(30.0, 70.0);
+        System.out.println(services);
+    }
+
+    private static void procurarServico() {
+        Optional<Service> service = findServiceUseCase.findOne(1);
+        System.out.println(service);
+    }
+
+    private static void criarServicoVazio(){
+        Service service = new Service();
+        createServiceUseCase.insert(service);
+        System.out.println(service);
+    }
     private static void removerFuncionarioAtivo(){
         removeEmployeeUseCase.remove(7);
     }
@@ -293,12 +327,20 @@ public class Main {
         Service service5 = new Service("Chapinha",
                 "Chapinha simples cabelo feminino", 50.0,
                 "Feminino","Cabelo",0.0);
+        Service service6 = new Service("Coloração",
+                "Coloração cabelo feminino", 70.0,
+                "Feminino", "Cabelo", 0.2);
+        Service service7 = new Service("Escova",
+                "Escova simples cabelo feminino", 60.0,
+                "Feminino", "Cabelo", 0.1);
+
         createServiceUseCase.insert(service1);
         createServiceUseCase.insert(service2);
         createServiceUseCase.insert(service3);
         createServiceUseCase.insert(service4);
         createServiceUseCase.insert(service5);
-
+        createServiceUseCase.insert(service6);
+        createServiceUseCase.insert(service7);
 
         Email client1Email = Email.of("lucas@gmail.com");
         CPF client1Cpf = CPF.of("111.222.333-44");
