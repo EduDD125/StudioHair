@@ -84,6 +84,9 @@ public class Service {
     public Double getPrice() {
         return price;
     }
+    public Double getValueOfService() {
+        return price - discount;
+    }
 
     public void setPrice(Double price) {
         this.price = price;
