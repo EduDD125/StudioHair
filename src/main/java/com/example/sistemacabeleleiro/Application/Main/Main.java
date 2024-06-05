@@ -140,6 +140,98 @@ public class Main {
         findAgendamentoPorServico();
         findAgendamentoPorDataEspecifica();
         findAgendamentoPorPeriodo();
+        criarAgendamentoVazio();
+        criarAgendamentoFuncionarioSemEspecialidade();
+        criarAgendamentoClienteInativo();
+        criarAgendamentoFuncionarioInativo();
+        criarAgendamentoServicoInativo();
+        criarAgendamentoPassado();
+        cancelarAgendamentoJaCancelado();
+        cancelarAgendamentoJaFeito();
+    }
+
+    private static void criarAgendamentoVazio(){
+        Scheduling scheduling = new Scheduling();
+        createSchedulingUseCase.insert(scheduling);
+        System.out.println(scheduling);
+    }
+
+    private static void criarAgendamentoFuncionarioSemEspecialidade(){
+        Client client = findClientUseCase.findOne(1)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
+        Employee employee = findEmployeeUseCase.findOne(2)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a employee"));
+        Service service = findServiceUseCase.findOne(7)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a service"));
+        LocalDateTime dateTime = LocalDateTime.of(2025, 6, 1, 15, 30);
+        Scheduling scheduling = new Scheduling(client, employee, dateTime, service);
+
+        createSchedulingUseCase.insert(scheduling);
+    }
+    private static void criarAgendamentoClienteInativo(){
+        Client client = findClientUseCase.findOne(6)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
+        Employee employee = findEmployeeUseCase.findOne(7)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a employee"));
+        Service service = findServiceUseCase.findOne(6)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a service"));
+        LocalDateTime dateTime = LocalDateTime.of(2025, 6, 1, 15, 30);
+        Scheduling scheduling = new Scheduling(100, client, employee, dateTime, service);
+
+        createSchedulingUseCase.insert(scheduling);
+    }
+    private static void criarAgendamentoFuncionarioInativo(){
+        Client client = findClientUseCase.findOne(7)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
+        Employee employee = findEmployeeUseCase.findOne(6)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a employee"));
+        Service service = findServiceUseCase.findOne(4)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a service"));
+        LocalDateTime dateTime = LocalDateTime.of(2025, 6, 1, 15, 30);
+        Scheduling scheduling = new Scheduling(100, client, employee, dateTime, service);
+
+        createSchedulingUseCase.insert(scheduling);
+    }
+    private static void criarAgendamentoServicoInativo(){
+        Client client = findClientUseCase.findOne(7)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
+        Employee employee = findEmployeeUseCase.findOne(7)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a employee"));
+        Service service = findServiceUseCase.findOne(4)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a service"));
+        LocalDateTime dateTime = LocalDateTime.of(2025, 6, 1, 15, 30);
+        service.inactivateStatus();
+        Scheduling scheduling = new Scheduling(100, client, employee, dateTime, service);
+
+        createSchedulingUseCase.insert(scheduling);
+    }
+
+    private static void criarAgendamentoPassado(){
+        Client client = findClientUseCase.findOne(7)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
+        Employee employee = findEmployeeUseCase.findOne(6)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a employee"));
+        Service service = findServiceUseCase.findOne(3)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a service"));
+        LocalDateTime dateTime = LocalDateTime.of(2023, 6, 1, 15, 30);
+        Scheduling scheduling = new Scheduling(100, client, employee, dateTime, service);
+
+        createSchedulingUseCase.insert(scheduling);
+    }
+
+    private static void cancelarAgendamentoJaCancelado(){
+        Scheduling scheduling = findSchedulingUseCase.findOne(1)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a scheduling"));
+        cancelSchedulingUseCase.cancel(scheduling);
+        System.out.println(scheduling);
+        cancelSchedulingUseCase.cancel(scheduling);
+    }
+    private static void cancelarAgendamentoJaFeito(){
+        Scheduling scheduling = findSchedulingUseCase.findOne(1)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a scheduling"));
+        scheduling.execute();
+        System.out.println(scheduling);
+        cancelSchedulingUseCase.cancel(scheduling);
     }
 
     private static void findAgendamentoPorPeriodo() {
