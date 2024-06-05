@@ -102,6 +102,7 @@ public class Main {
         criarFuncionarioVazio();
         criarFuncionarioComCpfExistente();
         criarFuncionarioComEmailECpfInvalidos();
+        atualizarFuncionario();
 
         // CASOS DE TESTE PARA CLIENTE
         removerClienteAtivo();
@@ -115,6 +116,7 @@ public class Main {
         criarClienteVazio();
         criarClienteComCpfExistente();
         criarClienteComEmailECpfInvalidos();
+        atualizarCliente();
 
         // CASOS DE TESTE PARA SERVIÇOS
         criarServicoVazio();
@@ -123,8 +125,76 @@ public class Main {
         procurarServicoPorFaixaDePreco();
         procurarServicosPorCategoria();
         procurarServicosComDesconto();
+        atualizarServico();
+        removerServico();
+        removerServicoComAgendamento();
+        inativarServico();
 
         // CASOS DE TESTE PARA AGENDAMENTO
+        atualizarAgendamento();
+    }
+
+    private static void inativarServico() {
+        Optional<Service> serviceOpt = findServiceUseCase.findOne(7);
+        Service service = serviceOpt.get();
+        inactivateServiceUseCase.inactivate(service);
+        System.out.println("Service inactivated: " + service);
+}
+    private static void atualizarFuncionario() {
+        Optional<Employee> employeeOpt = findEmployeeUseCase.findOne(1);
+        Employee employee = employeeOpt.get();
+        employee.setName("José Silva");
+        employee.setPhone("(11) 98765-4321");
+        employee.setDateOfBirth("1990-01-01");
+        employee.activateStatus();
+        updateEmployeeUseCase.update(employee);
+        System.out.println(employee);
+}
+    private static void atualizarCliente() {
+        Optional<Client> clientOpt = findClientUseCase.findOne(4);
+        Client client = clientOpt.get();
+        client.setName("Maria Silva");
+        client.setPhone("(11) 98765-4321");
+        client.activateStatus();
+        updateClientUseCase.update(client);
+        System.out.println(client);
+}
+    private static void removerServicoComAgendamento() {
+        removeServiceUseCase.remove(1);
+    }
+
+    private static void removerServico() {
+        boolean result = removeServiceUseCase.remove(6);
+    }
+
+    private static void atualizarAgendamento() {
+        Optional<Scheduling> schedulingOpt = findSchedulingUseCase.findOne(1);
+        Scheduling scheduling = schedulingOpt.get();
+
+        Optional<Client> client = findClientUseCase.findOne(2);
+        Optional<Employee> employee = findEmployeeUseCase.findOne(3);
+        Optional<Service> service = findServiceUseCase.findOne(4);
+
+        scheduling.setClient(client.get());
+        scheduling.setEmployee(employee.get());
+        scheduling.setDataRealizacao(LocalDateTime.of(2025, 6, 30, 18, 0));  // Atualiza a data de realização
+        scheduling.setService(service.get());
+        updateScheduleUseCase.update(scheduling);
+        System.out.println(scheduling);
+    }
+
+    private static void atualizarServico() {
+        Optional<Service> serviceOpt = findServiceUseCase.findOne(1);
+        Service service = serviceOpt.get();
+
+        service.setName("Corte Avançado");
+        service.setDescription("Corte de cabelo avançado feminino");
+        service.setPrice(50.0);
+        service.setCategory("Feminino");
+        service.setSubCategory("Corte avançado");
+        service.setDiscount(0.15);
+        updateServiceUseCase.update(service);
+        System.out.println(service);
     }
 
     private static void procurarTodosServicos() {
