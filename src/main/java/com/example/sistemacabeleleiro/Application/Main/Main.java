@@ -120,20 +120,70 @@ public class Main {
 
         // CASOS DE TESTE PARA SERVIÇOS
         criarServicoVazio();
-        procurarServico();
-        procurarTodosServicos();
-        procurarServicoPorFaixaDePreco();
-        procurarServicosPorCategoria();
-        procurarServicosComDesconto();
+        findServico();
+        findTodosServicos();
+        findServicosPorCategoria();
+        findServicosComDesconto();
+        findServicoPorFaixaDePreco();
         atualizarServico();
         removerServico();
         removerServicoComAgendamento();
         inativarServico();
+        adicionarServicoInativoNasEspecialidades();
 
         // CASOS DE TESTE PARA AGENDAMENTO
         atualizarAgendamento();
+        findAgendamento();
+        findTodosAgendamentos();
+        findAgendamentoPorCliente();
+        findAgendamentoPorFuncionario();
+        findAgendamentoPorServico();
+        findAgendamentoPorDataEspecifica();
+        findAgendamentoPorPeriodo();
     }
 
+    private static void findAgendamentoPorPeriodo() {
+        LocalDate startDate = LocalDate.of(2024, 6, 1);
+        LocalDate endDate = LocalDate.of(2025, 12, 30);
+        List<Scheduling> schedulings = findSchedulingUseCase.findByTimePeriod(startDate, endDate);
+        System.out.println(schedulings);
+    }
+    private static void findAgendamentoPorDataEspecifica() {
+        LocalDateTime date = LocalDateTime.of(2025, 6, 10, 20, 0);
+        Optional<Scheduling> schedulings = findSchedulingUseCase.findByScheduledDate(date);
+        System.out.println(schedulings);
+    }
+    private static void findAgendamentoPorServico() {
+        List<Scheduling> schedulings = findSchedulingUseCase.findByService(4);
+        System.out.println(schedulings);
+    }
+    private static void findAgendamentoPorFuncionario() {
+        List<Scheduling> schedulings = findSchedulingUseCase.findByEmployee(2);
+        System.out.println(schedulings);
+    }
+    private static void findAgendamentoPorCliente() {
+        List<Scheduling> schedulings = findSchedulingUseCase.findByClient(1);
+        System.out.println(schedulings);
+    }
+
+    private static void findTodosAgendamentos() {
+        List<Scheduling> schedulings = findSchedulingUseCase.findAll();
+        for (Scheduling scheduling : schedulings)
+            System.out.println(scheduling);
+    }
+
+    private static void findAgendamento() {
+        Optional<Scheduling> scheduling = findSchedulingUseCase.findOne(1);
+        System.out.println(scheduling);
+    }
+    private static void adicionarServicoInativoNasEspecialidades() {
+        Optional<Employee> employeeOpt = findEmployeeUseCase.findOne(1);
+        Optional<Service> serviceOpt = findServiceUseCase.findOne(7);
+        Employee employee = employeeOpt.get();
+        Service service = serviceOpt.get();
+        addEmployeeExpertiseUseCase.addExpertise(employee, service);
+        System.out.println(employeeOpt);
+}
     private static void inativarServico() {
         Optional<Service> serviceOpt = findServiceUseCase.findOne(7);
         Service service = serviceOpt.get();
@@ -197,24 +247,24 @@ public class Main {
         System.out.println(service);
     }
 
-    private static void procurarTodosServicos() {
+    private static void findTodosServicos() {
         List<Service> services = findServiceUseCase.findAll();
         System.out.println(services);
     }
-    private static void procurarServicosComDesconto() {
+    private static void findServicosComDesconto() {
         List<Service> services = findServiceUseCase.findByDiscount(0.1);
         System.out.println(services);
     }
-    private static void procurarServicosPorCategoria() {
+    private static void findServicosPorCategoria() {
         List<Service> services = findServiceUseCase.findByCategory("Feminino");
         System.out.println(services);
     }
-    private static void procurarServicoPorFaixaDePreco(){
+    private static void findServicoPorFaixaDePreco(){
         List<Service> services = findServiceUseCase.findByPriceRange(30.0, 70.0);
         System.out.println(services);
     }
 
-    private static void procurarServico() {
+    private static void findServico() {
         Optional<Service> service = findServiceUseCase.findOne(1);
         System.out.println(service);
     }
