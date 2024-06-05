@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class Main {
-
     private static CreateClientUseCase createClientUseCase;
     private static RemoveClientUseCase removeClientUseCase;
     private static FindClientUseCase findClientUseCase;
@@ -85,7 +84,6 @@ public class Main {
         }
 
         System.out.println("-- CASOS DE TESTE --");
-
 
         // CASOS DE TESTE PARA RELATÓRIOS
         gerarPDF();
@@ -148,6 +146,61 @@ public class Main {
         criarAgendamentoPassado();
         cancelarAgendamentoJaCancelado();
         cancelarAgendamentoJaFeito();
+        alterarAgendamentoClienteInativo();
+        alterarAgendamentoFuncionarioInativo();
+        alterarAgendamentoServicoInativo();
+        alterarAgendamentoDataInvalida();
+    }
+
+    private static void alterarAgendamentoClienteInativo(){
+        Scheduling scheduling = findSchedulingUseCase.findOne(1)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a schedule"));
+
+        System.out.println(scheduling);
+
+        Client client = findClientUseCase.findOne(2)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
+
+        updateScheduleUseCase.updateClient(scheduling, client);
+        System.out.println(scheduling);
+    }
+    private static void alterarAgendamentoFuncionarioInativo(){
+        Scheduling scheduling = findSchedulingUseCase.findOne(1)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a schedule"));
+
+        System.out.println(scheduling);
+
+        Employee employee = findEmployeeUseCase.findOne(1)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
+
+        inactivateEmployeeUseCase.inactivate(employee);
+        updateScheduleUseCase.updateEmployee(scheduling, employee);
+        System.out.println(scheduling);
+    }
+    private static void alterarAgendamentoServicoInativo(){
+        Scheduling scheduling = findSchedulingUseCase.findOne(1)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a schedule"));
+
+        System.out.println(scheduling);
+
+        Service service = findServiceUseCase.findOne(1)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
+
+        inactivateServiceUseCase.inactivate(service);
+        updateScheduleUseCase.updateService(scheduling, service);
+        System.out.println(scheduling);
+    }
+
+    private static void alterarAgendamentoDataInvalida(){
+        Scheduling scheduling = findSchedulingUseCase.findOne(1)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a schedule"));
+
+        System.out.println(scheduling);
+
+        LocalDateTime dateTime = LocalDateTime.of(2023, 6, 1, 15, 30);
+
+        updateScheduleUseCase.updateDate(scheduling, dateTime);
+        System.out.println(scheduling);
     }
 
     private static void criarAgendamentoVazio(){
@@ -321,7 +374,7 @@ public class Main {
         scheduling.setEmployee(employee.get());
         scheduling.setDataRealizacao(LocalDateTime.of(2025, 6, 30, 18, 0));  // Atualiza a data de realização
         scheduling.setService(service.get());
-        updateScheduleUseCase.update(scheduling);
+        updateScheduleUseCase.update(scheduling, client.get(), employee.get(), service.get(), LocalDateTime.of(2025, 6, 30, 18, 0));
         System.out.println(scheduling);
     }
 
@@ -684,7 +737,7 @@ public class Main {
         cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
         createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO,clientDAO,employeeDAO,serviceDAO);
         findSchedulingUseCase = new FindSchedulingUseCase(schedulingDAO);
-        updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO);
+        updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
         inactivateServiceUseCase = new InactivateServiceUseCase(serviceDAO);
         activateServiceUseCase = new ActivateServiceUseCase(serviceDAO);
 
