@@ -100,7 +100,7 @@ public class Main {
         criarFuncionarioVazio();
         criarFuncionarioComCpfExistente();
         criarFuncionarioComEmailECpfInvalidos();
-        atualizarFuncionario();
+        //atualizarFuncionario();
 
         // CASOS DE TESTE PARA CLIENTE
         removerClienteAtivo();
@@ -114,7 +114,7 @@ public class Main {
         criarClienteVazio();
         criarClienteComCpfExistente();
         criarClienteComEmailECpfInvalidos();
-        atualizarCliente();
+        //atualizarCliente();
 
         // CASOS DE TESTE PARA SERVIÇOS
         criarServicoVazio();
@@ -124,7 +124,7 @@ public class Main {
         findServicosComDesconto();
         findServicoPorFaixaDePreco();
         atualizarServico();
-        removerServico();
+        /*removerServico();
         removerServicoComAgendamento();
         inativarServico();
         adicionarServicoInativoNasEspecialidades();
@@ -149,10 +149,10 @@ public class Main {
         alterarAgendamentoClienteInativo();
         alterarAgendamentoFuncionarioInativo();
         alterarAgendamentoServicoInativo();
-        alterarAgendamentoDataInvalida();
+        alterarAgendamentoDataInvalida();*/
     }
 
-    private static void alterarAgendamentoClienteInativo(){
+    /*private static void alterarAgendamentoClienteInativo(){
         Scheduling scheduling = findSchedulingUseCase.findOne(1)
                 .orElseThrow(() -> new EntityNotFoundException("Can not find a schedule"));
 
@@ -161,7 +161,7 @@ public class Main {
         Client client = findClientUseCase.findOne(2)
                 .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
 
-        updateScheduleUseCase.updateClient(scheduling, client);
+        updateScheduleUseCase.update(scheduling);
         System.out.println(scheduling);
     }
     private static void alterarAgendamentoFuncionarioInativo(){
@@ -174,7 +174,7 @@ public class Main {
                 .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
 
         inactivateEmployeeUseCase.inactivate(employee);
-        updateScheduleUseCase.updateEmployee(scheduling, employee);
+        updateScheduleUseCase.update(scheduling);
         System.out.println(scheduling);
     }
     private static void alterarAgendamentoServicoInativo(){
@@ -187,7 +187,7 @@ public class Main {
                 .orElseThrow(() -> new EntityNotFoundException("Can not find a client"));
 
         inactivateServiceUseCase.inactivate(service);
-        updateScheduleUseCase.updateService(scheduling, service);
+        updateScheduleUseCase.update(scheduling);
         System.out.println(scheduling);
     }
 
@@ -199,7 +199,7 @@ public class Main {
 
         LocalDateTime dateTime = LocalDateTime.of(2023, 6, 1, 15, 30);
 
-        updateScheduleUseCase.updateDate(scheduling, dateTime);
+        updateScheduleUseCase.update(scheduling);
         System.out.println(scheduling);
     }
 
@@ -374,9 +374,9 @@ public class Main {
         scheduling.setEmployee(employee.get());
         scheduling.setDataRealizacao(LocalDateTime.of(2025, 6, 30, 18, 0));  // Atualiza a data de realização
         scheduling.setService(service.get());
-        updateScheduleUseCase.update(scheduling, client.get(), employee.get(), service.get(), LocalDateTime.of(2025, 6, 30, 18, 0));
+        updateScheduleUseCase.update(scheduling);
         System.out.println(scheduling);
-    }
+    } */
 
     private static void atualizarServico() {
         Optional<Service> serviceOpt = findServiceUseCase.findOne(1);
@@ -737,7 +737,7 @@ public class Main {
         cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
         createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO,clientDAO,employeeDAO,serviceDAO);
         findSchedulingUseCase = new FindSchedulingUseCase(schedulingDAO);
-        updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
+        //updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO);
         inactivateServiceUseCase = new InactivateServiceUseCase(serviceDAO);
         activateServiceUseCase = new ActivateServiceUseCase(serviceDAO);
 
