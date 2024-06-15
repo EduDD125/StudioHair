@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.domain.usecases.client;
 
-import com.example.sistemacabeleleiro.domain.entities.Client.Client;
-import com.example.sistemacabeleleiro.domain.entities.Client.ClientStatus;
+import com.example.sistemacabeleleiro.domain.entities.client.Client;
+import com.example.sistemacabeleleiro.domain.entities.client.ClientStatus;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;

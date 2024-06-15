@@ -1,7 +1,7 @@
-package com.example.sistemacabeleleiro.domain.entities.Client;
+package com.example.sistemacabeleleiro.domain.entities.client;
 
-import com.example.sistemacabeleleiro.domain.entities.CPF.CPF;
-import com.example.sistemacabeleleiro.domain.entities.Email.Email;
+import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
+import com.example.sistemacabeleleiro.domain.entities.email.Email;
 
 public class Client {
     private Integer id;

@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.domain.usecases.scheduling;
 
-import com.example.sistemacabeleleiro.domain.entities.Schedulling.Scheduling;
-import com.example.sistemacabeleleiro.domain.entities.Schedulling.SchedulingStatus;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.SchedulingStatus;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;

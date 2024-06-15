@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.application.repository.inmemory;
 
-import com.example.sistemacabeleleiro.domain.entities.CPF.CPF;
-import com.example.sistemacabeleleiro.domain.entities.Client.Client;
+import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
+import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.usecases.client.ClientDAO;
 
 import java.util.*;

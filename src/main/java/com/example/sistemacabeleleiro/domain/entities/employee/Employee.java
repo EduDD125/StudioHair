@@ -1,8 +1,8 @@
-package com.example.sistemacabeleleiro.domain.entities.Employee;
+package com.example.sistemacabeleleiro.domain.entities.employee;
 
-import com.example.sistemacabeleleiro.domain.entities.CPF.CPF;
-import com.example.sistemacabeleleiro.domain.entities.Email.Email;
-import com.example.sistemacabeleleiro.domain.entities.Service.Service;
+import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
+import com.example.sistemacabeleleiro.domain.entities.email.Email;
+import com.example.sistemacabeleleiro.domain.entities.service.Service;
 
 import java.util.ArrayList;
 import java.util.List;

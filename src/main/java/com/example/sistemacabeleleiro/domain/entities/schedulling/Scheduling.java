@@ -1,8 +1,8 @@
-package com.example.sistemacabeleleiro.domain.entities.Schedulling;
+package com.example.sistemacabeleleiro.domain.entities.schedulling;
 
-import com.example.sistemacabeleleiro.domain.entities.Client.Client;
-import com.example.sistemacabeleleiro.domain.entities.Employee.Employee;
-import com.example.sistemacabeleleiro.domain.entities.Service.Service;
+import com.example.sistemacabeleleiro.domain.entities.client.Client;
+import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
+import com.example.sistemacabeleleiro.domain.entities.service.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
