@@ -1,12 +1,12 @@
-package com.example.sistemacabeleleiro.domain.entities.Service;
+package com.example.sistemacabeleleiro.domain.entities.employee;
 
-public enum ServiceStatus {
+public enum EmployeeStatus {
     ACTIVE("Ativo"),
     INACTIVE("Inativo");
 
     private String label;
 
-    ServiceStatus(String label) {
+    EmployeeStatus(String label) {
         this.label = label;
     }
 

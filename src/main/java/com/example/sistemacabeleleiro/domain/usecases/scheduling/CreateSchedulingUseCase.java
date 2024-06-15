@@ -1,12 +1,12 @@
 package com.example.sistemacabeleleiro.domain.usecases.scheduling;
 
-import com.example.sistemacabeleleiro.domain.entities.Client.Client;
-import com.example.sistemacabeleleiro.domain.entities.Client.ClientStatus;
-import com.example.sistemacabeleleiro.domain.entities.Employee.Employee;
-import com.example.sistemacabeleleiro.domain.entities.Employee.EmployeeStatus;
-import com.example.sistemacabeleleiro.domain.entities.Schedulling.Scheduling;
-import com.example.sistemacabeleleiro.domain.entities.Service.Service;
-import com.example.sistemacabeleleiro.domain.entities.Service.ServiceStatus;
+import com.example.sistemacabeleleiro.domain.entities.client.Client;
+import com.example.sistemacabeleleiro.domain.entities.client.ClientStatus;
+import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
+import com.example.sistemacabeleleiro.domain.entities.employee.EmployeeStatus;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.entities.service.Service;
+import com.example.sistemacabeleleiro.domain.entities.service.ServiceStatus;
 import com.example.sistemacabeleleiro.domain.usecases.client.ClientDAO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.EmployeeDAO;
 import com.example.sistemacabeleleiro.domain.usecases.service.ServiceDAO;
@@ -42,7 +42,7 @@ public class CreateSchedulingUseCase {
         if(notification.hasErros()){
             throw new IllegalArgumentException(notification.errorMessage());
         }
-        if (scheduling.getDataRealizacao().isBefore(LocalDateTime.now())) {
+        if (scheduling.getRealizationDate().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("The scheduling date cannot be in the past.");
         }
 
@@ -72,12 +72,12 @@ public class CreateSchedulingUseCase {
         clientSchedulings = schedulingDAO.findByClient(scheduling.getClient().getId());
 
         for(Scheduling existingDateAndTime: employeeSchedulings){
-            if(existingDateAndTime.getDataRealizacao().equals(scheduling.getDataRealizacao())) {
+            if(existingDateAndTime.getRealizationDate().equals(scheduling.getRealizationDate())) {
                 throw new EntityAlreadyExistsException("The employee has a schedule for this date and time.");
             }
         }
         for(Scheduling existingDateAndTime: clientSchedulings){
-            if(existingDateAndTime.getDataRealizacao().equals(scheduling.getDataRealizacao())) {
+            if(existingDateAndTime.getRealizationDate().equals(scheduling.getRealizationDate())) {
                 throw new EntityAlreadyExistsException("The client has a schedule for this date and time.");
             }
         }

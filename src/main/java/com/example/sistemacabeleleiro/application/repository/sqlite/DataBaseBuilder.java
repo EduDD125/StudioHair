@@ -1,4 +1,4 @@
-package com.example.sistemacabeleleiro.application.repository.sqlserver;
+package com.example.sistemacabeleleiro.application.repository.sqlite;
 
 public class DataBaseBuilder {
 

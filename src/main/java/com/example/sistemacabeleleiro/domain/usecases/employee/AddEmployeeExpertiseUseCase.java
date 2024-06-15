@@ -1,8 +1,8 @@
 package com.example.sistemacabeleleiro.domain.usecases.employee;
 
-import com.example.sistemacabeleleiro.domain.entities.Employee.Employee;
-import com.example.sistemacabeleleiro.domain.entities.Service.Service;
-import com.example.sistemacabeleleiro.domain.entities.Service.ServiceStatus;
+import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
+import com.example.sistemacabeleleiro.domain.entities.service.Service;
+import com.example.sistemacabeleleiro.domain.entities.service.ServiceStatus;
 import com.example.sistemacabeleleiro.domain.usecases.service.ServiceDAO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
 

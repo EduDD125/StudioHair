@@ -1,6 +1,6 @@
 package com.example.sistemacabeleleiro.domain.usecases.reports;
 
-import com.example.sistemacabeleleiro.domain.entities.Schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import org.apache.pdfbox.pdmodel.*;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
@@ -76,7 +76,7 @@ public class ExportReportUseCase {
                 float startY = logoY - 50;
 
                 for (Scheduling scheduling : schedules) {
-                    String text = "Date: " + scheduling.getDataRealizacao().toString() +
+                    String text = "Date: " + scheduling.getRealizationDate().toString() +
                             " | Employee: " + scheduling.getEmployee().getName() +
                             " | Service: " + scheduling.getService().getName() +
                             " | Client: " + scheduling.getClient().getName() +

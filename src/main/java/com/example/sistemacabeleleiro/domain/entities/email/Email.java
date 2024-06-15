@@ -1,4 +1,4 @@
-package com.example.sistemacabeleleiro.domain.entities.Email;
+package com.example.sistemacabeleleiro.domain.entities.email;
 
 import java.util.Objects;
 import java.util.regex.Matcher;

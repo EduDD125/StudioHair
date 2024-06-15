@@ -1,12 +1,12 @@
 package com.example.sistemacabeleleiro.domain.usecases.scheduling;
 
-import com.example.sistemacabeleleiro.domain.entities.Client.Client;
-import com.example.sistemacabeleleiro.domain.entities.Client.ClientStatus;
-import com.example.sistemacabeleleiro.domain.entities.Employee.Employee;
-import com.example.sistemacabeleleiro.domain.entities.Employee.EmployeeStatus;
-import com.example.sistemacabeleleiro.domain.entities.Schedulling.Scheduling;
-import com.example.sistemacabeleleiro.domain.entities.Service.Service;
-import com.example.sistemacabeleleiro.domain.entities.Service.ServiceStatus;
+import com.example.sistemacabeleleiro.domain.entities.client.Client;
+import com.example.sistemacabeleleiro.domain.entities.client.ClientStatus;
+import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
+import com.example.sistemacabeleleiro.domain.entities.employee.EmployeeStatus;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.entities.service.Service;
+import com.example.sistemacabeleleiro.domain.entities.service.ServiceStatus;
 import com.example.sistemacabeleleiro.domain.usecases.client.ClientDAO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.EmployeeDAO;
 import com.example.sistemacabeleleiro.domain.usecases.service.ServiceDAO;
@@ -142,7 +142,7 @@ public class UpdateScheduleUseCase {
             throw new IllegalArgumentException("The scheduling date cannot be in the past.");
         }
 
-        schedulingToUpdate.setDataRealizacao(dateToUpdate);
+        schedulingToUpdate.setRealizationDate(dateToUpdate);
         return schedulingDAO.update(schedulingToUpdate);
     }
 

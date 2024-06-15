@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.domain.usecases.utils;
 
-import com.example.sistemacabeleleiro.domain.entities.CPF.CPF;
-import com.example.sistemacabeleleiro.domain.entities.Email.Email;
+import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
+import com.example.sistemacabeleleiro.domain.entities.email.Email;
 
 import java.util.Collection;
 

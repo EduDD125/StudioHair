@@ -1,4 +1,4 @@
-package com.example.sistemacabeleleiro.domain.entities.Service;
+package com.example.sistemacabeleleiro.domain.entities.service;
 
 
 public class Service {

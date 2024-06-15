@@ -1,6 +1,6 @@
 package com.example.sistemacabeleleiro.domain.usecases.service;
 
-import com.example.sistemacabeleleiro.domain.entities.Service.Service;
+import com.example.sistemacabeleleiro.domain.entities.service.Service;
 
 import java.util.List;
 import java.util.Optional;

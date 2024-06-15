@@ -1,6 +1,6 @@
 package com.example.sistemacabeleleiro.domain.usecases.scheduling;
 
-import com.example.sistemacabeleleiro.domain.entities.Schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;
 
@@ -18,7 +18,7 @@ public class SchedulingInputRequestValidator extends Validator<Scheduling> {
             notification.addError("Employee is null or empty");
         if(nullOrEmpty(scheduling.getService().getName()))
             notification.addError("Service is null or empty");
-        if(nullOrEmpty(scheduling.getDataRealizacao().toString()))
+        if(nullOrEmpty(scheduling.getRealizationDate().toString()))
             notification.addError("Scheduled date is null or empty");
 
         return notification;

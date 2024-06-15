@@ -1,4 +1,4 @@
-package com.example.sistemacabeleleiro.domain.entities.Schedulling;
+package com.example.sistemacabeleleiro.domain.entities.schedulling;
 
 public enum SchedulingStatus {
     SCHEDULED("Agendado"),

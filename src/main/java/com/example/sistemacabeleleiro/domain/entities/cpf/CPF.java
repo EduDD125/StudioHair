@@ -1,4 +1,4 @@
-package com.example.sistemacabeleleiro.domain.entities.CPF;
+package com.example.sistemacabeleleiro.domain.entities.cpf;
 
 import java.util.Objects;
 import java.util.regex.Matcher;

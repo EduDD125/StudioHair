@@ -1,7 +1,7 @@
-package com.example.sistemacabeleleiro.domain.entities.Report;
+package com.example.sistemacabeleleiro.domain.entities.report;
 
-import com.example.sistemacabeleleiro.domain.entities.Employee.Employee;
-import com.example.sistemacabeleleiro.domain.entities.Schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import java.time.LocalDateTime;
 import java.util.List;
 
