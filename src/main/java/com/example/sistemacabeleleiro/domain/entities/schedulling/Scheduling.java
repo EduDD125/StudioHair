@@ -11,35 +11,35 @@ public class Scheduling {
     private Integer id;
     private Client client;
     private Employee employee;
-    private LocalDateTime dataRealizacao;
+    private LocalDateTime realizationDate;
     private SchedulingStatus status;
     private Service service;
 
     public Scheduling(){this.status = SchedulingStatus.SCHEDULED;}
 
-    public Scheduling(Client client, Employee employee, LocalDateTime dataRealizacao, Service service) {
+    public Scheduling(Client client, Employee employee, LocalDateTime realizationDate, Service service) {
         this.client = client;
         this.employee = employee;
-        this.dataRealizacao = dataRealizacao;
+        this.realizationDate = realizationDate;
         this.service = service;
         this.status = SchedulingStatus.SCHEDULED;
     }
 
     public Scheduling(Integer id, Client client, Employee employee,
-                      LocalDateTime dataRealizacao, Service service) {
+                      LocalDateTime realizationDate, Service service) {
         this.id = id;
         this.client = client;
         this.employee = employee;
-        this.dataRealizacao = dataRealizacao;
+        this.realizationDate = realizationDate;
         this.status = SchedulingStatus.SCHEDULED;
         this.service = service;
     }
 
-    public Scheduling(Integer id, Client client, Employee employee, LocalDateTime dataRealizacao, SchedulingStatus status, Service service) {
+    public Scheduling(Integer id, Client client, Employee employee, LocalDateTime realizationDate, SchedulingStatus status, Service service) {
         this.id = id;
         this.client = client;
         this.employee = employee;
-        this.dataRealizacao = dataRealizacao;
+        this.realizationDate = realizationDate;
         this.status = status;
         this.service = service;
     }
@@ -68,19 +68,19 @@ public class Scheduling {
         this.employee = employee;
     }
 
-    public LocalDateTime getDataRealizacao() {
-        return dataRealizacao;
+    public LocalDateTime getRealizationDate() {
+        return realizationDate;
     }
 
-    public void setDataRealizacao(LocalDateTime dataRealizacao) {
-        this.dataRealizacao = dataRealizacao;
+    public void setRealizationDate(LocalDateTime realizationDate) {
+        this.realizationDate = realizationDate;
     }
 
     public boolean isDateInsidePeriod(LocalDate startDate, LocalDate endDate) {
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
 
-        LocalDateTime dataRealizacao = getDataRealizacao();
+        LocalDateTime dataRealizacao = getRealizationDate();
 
         return (dataRealizacao.isEqual(startDateTime) || dataRealizacao.isAfter(startDateTime)) &&
                 (dataRealizacao.isEqual(endDateTime) || dataRealizacao.isBefore(endDateTime));
@@ -110,7 +110,7 @@ public class Scheduling {
                 ", client=" + client.getName() +
                 ", employee=" + employee.getName() +
                 ", employee expertises=" + employee.getExpertise() +
-                ", dataRealizacao=" + dataRealizacao +
+                ", dataRealizacao=" + realizationDate +
                 ", status=" + status +
                 ", service=" + service +
                 '}';

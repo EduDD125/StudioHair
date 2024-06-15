@@ -142,7 +142,7 @@ public class UpdateScheduleUseCase {
             throw new IllegalArgumentException("The scheduling date cannot be in the past.");
         }
 
-        schedulingToUpdate.setDataRealizacao(dateToUpdate);
+        schedulingToUpdate.setRealizationDate(dateToUpdate);
         return schedulingDAO.update(schedulingToUpdate);
     }
 

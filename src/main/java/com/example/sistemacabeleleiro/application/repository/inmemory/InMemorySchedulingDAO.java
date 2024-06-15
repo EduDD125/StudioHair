@@ -55,7 +55,7 @@ public class InMemorySchedulingDAO implements SchedulingDAO {
     @Override
     public Optional<Scheduling> findByScheduledDate(LocalDateTime scheduledDate) {
         return db.values().stream().filter(
-                scheduling -> scheduling.getDataRealizacao().equals(scheduledDate)
+                scheduling -> scheduling.getRealizationDate().equals(scheduledDate)
             ).findAny();
     }
 

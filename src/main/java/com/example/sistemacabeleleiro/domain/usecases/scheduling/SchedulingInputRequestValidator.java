@@ -18,7 +18,7 @@ public class SchedulingInputRequestValidator extends Validator<Scheduling> {
             notification.addError("Employee is null or empty");
         if(nullOrEmpty(scheduling.getService().getName()))
             notification.addError("Service is null or empty");
-        if(nullOrEmpty(scheduling.getDataRealizacao().toString()))
+        if(nullOrEmpty(scheduling.getRealizationDate().toString()))
             notification.addError("Scheduled date is null or empty");
 
         return notification;
