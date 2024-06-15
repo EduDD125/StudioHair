@@ -1,13 +1,13 @@
 package com.example.sistemacabeleleiro.domain.usecases.employee;
 
-import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeInputDTO;
-import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
+
+import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeUpdateDTO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;
 
-public class EmployeeInputRequestValidator extends Validator<EmployeeInputDTO> {
+public class EmployeeUpdateRequestValidator extends Validator<EmployeeUpdateDTO> {
     @Override
-    public Notification validate(EmployeeInputDTO employee) {
+    public Notification validate(EmployeeUpdateDTO employee) {
         Notification notification = new Notification();
 
         if (employee == null){
@@ -39,3 +39,4 @@ public class EmployeeInputRequestValidator extends Validator<EmployeeInputDTO> {
         return notification;
     }
 }
+

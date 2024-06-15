@@ -31,6 +31,6 @@ public class RemoveExpertiseFromEmployeeUseCase {
             throw new IllegalArgumentException("Employee does not have this specialty");
 
         employee.removeExpertise(service);
-        return updateEmployeeUseCase.update(employee);
+        return employeeDAO.update(employee);
     }
 }

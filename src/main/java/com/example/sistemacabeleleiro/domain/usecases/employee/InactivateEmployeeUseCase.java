@@ -13,18 +13,11 @@ public class InactivateEmployeeUseCase {
         this.employeeDAO = employeeDAO;
     }
 
-    public boolean inactivate(Employee employee){
-        Validator<Employee> validator = new EmployeeInputRequestValidator();
-        Notification notification = validator.validate(employee);
+    public boolean inactivate(Integer id){
 
-        if (notification.hasErros()){
-            throw new IllegalArgumentException(notification.errorMessage());
-        }
+        Employee employee = employeeDAO.findOne(id)
+                .orElseThrow(() -> new EntityNotFoundException("Employee not found"));
 
-        Integer id = employee.getId();
-        if (employeeDAO.findOne(id).isEmpty()){
-            throw new EntityNotFoundException("Employee not found");
-        }
         if (employee.getStatus().equals(EmployeeStatus.INACTIVE)){
             throw new IllegalArgumentException("Employee is already inactive");
         }

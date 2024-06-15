@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.application.main;
 
+import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeInputDTO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryClientDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryEmployeeDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemorySchedulingDAO;
@@ -86,7 +87,7 @@ public class Main {
         System.out.println("-- CASOS DE TESTE --");
 
         // CASOS DE TESTE PARA RELATÓRIOS
-        gerarPDF();
+        //gerarPDF();
         gerarRelatoriosEmSunnyDay();
 
         // CASOS DE TESTE PARA FUNCIONÁRIO
@@ -464,8 +465,7 @@ public class Main {
     }
 
     private static void inativarFuncionarioJaInativo(){
-        Employee employee = findEmployeeUseCase.findOne(6).get();
-        inactivateEmployeeUseCase.inactivate(employee);
+        inactivateEmployeeUseCase.inactivate(6);
     }
 
     private static void ativarClienteJaAtivo(){
@@ -474,8 +474,7 @@ public class Main {
     }
 
     private static void ativarFuncionarioJaAtivo(){
-        Employee employee = findEmployeeUseCase.findOne(1).get();
-        activateEmployeeUseCase.activate(employee);
+        activateEmployeeUseCase.activate(1);
     }
 
     private static void gerarPDF(){
@@ -538,14 +537,14 @@ public class Main {
         findClientUseCase.findOneByCPF(invalidCpf);
     }
     private static void criarFuncionarioVazio(){
-        Employee employee = new Employee();
+        EmployeeInputDTO employee = new EmployeeInputDTO(null,null,null,null,null);
         createEmployeeUseCase.insert(employee);
         System.out.println(employee);
     }
     private static void criarFuncionarioComCpfExistente(){
         Email email = Email.of("test@gmail.com");
         CPF cpf = CPF.of("123.456.789-10");
-        Employee employee = new Employee("João",cpf,"16998765443",email,"21/01/2000");
+        EmployeeInputDTO employee = new EmployeeInputDTO("João",cpf,"16998765443",email,"21/01/2000");
         createEmployeeUseCase.insert(employee);
         System.out.println(employee);
     }
@@ -553,7 +552,7 @@ public class Main {
     private static void criarFuncionarioComEmailECpfInvalidos(){
         Email invalidEmail = Email.of("invalidEmail.com");
         CPF invalidCPF = CPF.of("12e.344.77");
-        Employee invalidEmployee = new Employee("João",invalidCPF,"16990001234",invalidEmail,"10/10/2000");
+        EmployeeInputDTO invalidEmployee = new EmployeeInputDTO("João",invalidCPF,"16990001234",invalidEmail,"10/10/2000");
         createEmployeeUseCase.insert(invalidEmployee);
     }
 
@@ -646,38 +645,38 @@ public class Main {
 
         Email employee1Email = Email.of("eduardo@gmail.com");
         CPF employee1Cpf = CPF.of("999.888.777-66");
-        Employee employee1 = new Employee
+        EmployeeInputDTO employee1 = new EmployeeInputDTO
                 ("Eduardo",employee1Cpf,"16912345678",employee1Email,"11/11/2001");
 
         Email employee2Email = Email.of("victor@gmail.com");
         CPF employee2Cpf = CPF.of("000.888.777-66");
-        Employee employee2 = new Employee
+        EmployeeInputDTO employee2 = new EmployeeInputDTO
                 ("Victor",employee2Cpf,"16912345679",employee2Email,"20/10/1999");
 
         Email employee3Email = Email.of("ariadne@gmail.com");
         CPF employee3Cpf = CPF.of("111.888.777-66");
-        Employee employee3 = new Employee
+        EmployeeInputDTO employee3 = new EmployeeInputDTO
                 ("Ariadne",employee3Cpf,"16912345670",employee3Email,"30/01/1970");
 
         Email employee4Email = Email.of("emanuel@gmail.com");
         CPF employee4Cpf = CPF.of("888.888.777-77");
-        Employee employee4 = new Employee
+        EmployeeInputDTO employee4 = new EmployeeInputDTO
                 ("Emanuel",employee4Cpf,"16912345671",employee4Email,"10/10/2004");
 
         Email employee5Email = Email.of("joazinho@gmail.com");
         CPF employee5Cpf = CPF.of("888.765.567-00");
-        Employee employee5 = new Employee
+        EmployeeInputDTO employee5 = new EmployeeInputDTO
                 ("João",employee5Cpf,"16912345672",employee5Email,"30/11/1989");
 
         Email employee6Email = Email.of("antonio@gmail.com");
         CPF employee6Cpf = CPF.of("081.765.567-10");
-        Employee employee6 = new Employee
-                ("Antônio",employee6Cpf,"16912345672",employee6Email,"30/08/1982",
-                        EmployeeStatus.INACTIVE);
+        EmployeeInputDTO employee6 = new EmployeeInputDTO
+                ("Antônio",employee6Cpf,"16912345672",employee6Email,"30/08/1982");
+
 
         Email employee7Email = Email.of("lucia@gmail.com");
         CPF employee7Cpf = CPF.of("088.965.567-11");
-        Employee employee7 = new Employee
+        EmployeeInputDTO employee7 = new EmployeeInputDTO
                 ("Lúcia",employee7Cpf,"16912345672",employee7Email,"30/06/1980");
 
         createEmployeeUseCase.insert(employee1);
@@ -688,21 +687,31 @@ public class Main {
         createEmployeeUseCase.insert(employee6);
         createEmployeeUseCase.insert(employee7);
 
-        addEmployeeExpertiseUseCase.addExpertise(employee1, service1);
-        addEmployeeExpertiseUseCase.addExpertise(employee2,service2);
-        addEmployeeExpertiseUseCase.addExpertise(employee3,service3);
-        addEmployeeExpertiseUseCase.addExpertise(employee4,service4);
-        addEmployeeExpertiseUseCase.addExpertise(employee5,service5);
+        Employee employeeModel1 = findEmployeeUseCase.findOne(1).get();
+        Employee employeeModel2 = findEmployeeUseCase.findOne(2).get();
+        Employee employeeModel3 = findEmployeeUseCase.findOne(3).get();
+        Employee employeeModel4 = findEmployeeUseCase.findOne(4).get();
+        Employee employeeModel5 = findEmployeeUseCase.findOne(5).get();
+        Employee employeeModel6 = findEmployeeUseCase.findOne(6).get();
+        Employee employeeModel7 = findEmployeeUseCase.findOne(7).get();
+        inactivateEmployeeUseCase.inactivate(employeeModel6.getId());
 
-        Scheduling scheduling1 = new Scheduling(client1,employee1,
+
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel1, service1);
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel2,service2);
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel3,service3);
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel4,service4);
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel5,service5);
+
+        Scheduling scheduling1 = new Scheduling(client1,employeeModel1,
                 LocalDateTime.of(2025,6,5,19,0),service1);
-        Scheduling scheduling2 = new Scheduling(client2,employee2,
+        Scheduling scheduling2 = new Scheduling(client2,employeeModel2,
                 LocalDateTime.of(2025,6,10,20,0),service2);
-        Scheduling scheduling3 = new Scheduling(client3,employee3,
+        Scheduling scheduling3 = new Scheduling(client3,employeeModel3,
                 LocalDateTime.of(2025,6,15,21,0),service3);
-        Scheduling scheduling4 = new Scheduling(client4,employee4,
+        Scheduling scheduling4 = new Scheduling(client4,employeeModel4,
                 LocalDateTime.of(2025,6,20,22,0),service4);
-        Scheduling scheduling5 = new Scheduling(client5,employee5,
+        Scheduling scheduling5 = new Scheduling(client5,employeeModel5,
                 LocalDateTime.of(2025,6,25,18,0),service5);
 
         createSchedulingUseCase.insert(scheduling1);
