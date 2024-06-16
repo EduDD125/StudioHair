@@ -5,6 +5,7 @@ import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryCl
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryEmployeeDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemorySchedulingDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryServiceDAO;
+import com.example.sistemacabeleleiro.application.repository.sqlite.DataBaseBuilder;
 import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.entities.client.ClientStatus;
@@ -27,7 +28,50 @@ import java.util.List;
 import java.util.Optional;
 
 public class Main {
-    private static CreateClientUseCase createClientUseCase;
+
+    public static void main(String[] args) {
+        configureInjection();
+        setupDatabase();
+    }
+    private static void setupDatabase() {
+        DataBaseBuilder dbBuilder = new DataBaseBuilder();
+        dbBuilder.buildDataBaseIfMissing();
+    }
+
+    private static void configureInjection() {
+        ClientDAO clientDAO = new InMemoryClientDAO();
+        EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
+        SchedulingDAO schedulingDAO = new InMemorySchedulingDAO();
+        ServiceDAO serviceDAO = new InMemoryServiceDAO();
+
+
+        ActivateEmployeeUseCase activateEmployeeUseCase = new ActivateEmployeeUseCase(employeeDAO);
+        UpdateEmployeeUseCase updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
+        AddEmployeeExpertiseUseCase addEmployeeExpertiseUseCase = new AddEmployeeExpertiseUseCase(employeeDAO, serviceDAO);
+        CreateEmployeeUseCase createEmployeeUseCase = new CreateEmployeeUseCase(employeeDAO, clientDAO);
+        FindEmployeeUseCase findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
+        InactivateEmployeeUseCase inactivateEmployeeUseCase = new InactivateEmployeeUseCase(employeeDAO);
+        RemoveEmployeeUseCase removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO, schedulingDAO);
+        RemoveExpertiseFromEmployeeUseCase removeExpertiseFromEmployeeUseCase = new RemoveExpertiseFromEmployeeUseCase(employeeDAO, serviceDAO, updateEmployeeUseCase);
+
+        CancelSchedulingUseCase cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
+        CreateSchedulingUseCase createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
+        FindSchedulingUseCase findSchedulingUseCase = new FindSchedulingUseCase(schedulingDAO);
+        UpdateScheduleUseCase updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
+        InactivateServiceUseCase inactivateServiceUseCase = new InactivateServiceUseCase(serviceDAO);
+        ActivateServiceUseCase activateServiceUseCase = new ActivateServiceUseCase(serviceDAO);
+
+        CreateServiceUseCase createServiceUseCase = new CreateServiceUseCase(serviceDAO);
+        FindServiceUseCase findServiceUseCase = new FindServiceUseCase(serviceDAO);
+        RemoveServiceUseCase removeServiceUseCase = new RemoveServiceUseCase(serviceDAO, employeeDAO, schedulingDAO);
+        UpdateServiceUseCase updateServiceUseCase = new UpdateServiceUseCase(serviceDAO);
+
+        GenerateReportUseCase generateReportUseCase = new GenerateReportUseCase(schedulingDAO, employeeDAO);
+        ExportReportUseCase exportReportUseCase = new ExportReportUseCase(generateReportUseCase);
+
+    }
+
+    /*private static CreateClientUseCase createClientUseCase;
     private static RemoveClientUseCase removeClientUseCase;
     private static FindClientUseCase findClientUseCase;
     private static UpdateClientUseCase updateClientUseCase;
@@ -58,13 +102,10 @@ public class Main {
     private static GenerateReportUseCase generateReportUseCase;
     private static ExportReportUseCase exportReportUseCase;
 
-    public static void main(String[] args) {
-        configureInjection();
-        mockData();
 
-        /* TESTS OF SYSTEM USE CASES */
+         TESTS OF SYSTEM USE CASES
 
-        /* MOCK DE DADOS, CRIAÇÃO DE AGENDAMENTO NO "SUNNY DAY" */
+        MOCK DE DADOS, CRIAÇÃO DE AGENDAMENTO NO "SUNNY DAY"
         List<Client> clients = findClientUseCase.findAll();
         for(Client c:clients){
             System.out.println(c);
@@ -151,7 +192,8 @@ public class Main {
         alterarAgendamentoFuncionarioInativo();
         alterarAgendamentoServicoInativo();
         alterarAgendamentoDataInvalida();*/
-    }
+}
+
 
     /*private static void alterarAgendamentoClienteInativo(){
         Scheduling scheduling = findSchedulingUseCase.findOne(1)
@@ -379,7 +421,7 @@ public class Main {
         System.out.println(scheduling);
     } */
 
-    private static void atualizarServico() {
+    /*private static void atualizarServico() {
         Optional<Service> serviceOpt = findServiceUseCase.findOne(1);
         Service service = serviceOpt.get();
 
@@ -720,43 +762,5 @@ public class Main {
         createSchedulingUseCase.insert(scheduling4);
         createSchedulingUseCase.insert(scheduling5);
     }
+ */
 
-    private static void configureInjection() {
-        ClientDAO clientDAO = new InMemoryClientDAO();
-        EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
-        SchedulingDAO schedulingDAO = new InMemorySchedulingDAO();
-        ServiceDAO serviceDAO = new InMemoryServiceDAO();
-
-        createClientUseCase = new CreateClientUseCase(clientDAO,employeeDAO);
-        removeClientUseCase = new RemoveClientUseCase(clientDAO,schedulingDAO);
-        findClientUseCase = new FindClientUseCase(clientDAO);
-        updateClientUseCase = new UpdateClientUseCase(clientDAO);
-        inactivateClientUseCase = new InactivateClientUseCase(clientDAO);
-        activateClientUseCase = new ActivateClientUseCase(clientDAO);
-
-        activateEmployeeUseCase = new ActivateEmployeeUseCase(employeeDAO);
-        updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
-        addEmployeeExpertiseUseCase = new AddEmployeeExpertiseUseCase(employeeDAO,serviceDAO);
-        createEmployeeUseCase = new CreateEmployeeUseCase(employeeDAO,clientDAO);
-        findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
-        inactivateEmployeeUseCase = new InactivateEmployeeUseCase(employeeDAO);
-        removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO,schedulingDAO);
-        removeExpertiseFromEmployeeUseCase = new RemoveExpertiseFromEmployeeUseCase(employeeDAO,serviceDAO,updateEmployeeUseCase);
-
-        cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
-        createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO,clientDAO,employeeDAO,serviceDAO);
-        findSchedulingUseCase = new FindSchedulingUseCase(schedulingDAO);
-        //updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO);
-        inactivateServiceUseCase = new InactivateServiceUseCase(serviceDAO);
-        activateServiceUseCase = new ActivateServiceUseCase(serviceDAO);
-
-        createServiceUseCase = new CreateServiceUseCase(serviceDAO);
-        findServiceUseCase = new FindServiceUseCase(serviceDAO);
-        removeServiceUseCase = new RemoveServiceUseCase(serviceDAO,employeeDAO,schedulingDAO);
-        updateServiceUseCase = new UpdateServiceUseCase(serviceDAO);
-
-        generateReportUseCase = new GenerateReportUseCase(schedulingDAO,employeeDAO);
-        exportReportUseCase = new ExportReportUseCase(generateReportUseCase);
-
-    }
-}

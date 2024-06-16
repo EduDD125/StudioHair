@@ -1,8 +1,35 @@
 package com.example.sistemacabeleleiro.application.repository.sqlite;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class DataBaseBuilder {
 
+    public void buildDataBaseIfMissing(){
+        if(isDatabaseMissing()){
+            System.out.println("Database is missing. Building database: \n");
+            buildTables();
+        }
+    }
+
+    private boolean isDatabaseMissing(){
+        return !Files.exists(Paths.get("database.db"));
+    }
+
     private void buildTables(){
+        try(Statement statement = ConnectionFactory.createStatement()) {
+            statement.addBatch(createClientTable());
+            statement.addBatch(createEmployeeTable());
+            statement.addBatch(createServiceTable());
+            statement.addBatch(createExpertiseTable());
+            statement.addBatch(createSchedulingTable());
+
+            System.out.println("Database successfully created.");
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
 
     }
 
