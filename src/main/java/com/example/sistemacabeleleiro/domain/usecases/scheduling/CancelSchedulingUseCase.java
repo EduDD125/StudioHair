@@ -6,36 +6,38 @@ import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundExcept
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CancelSchedulingUseCase {
     private SchedulingDAO schedulingDAO;
 
-    public CancelSchedulingUseCase(SchedulingDAO schedulingDAO){ this.schedulingDAO = schedulingDAO; }
+    public CancelSchedulingUseCase(SchedulingDAO schedulingDAO) {
+        this.schedulingDAO = schedulingDAO;
+    }
 
-    public Integer cancel(Scheduling scheduling){
+    public boolean cancel(Scheduling scheduling) {
+        validateScheduling(scheduling);
+
+        scheduling.cancel();
+        return schedulingDAO.update(scheduling);
+    }
+
+    private void validateScheduling(Scheduling scheduling) {
+        if (scheduling == null) {
+            throw new IllegalArgumentException("Scheduling cannot be null");
+        }
+
         Validator<Scheduling> validator = new SchedulingInputRequestValidator();
         Notification notification = validator.validate(scheduling);
 
-        List<Scheduling> allSchedulings = schedulingDAO.findAll();
-        List<Scheduling> schedulingsToCancel = new ArrayList<>();
-        for(Scheduling s: allSchedulings){
-            if(s.getStatus() == SchedulingStatus.SCHEDULED){
-                schedulingsToCancel.add(s);
-            }
-        }
-
-        if(notification.hasErros()){
+        if (notification.hasErros()) {
             throw new IllegalArgumentException(notification.errorMessage());
         }
-        if(scheduling == null || !schedulingDAO.findOne(scheduling.getId()).isPresent()){
+
+        if (!schedulingDAO.findOne(scheduling.getId()).isPresent()) {
             throw new EntityNotFoundException("Scheduling not found");
         }
+
         if (scheduling.getStatus() != SchedulingStatus.SCHEDULED) {
             throw new IllegalArgumentException("The scheduling has already been canceled or made");
         }
-
-        return schedulingDAO.cancel(scheduling);
     }
 }
