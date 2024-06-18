@@ -13,12 +13,12 @@ public class InactivateEmployeeUseCase {
         this.employeeDAO = employeeDAO;
     }
 
-    public boolean inactivate(Integer id){
+    public boolean inactivate(int id){
 
         Employee employee = employeeDAO.findOne(id)
                 .orElseThrow(() -> new EntityNotFoundException("Employee not found"));
 
-        if (employee.getStatus().equals(EmployeeStatus.INACTIVE)){
+        if (employee.isInactive()){
             throw new IllegalArgumentException("Employee is already inactive");
         }
         return employeeDAO.inactivate(employee);

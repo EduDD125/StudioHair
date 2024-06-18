@@ -52,7 +52,7 @@ public class Main {
         FindEmployeeUseCase findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
         InactivateEmployeeUseCase inactivateEmployeeUseCase = new InactivateEmployeeUseCase(employeeDAO);
         RemoveEmployeeUseCase removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO, schedulingDAO);
-        RemoveExpertiseFromEmployeeUseCase removeExpertiseFromEmployeeUseCase = new RemoveExpertiseFromEmployeeUseCase(employeeDAO, serviceDAO, updateEmployeeUseCase);
+        RemoveExpertiseFromEmployeeUseCase removeExpertiseFromEmployeeUseCase = new RemoveExpertiseFromEmployeeUseCase(employeeDAO, serviceDAO);
 
         CancelSchedulingUseCase cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
         CreateSchedulingUseCase createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);

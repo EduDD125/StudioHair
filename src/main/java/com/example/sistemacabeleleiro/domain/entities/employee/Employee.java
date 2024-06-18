@@ -137,6 +137,14 @@ public class Employee {
     public void activateStatus() {this.status = EmployeeStatus.ACTIVE;}
     public void inactivateStatus() {this.status = EmployeeStatus.INACTIVE;}
 
+    public boolean isActive(){
+        return this.status.equals(EmployeeStatus.ACTIVE);
+    }
+
+    public boolean isInactive(){
+        return this.status.equals(EmployeeStatus.INACTIVE);
+    }
+
     @Override
     public String toString() {
         return "Employee{" +

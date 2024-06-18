@@ -1,6 +1,8 @@
 package com.example.sistemacabeleleiro.domain.entities.service;
 
 
+import com.example.sistemacabeleleiro.domain.entities.employee.EmployeeStatus;
+
 public class Service {
     private Integer id;
     private String name;
@@ -122,6 +124,13 @@ public class Service {
     public void activateStatus() {this.status = ServiceStatus.ACTIVE;}
     public void inactivateStatus() {this.status = ServiceStatus.INACTIVE;}
 
+    public boolean isActive(){
+        return this.status.equals(ServiceStatus.ACTIVE);
+    }
+
+    public boolean isInactive(){
+        return this.status.equals(ServiceStatus.INACTIVE);
+    }
     @Override
     public String toString() {
         return "Service{" +

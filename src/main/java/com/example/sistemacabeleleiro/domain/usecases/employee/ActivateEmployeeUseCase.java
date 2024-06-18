@@ -14,12 +14,12 @@ public class ActivateEmployeeUseCase {
         this.employeeDAO = employeeDAO;
     }
 
-    public boolean activate(Integer id){
+    public boolean activate(int id){
 
         Employee employee = employeeDAO.findOne(id)
                 .orElseThrow(() -> new EntityNotFoundException("Employee not found"));
 
-        if (employee.getStatus().equals(EmployeeStatus.ACTIVE)){
+        if (employee.isActive()){
             throw new IllegalArgumentException("Employee is already active");
         }
         return employeeDAO.activate(employee);
