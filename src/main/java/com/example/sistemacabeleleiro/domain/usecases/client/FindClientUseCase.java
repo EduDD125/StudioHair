@@ -38,7 +38,7 @@ public class FindClientUseCase {
     }
 
     private ClientOutputDTO mapToDTO(Client client){
-        return new ClientOutputDTO(client.getName(),client.getCpf(),
+        return new ClientOutputDTO(client.getId(),client.getName(),client.getCpf(),
                 client.getPhone(),client.getEmail(),client.getStatus());
     }
 }

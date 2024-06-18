@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.domain.usecases.client;
 
+import com.example.sistemacabeleleiro.application.dtos.client.ClientUpdateDTO;
 import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
@@ -11,17 +12,17 @@ public class UpdateClientUseCase {
 
     public UpdateClientUseCase(ClientDAO clientDAO){this.clientDAO = clientDAO;}
 
-    public boolean update(Client client) {
-        Validator validator = new ClientInputRequestValidator();
-        Notification notification = validator.validate(client);
+    public boolean update(ClientUpdateDTO clientUpdateDTO) {
+        Validator<ClientUpdateDTO> validator = new ClientUpdateRequestValidator();
+        Notification notification = validator.validate(clientUpdateDTO);
 
         if(notification.hasErros())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        CPF cpf = client.getCpf();
-        if(clientDAO.findOneByCPF(cpf).isEmpty())
-            throw new EntityNotFoundException("This CPF isn´t registered");
+        int id = clientUpdateDTO.id();
 
+        Client client = clientDAO.findOne(id)
+                .orElseThrow(()-> new EntityNotFoundException("Client not found"));
         return clientDAO.update(client);
     }
 }
