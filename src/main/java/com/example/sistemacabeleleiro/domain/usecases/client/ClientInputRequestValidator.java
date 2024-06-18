@@ -1,13 +1,14 @@
 package com.example.sistemacabeleleiro.domain.usecases.client;
 
+import com.example.sistemacabeleleiro.application.dtos.client.ClientInputDTO;
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;
 
-public class ClientInputRequestValidator extends Validator<Client> {
+public class ClientInputRequestValidator extends Validator<ClientInputDTO> {
 
     @Override
-    public Notification validate(Client client) {
+    public Notification validate(ClientInputDTO client) {
         Notification notification = new Notification();
 
         if (client == null) {
@@ -15,20 +16,18 @@ public class ClientInputRequestValidator extends Validator<Client> {
             return notification;
         }
 
-        if(nullOrEmpty(client.getName()))
+        if(nullOrEmpty(client.name()))
             notification.addError("Name is null or empty");
-        if(client.getEmail() == null)
+        if(client.email() == null)
             notification.addError("Email is null");
-        else if (!validEmail(client.getEmail()))
-            notification.addError("Email is not valid: " + client.getEmail().getValue());
-        if(nullOrEmpty(client.getPhone()))
+        else if (!validEmail(client.email()))
+            notification.addError("Email is not valid: " + client.email().getValue());
+        if(nullOrEmpty(client.phone()))
             notification.addError("Phone is null or empty");
-        if(nullOrEmpty(client.getStatus().toString()))
-            notification.addError("Client status is null or empty");
-        if(client.getCpf() == null)
+        if(client.cpf() == null)
             notification.addError("CPF is null");
-        else if(!validCPF(client.getCpf()))
-            notification.addError("CPF is not valid: " + client.getCpf().getValue());
+        else if(!validCPF(client.cpf()))
+            notification.addError("CPF is not valid: " + client.cpf().getValue());
 
         return notification;
     }
