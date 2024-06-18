@@ -2,6 +2,7 @@ package com.example.sistemacabeleleiro.domain.usecases.client;
 
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.entities.client.ClientStatus;
+import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
@@ -9,43 +10,29 @@ import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundExcept
 import java.util.List;
 
 public class RemoveClientUseCase {
-    private SchedulingDAO schedulingDAO;
-
     private ClientDAO clientDAO;
+    private SchedulingDAO schedulingDAO;
 
     public RemoveClientUseCase(ClientDAO clientDAO, SchedulingDAO schedulingDAO) {
         this.clientDAO = clientDAO;
         this.schedulingDAO = schedulingDAO;
     }
 
-    public boolean remove(Integer id) {
-        var client = clientDAO.findOne(id);
+    public boolean remove(int id) {
+        Client client = clientDAO.findOne(id)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find a client with id " + id));
 
-        if (id == null || client.isEmpty())
-            throw new EntityNotFoundException("Client not found");
-        if (!clientSchedules(client.get()).isEmpty())
-            throw new IllegalArgumentException("It's not possible to exclude clients who already have a schedule");
-
-        validateClientStatus(client.get());
-
+        validateClientCanBeRemoved(client);
         return clientDAO.deleteByKey(id);
     }
 
-    public boolean remove(Client client) {
+    private void validateClientCanBeRemoved(Client client) {
+        if (!clientSchedules(client).isEmpty()) {
+            throw new IllegalArgumentException("It's not possible to exclude employees who already have a schedule");
+        }
 
-        if (client == null || clientDAO.findOne(client.getId()).isEmpty())
-            throw new EntityNotFoundException("This client isn´t registered");
-        if (!clientSchedules(client).isEmpty())
-            throw new IllegalArgumentException("It's not possible to exclude clients who already have a schedule");
-
-        validateClientStatus(client);
-
-        return clientDAO.delete(client);
-    }
-
-    private void validateClientStatus(Client client) {
-        if (client.getStatus().equals(ClientStatus.ACTIVE)) {
-            throw new IllegalArgumentException("Can't delete an active client");
+        if (client.isActive()) {
+            throw new IllegalArgumentException("Can't delete an active employee");
         }
     }
 
