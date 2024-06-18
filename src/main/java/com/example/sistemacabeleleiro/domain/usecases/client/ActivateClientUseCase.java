@@ -13,19 +13,11 @@ public class ActivateClientUseCase {
         this.clientDAO = clientDAO;
     }
 
-    public boolean activate(Client client){
-        Validator<Client> validator = new ClientInputRequestValidator();
-        Notification notification = validator.validate(client);
+    public boolean activate(int id){
+        Client client = clientDAO.findOne(id)
+                .orElseThrow(() -> new EntityNotFoundException("Client not found"));
 
-        if (notification.hasErros()){
-            throw new IllegalArgumentException(notification.errorMessage());
-        }
-
-        Integer id = client.getId();
-        if (clientDAO.findOne(id).isEmpty()){
-            throw new EntityNotFoundException("Client not found");
-        }
-        if (client.getStatus().equals(ClientStatus.ACTIVE)){
+        if (client.isActive()){
             throw new IllegalArgumentException("Client is already active");
         }
 

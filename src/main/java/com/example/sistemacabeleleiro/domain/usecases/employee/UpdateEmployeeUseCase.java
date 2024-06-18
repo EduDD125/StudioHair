@@ -22,7 +22,7 @@ public class UpdateEmployeeUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
         }
 
-        Integer id = employeeUpdateDTO.id();
+        int id = employeeUpdateDTO.id();
 
         Employee employee = employeeDAO.findOne(id)
                 .orElseThrow(()-> new EntityNotFoundException("Employee not found"));

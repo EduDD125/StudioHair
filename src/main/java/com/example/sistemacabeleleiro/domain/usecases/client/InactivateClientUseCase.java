@@ -13,22 +13,13 @@ public class InactivateClientUseCase {
         this.clientDAO = clientDAO;
     }
 
-    public boolean inactivate(Client client){
-        Validator<Client> validator = new ClientInputRequestValidator();
-        Notification notification = validator.validate(client);
+    public boolean inactivate(int id){
+        Client client = clientDAO.findOne(id)
+                .orElseThrow(() -> new EntityNotFoundException("Client not found"));
 
-        if (notification.hasErros()){
-            throw new IllegalArgumentException(notification.errorMessage());
-        }
-
-        Integer id = client.getId();
-        if (clientDAO.findOne(id).isEmpty()){
-            throw new EntityNotFoundException("Client not found");
-        }
-        if (client.getStatus().equals(ClientStatus.INACTIVE)){
+        if (client.isInactive()){
             throw new IllegalArgumentException("Client is already inactive");
         }
-
-        return clientDAO.activate(client);
+        return clientDAO.inactivate(client);
     }
 }

@@ -8,19 +8,14 @@ import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundExcept
 public class RemoveExpertiseFromEmployeeUseCase {
     private EmployeeDAO employeeDAO;
     private ServiceDAO serviceDAO;
-    private UpdateEmployeeUseCase updateEmployeeUseCase;
 
-    public RemoveExpertiseFromEmployeeUseCase(EmployeeDAO employeeDAO, ServiceDAO serviceDAO,
-                                       UpdateEmployeeUseCase updateEmployeeUseCase) {
+
+    public RemoveExpertiseFromEmployeeUseCase(EmployeeDAO employeeDAO, ServiceDAO serviceDAO) {
         this.employeeDAO = employeeDAO;
         this.serviceDAO = serviceDAO;
-        this.updateEmployeeUseCase = updateEmployeeUseCase;
     }
 
-    public boolean removeExpertise(Integer employeeId, Integer serviceId){
-        if (employeeId == null || serviceId == null)
-            throw new IllegalArgumentException("Employee ID and/or Service ID are/is null");
-
+    public boolean removeExpertise(int employeeId, int serviceId){
         Employee employee = employeeDAO.findOne(employeeId)
                 .orElseThrow(() -> new EntityNotFoundException("Can not find an employee with id " + employeeId));
 

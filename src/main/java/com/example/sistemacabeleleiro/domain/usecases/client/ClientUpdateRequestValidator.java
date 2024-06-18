@@ -1,14 +1,12 @@
 package com.example.sistemacabeleleiro.domain.usecases.client;
 
-import com.example.sistemacabeleleiro.application.dtos.client.ClientInputDTO;
-import com.example.sistemacabeleleiro.domain.entities.client.Client;
+import com.example.sistemacabeleleiro.application.dtos.client.ClientUpdateDTO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;
 
-public class ClientInputRequestValidator extends Validator<ClientInputDTO> {
-
+public class ClientUpdateRequestValidator extends Validator<ClientUpdateDTO> {
     @Override
-    public Notification validate(ClientInputDTO client) {
+    public Notification validate(ClientUpdateDTO client) {
         Notification notification = new Notification();
 
         if (client == null) {

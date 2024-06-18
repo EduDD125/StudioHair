@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.domain.usecases.client;
 
+import com.example.sistemacabeleleiro.application.dtos.client.ClientInputDTO;
 import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.usecases.employee.EmployeeDAO;
@@ -16,16 +17,19 @@ public class CreateClientUseCase {
         this.employeeDAO = employeeDAO;
     }
 
-    public Integer insert(Client client) {
-        Validator<Client> validator = new ClientInputRequestValidator();
-        Notification notification = validator.validate(client);
+    public Integer insert(ClientInputDTO clientInputDTO) {
+        Validator<ClientInputDTO> validator = new ClientInputRequestValidator();
+        Notification notification = validator.validate(clientInputDTO);
 
         if(notification.hasErros())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        CPF cpf = client.getCpf();
+        CPF cpf = clientInputDTO.cpf();
         if(clientDAO.findOneByCPF(cpf).isPresent() || employeeDAO.findByCpf(cpf).isPresent())
             throw new EntityAlreadyExistsException("This CPF is already in use.");
+
+        Client client = new Client(clientInputDTO.name(),clientInputDTO.cpf(),
+                clientInputDTO.phone(), clientInputDTO.email());
 
         return clientDAO.create(client);
     }

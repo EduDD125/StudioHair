@@ -2,6 +2,7 @@ package com.example.sistemacabeleleiro.domain.entities.client;
 
 import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.email.Email;
+import com.example.sistemacabeleleiro.domain.entities.employee.EmployeeStatus;
 
 public class Client {
     private Integer id;
@@ -87,6 +88,14 @@ public class Client {
 
     public void activateStatus() {this.status = ClientStatus.ACTIVE;}
     public void inactivateStatus() {this.status = ClientStatus.INACTIVE;}
+
+    public boolean isActive(){
+        return this.status.equals(ClientStatus.ACTIVE);
+    }
+
+    public boolean isInactive(){
+        return this.status.equals(ClientStatus.INACTIVE);
+    }
 
     @Override
     public String toString() {

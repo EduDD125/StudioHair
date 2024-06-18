@@ -1,11 +1,13 @@
 package com.example.sistemacabeleleiro.domain.usecases.employee;
 
+import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeOutputDTO;
 import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class FindEmployeeUseCase {
     private EmployeeDAO employeeDAO;
@@ -13,22 +15,26 @@ public class FindEmployeeUseCase {
     public FindEmployeeUseCase(EmployeeDAO employeeDAO) {
         this.employeeDAO = employeeDAO;
     }
-    public Optional<Employee> findOne(Integer id){
-        if (id == null){
-            throw new IllegalArgumentException("ID can't be null");
-        }
-        return employeeDAO.findOne(id);
+    public Optional<EmployeeOutputDTO> findOne(int id){
+        return employeeDAO.findOne(id).map(this::mapToDTO);
     }
-    public Optional<Employee> findOneByCpf(CPF cpf){
+    public Optional<EmployeeOutputDTO> findOneByCpf(CPF cpf){
         if (Validator.nullOrEmpty(cpf.toString())){
             throw new IllegalArgumentException("CPF can't be null or empty");
         }
         if (!Validator.validCPF(cpf)){
             throw new IllegalArgumentException("CPF is not valid: " + cpf);
         }
-        return employeeDAO.findByCpf(cpf);
+        return employeeDAO.findByCpf(cpf).map(this::mapToDTO);
     }
-    public List<Employee> findAll(){
-        return employeeDAO.findAll();
+
+    public List<EmployeeOutputDTO> findAll(){
+        List<Employee> employees = employeeDAO.findAll();
+        return employees.stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+
+    private EmployeeOutputDTO mapToDTO(Employee employee){
+        return new EmployeeOutputDTO(employee.getId(), employee.getName(),employee.getCpf(),
+                employee.getPhone(), employee.getEmail(), employee.getDateOfBirth(),employee.getStatus());
     }
 }

@@ -16,43 +16,27 @@ public class RemoveEmployeeUseCase {
         this.employeeDAO = employeeDAO;
         this.schedulingDAO = schedulingDAO;
     }
-    public boolean remove(Integer id){
-        var employee = employeeDAO.findOne(id);
+    public boolean remove(int id){
+        Employee employee = employeeDAO.findOne(id)
+                .orElseThrow(() -> new EntityNotFoundException("Can not find an employee with id " + id));
 
-        if (id == null || employee.isEmpty()){
-            throw new EntityNotFoundException("Employee not found");
-        }
-        if (!employeeSchedules(employee.get()).isEmpty()){
-            throw new IllegalArgumentException("It's not possible to exclude employees who already have a schedule");
-        }
-        validateEmployeeStatus(employee.get());
-
+        validateEmployeeCanBeRemoved(employee);
         return employeeDAO.deleteByKey(id);
     }
-    public boolean remove(Employee employee){
-        if (employee == null || employeeDAO.findOne(employee.getId()).isEmpty()){
-            throw new EntityNotFoundException("Employee not found");
-        }
-        if (!employeeSchedules(employee).isEmpty()){
+
+    private void validateEmployeeCanBeRemoved(Employee employee) {
+        if (!employeeSchedules(employee).isEmpty()) {
             throw new IllegalArgumentException("It's not possible to exclude employees who already have a schedule");
         }
 
-        validateEmployeeStatus(employee);
-
-        return employeeDAO.delete(employee);
-    }
-
-    private void validateEmployeeStatus(Employee employee) {
-        if (employee.getStatus() != EmployeeStatus.INACTIVE) {
+        if (employee.isActive()) {
             throw new IllegalArgumentException("Can't delete an active employee");
         }
     }
 
     private List<Scheduling> employeeSchedules(Employee employee) {
-        List<Scheduling> schedules = schedulingDAO.findAll().stream()
+        return schedulingDAO.findAll().stream()
                 .filter(schedule -> schedule.getEmployee().equals(employee))
                 .toList();
-
-        return schedules;
     }
 }
