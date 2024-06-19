@@ -4,6 +4,8 @@ module com.example.sistemacabeleleiro {
     requires org.apache.pdfbox;
 
 
-    opens com.example.sistemacabeleleiro to javafx.fxml;
-    exports com.example.sistemacabeleleiro;
+    opens com.example.sistemacabeleleiro.Application.controller to javafx.fxml;
+    opens com.example.sistemacabeleleiro.Application.view to javafx.fxml;
+    exports com.example.sistemacabeleleiro.Application.controller;
+    exports com.example.sistemacabeleleiro.Application.view;
 }

@@ -1,4 +1,4 @@
-package com.example.sistemacabeleleiro;
+package com.example.sistemacabeleleiro.Application.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
