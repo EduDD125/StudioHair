@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="430.0" prefWidth="973.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.Application.controller.ScheculeManagementUIController">
+    <children>
+        <TableView fx:id="table" layoutX="27.0" layoutY="73.0" prefHeight="283.0" prefWidth="914.0">
+            <columns>
+                <TableColumn fx:id="cClient" prefWidth="212.79999351501465" text="Client" />
+                <TableColumn fx:id="cEmployee" minWidth="6.20001220703125" prefWidth="224.80001831054688" text="Employee" />
+                <TableColumn fx:id="cRealizationDate" minWidth="0.0" prefWidth="113.0" text="Realizartion Date" />
+                <TableColumn fx:id="cService" prefWidth="239.79998779296875" text="Service" />
+                <TableColumn fx:id="cStatus" prefWidth="123.800048828125" text="Status" />
+            </columns>
+        </TableView>
+        <Button fx:id="deleteButton" layoutX="506.0" layoutY="383.0" mnemonicParsing="false" onAction="#deleteSchedule" prefHeight="26.0" prefWidth="86.0" text="Delete" />
+        <Button fx:id="editButton" layoutX="612.0" layoutY="383.0" mnemonicParsing="false" onAction="#editSchedule" prefHeight="26.0" prefWidth="86.0" text="Edit" />
+        <Button fx:id="detailButton" layoutX="719.0" layoutY="384.0" mnemonicParsing="false" onAction="#detailSchedule" prefHeight="26.0" prefWidth="85.0" text="Deteil" />
+        <Button fx:id="registerButton" layoutX="824.0" layoutY="383.0" mnemonicParsing="false" onAction="#registerSchedule" text="Register new Client" />
+        <Label layoutX="27.0" layoutY="22.0" prefHeight="36.0" prefWidth="914.0" text="                                            Schedules Management Area ">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Button fx:id="backButton" layoutX="27.0" layoutY="383.0" mnemonicParsing="false" onAction="#goBackToMainMenu" prefHeight="26.0" prefWidth="86.0" text="Back" />
+    </children>
+</AnchorPane>

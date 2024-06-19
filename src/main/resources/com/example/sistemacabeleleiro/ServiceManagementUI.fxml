@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="434.0" prefWidth="1124.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.Application.controller.ServiceManagementUIController">
+    <children>
+        <TableView fx:id="table" layoutX="27.0" layoutY="73.0" prefHeight="283.0" prefWidth="1074.0">
+            <columns>
+                <TableColumn fx:id="cName" prefWidth="181.80001258850098" text="Name" />
+                <TableColumn fx:id="cDiscription" minWidth="6.20001220703125" prefWidth="207.79998779296875" text="description" />
+                <TableColumn fx:id="cPrice" minWidth="0.0" prefWidth="101.00003051757812" text="Price" />
+                <TableColumn fx:id="cCategory" prefWidth="168.0" text="Category" />
+                <TableColumn fx:id="cSubCategory" prefWidth="186.0" text="Sub-category" />
+            <TableColumn fx:id="cDiscount" prefWidth="118.20001220703125" text="Discount" />
+            <TableColumn prefWidth="109.0" text="Status" />
+            </columns>
+        </TableView>
+        <Button fx:id="deleteButton" layoutX="666.0" layoutY="383.0" mnemonicParsing="false" onAction="#deleteService" prefHeight="26.0" prefWidth="86.0" text="Delete" />
+        <Button fx:id="editButton" layoutX="772.0" layoutY="383.0" mnemonicParsing="false" onAction="#editService" prefHeight="26.0" prefWidth="86.0" text="Edit" />
+        <Button fx:id="detailButton" layoutX="879.0" layoutY="384.0" mnemonicParsing="false" onAction="#detailService" prefHeight="26.0" prefWidth="85.0" text="Deteil" />
+        <Button fx:id="registerButton" layoutX="984.0" layoutY="383.0" mnemonicParsing="false" onAction="#registerService" text="Register new Client" />
+        <Label layoutX="27.0" layoutY="22.0" prefHeight="36.0" prefWidth="1074.0" text="                                                           Service Management Area ">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Button fx:id="backButton" layoutX="27.0" layoutY="383.0" mnemonicParsing="false" onAction="#goBackToMainMenu" prefHeight="26.0" prefWidth="86.0" text="Back" />
+    </children>
+</AnchorPane>
