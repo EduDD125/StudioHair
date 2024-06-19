@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="416.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.Application.controller.ServiceController">
+    <children>
+        <Label layoutX="52.0" layoutY="81.0" text="Name:" />
+        <TextField layoutX="97.0" layoutY="77.0" prefHeight="26.0" prefWidth="474.0" />
+        <Label layoutX="23.0" layoutY="123.0" text="Description:" />
+        <Label layoutX="305.0" layoutY="178.0" text="Price:" />
+        <Label layoutX="17.0" layoutY="225.0" text="Sub-caterory" />
+        <Label layoutX="299.0" layoutY="269.0" text="Status:" />
+        <TextField layoutX="97.0" layoutY="220.0" prefHeight="26.0" prefWidth="177.0" />
+        <TextField layoutX="346.0" layoutY="175.0" prefHeight="26.0" prefWidth="226.0" />
+        <TextField layoutX="97.0" layoutY="119.0" prefHeight="26.0" prefWidth="474.0" />
+        <ChoiceBox layoutX="347.0" layoutY="265.0" prefHeight="26.0" prefWidth="226.0" />
+        <Button layoutX="394.0" layoutY="368.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Cancel" />
+        <Button layoutX="498.0" layoutY="368.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" text="Save" />
+        <Label layoutX="17.0" layoutY="16.0" text="#################################   Service Area   #################################" />
+      <Label layoutX="33.0" layoutY="177.0" text="Category:" />
+      <TextField layoutX="96.0" layoutY="173.0" prefHeight="26.0" prefWidth="178.0" />
+      <TextField layoutX="347.0" layoutY="221.0" prefHeight="26.0" prefWidth="226.0" />
+      <Label layoutX="286.0" layoutY="225.0" text="Discount:" />
+    </children>
+</AnchorPane>
