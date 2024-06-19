@@ -8,7 +8,7 @@ public final class Email {
     private String value;
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[^@]+@[^@]+\\.[^@]+$");
 
-    private Email(String value) {
+    public Email(String value) {
         if (value == null || !isValidEmail(value)) {
             throw new IllegalArgumentException("Invalid email format: " + value);
         }
