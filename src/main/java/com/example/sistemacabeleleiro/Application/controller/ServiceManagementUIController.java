@@ -14,4 +14,7 @@ public class ServiceManagementUIController {
 
     public void registerService(ActionEvent actionEvent) {
     }
+
+    public void goBackToMainMenu(ActionEvent actionEvent) {
+    }
 }
