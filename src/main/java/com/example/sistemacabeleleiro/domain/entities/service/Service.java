@@ -39,6 +39,26 @@ public class Service {
         this.status = ServiceStatus.ACTIVE;
     }
 
+    public Service(String name, String description, Double price, String category,String subCategory, Double discount) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.subCategory = subCategory;
+        this.discount = discount;
+        this.status = ServiceStatus.ACTIVE;
+    }
+
+    public Service(String name, String description, Double price, String category,String subCategory) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.subCategory = subCategory;
+        this.discount = 0.0;
+        this.status = ServiceStatus.ACTIVE;
+    }
+
     public Service(String name, String description, Double price) {
         this.name = name;
         this.description = description;

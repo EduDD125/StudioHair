@@ -1,17 +1,19 @@
 package com.example.sistemacabeleleiro.application.main;
 
+import com.example.sistemacabeleleiro.application.dtos.client.ClientInputDTO;
+import com.example.sistemacabeleleiro.application.dtos.client.ClientOutputDTO;
 import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeInputDTO;
+import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeOutputDTO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryClientDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryEmployeeDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemorySchedulingDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryServiceDAO;
 import com.example.sistemacabeleleiro.application.repository.sqlite.DataBaseBuilder;
-import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.entities.client.ClientStatus;
+import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.email.Email;
 import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
-import com.example.sistemacabeleleiro.domain.entities.employee.EmployeeStatus;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import com.example.sistemacabeleleiro.domain.entities.service.Service;
 import com.example.sistemacabeleleiro.domain.usecases.client.*;
@@ -20,58 +22,13 @@ import com.example.sistemacabeleleiro.domain.usecases.reports.ExportReportUseCas
 import com.example.sistemacabeleleiro.domain.usecases.reports.GenerateReportUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.*;
 import com.example.sistemacabeleleiro.domain.usecases.service.*;
-import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public class Main {
 
-    public static void main(String[] args) {
-        configureInjection();
-        setupDatabase();
-    }
-    private static void setupDatabase() {
-        DataBaseBuilder dbBuilder = new DataBaseBuilder();
-        dbBuilder.buildDataBaseIfMissing();
-    }
-
-    private static void configureInjection() {
-        ClientDAO clientDAO = new InMemoryClientDAO();
-        EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
-        SchedulingDAO schedulingDAO = new InMemorySchedulingDAO();
-        ServiceDAO serviceDAO = new InMemoryServiceDAO();
-
-
-        ActivateEmployeeUseCase activateEmployeeUseCase = new ActivateEmployeeUseCase(employeeDAO);
-        UpdateEmployeeUseCase updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
-        AddEmployeeExpertiseUseCase addEmployeeExpertiseUseCase = new AddEmployeeExpertiseUseCase(employeeDAO, serviceDAO);
-        CreateEmployeeUseCase createEmployeeUseCase = new CreateEmployeeUseCase(employeeDAO, clientDAO);
-        FindEmployeeUseCase findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
-        InactivateEmployeeUseCase inactivateEmployeeUseCase = new InactivateEmployeeUseCase(employeeDAO);
-        RemoveEmployeeUseCase removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO, schedulingDAO);
-        RemoveExpertiseFromEmployeeUseCase removeExpertiseFromEmployeeUseCase = new RemoveExpertiseFromEmployeeUseCase(employeeDAO, serviceDAO);
-
-        CancelSchedulingUseCase cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
-        CreateSchedulingUseCase createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
-        FindSchedulingUseCase findSchedulingUseCase = new FindSchedulingUseCase(schedulingDAO);
-        UpdateScheduleUseCase updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
-        InactivateServiceUseCase inactivateServiceUseCase = new InactivateServiceUseCase(serviceDAO);
-        ActivateServiceUseCase activateServiceUseCase = new ActivateServiceUseCase(serviceDAO);
-
-        CreateServiceUseCase createServiceUseCase = new CreateServiceUseCase(serviceDAO);
-        FindServiceUseCase findServiceUseCase = new FindServiceUseCase(serviceDAO);
-        RemoveServiceUseCase removeServiceUseCase = new RemoveServiceUseCase(serviceDAO, employeeDAO, schedulingDAO);
-        UpdateServiceUseCase updateServiceUseCase = new UpdateServiceUseCase(serviceDAO);
-
-        GenerateReportUseCase generateReportUseCase = new GenerateReportUseCase(schedulingDAO, employeeDAO);
-        ExportReportUseCase exportReportUseCase = new ExportReportUseCase(generateReportUseCase);
-
-    }
-
-    /*private static CreateClientUseCase createClientUseCase;
+    private static CreateClientUseCase createClientUseCase;
     private static RemoveClientUseCase removeClientUseCase;
     private static FindClientUseCase findClientUseCase;
     private static UpdateClientUseCase updateClientUseCase;
@@ -102,17 +59,17 @@ public class Main {
     private static GenerateReportUseCase generateReportUseCase;
     private static ExportReportUseCase exportReportUseCase;
 
+    public static void main(String[] args) {
+        configureInjection();
+        setupDatabase();
+        mockData();
 
-         TESTS OF SYSTEM USE CASES
-
-        MOCK DE DADOS, CRIAÇÃO DE AGENDAMENTO NO "SUNNY DAY"
-        List<Client> clients = findClientUseCase.findAll();
-        for(Client c:clients){
-            System.out.println(c);
+        List<ClientOutputDTO> clients = findClientUseCase.findAll();
+        for(ClientOutputDTO c:clients){
+            System.out.println("/////");
         }
-        System.out.println("/////");
-        List<Employee> employees = findEmployeeUseCase.findAll();
-        for(Employee e:employees){
+        List<EmployeeOutputDTO> employees = findEmployeeUseCase.findAll();
+        for(EmployeeOutputDTO e:employees){
             System.out.println(e);
         }
         List<Service> services = findServiceUseCase.findAll();
@@ -128,11 +85,65 @@ public class Main {
         System.out.println("-- CASOS DE TESTE --");
 
         // CASOS DE TESTE PARA RELATÓRIOS
-        //gerarPDF();
-        gerarRelatoriosEmSunnyDay();
+        gerarPDF();
+    }
+    private static void setupDatabase() {
+        DataBaseBuilder dbBuilder = new DataBaseBuilder();
+        dbBuilder.buildDataBaseIfMissing();
+    }
+
+    private static void configureInjection() {
+        ClientDAO clientDAO = new InMemoryClientDAO();
+        EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
+        SchedulingDAO schedulingDAO = new InMemorySchedulingDAO();
+        ServiceDAO serviceDAO = new InMemoryServiceDAO();
+
+        createClientUseCase = new CreateClientUseCase(clientDAO,employeeDAO);
+        removeClientUseCase = new RemoveClientUseCase(clientDAO,schedulingDAO);
+        findClientUseCase = new FindClientUseCase(clientDAO);
+        updateClientUseCase = new UpdateClientUseCase(clientDAO);
+        activateClientUseCase = new ActivateClientUseCase(clientDAO);
+        inactivateClientUseCase = new InactivateClientUseCase(clientDAO);
+
+
+        activateEmployeeUseCase = new ActivateEmployeeUseCase(employeeDAO);
+        updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
+        addEmployeeExpertiseUseCase = new AddEmployeeExpertiseUseCase(employeeDAO, serviceDAO);
+        createEmployeeUseCase = new CreateEmployeeUseCase(employeeDAO, clientDAO);
+        findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
+        inactivateEmployeeUseCase = new InactivateEmployeeUseCase(employeeDAO);
+        removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO, schedulingDAO);
+        removeExpertiseFromEmployeeUseCase = new RemoveExpertiseFromEmployeeUseCase(employeeDAO, serviceDAO);
+
+        cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
+        createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
+        findSchedulingUseCase = new FindSchedulingUseCase(schedulingDAO);
+        updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
+        inactivateServiceUseCase = new InactivateServiceUseCase(serviceDAO);
+        activateServiceUseCase = new ActivateServiceUseCase(serviceDAO);
+
+        createServiceUseCase = new CreateServiceUseCase(serviceDAO);
+        findServiceUseCase = new FindServiceUseCase(serviceDAO);
+        removeServiceUseCase = new RemoveServiceUseCase(serviceDAO, employeeDAO, schedulingDAO);
+        updateServiceUseCase = new UpdateServiceUseCase(serviceDAO);
+
+        generateReportUseCase = new GenerateReportUseCase(schedulingDAO, employeeDAO);
+        exportReportUseCase = new ExportReportUseCase(generateReportUseCase);
+
+    }
+
+
+
+
+         //TESTS OF SYSTEM USE CASES
+
+        //MOCK DE DADOS, CRIAÇÃO DE AGENDAMENTO NO "SUNNY DAY"
+        {
+
+        //gerarRelatoriosEmSunnyDay();
 
         // CASOS DE TESTE PARA FUNCIONÁRIO
-        removerFuncionarioAtivo();
+        /*removerFuncionarioAtivo();
         removerFuncionarioComAgendamento();
         inativarFuncionarioJaInativo();
         ativarFuncionarioJaAtivo();
@@ -142,9 +153,9 @@ public class Main {
         criarFuncionarioVazio();
         criarFuncionarioComCpfExistente();
         criarFuncionarioComEmailECpfInvalidos();
-        //atualizarFuncionario();
+        atualizarFuncionario();
 
-        // CASOS DE TESTE PARA CLIENTE
+        CASOS DE TESTE PARA CLIENTE
         removerClienteAtivo();
         removerClienteComAgendamento();
         inativarClienteJaInativo();
@@ -156,9 +167,9 @@ public class Main {
         criarClienteVazio();
         criarClienteComCpfExistente();
         criarClienteComEmailECpfInvalidos();
-        //atualizarCliente();
+        atualizarCliente();
 
-        // CASOS DE TESTE PARA SERVIÇOS
+        CASOS DE TESTE PARA SERVIÇOS
         criarServicoVazio();
         findServico();
         findTodosServicos();
@@ -166,7 +177,7 @@ public class Main {
         findServicosComDesconto();
         findServicoPorFaixaDePreco();
         atualizarServico();
-        /*removerServico();
+        removerServico();
         removerServicoComAgendamento();
         inativarServico();
         adicionarServicoInativoNasEspecialidades();
@@ -193,6 +204,11 @@ public class Main {
         alterarAgendamentoServicoInativo();
         alterarAgendamentoDataInvalida();*/
 }
+
+    private static void gerarPDF(){
+        exportReportUseCase.exportSchedules("report_all");
+        System.out.println("PDF gerado com sucesso!");
+    }
 
 
     /*private static void alterarAgendamentoClienteInativo(){
@@ -519,10 +535,7 @@ public class Main {
         activateEmployeeUseCase.activate(1);
     }
 
-    private static void gerarPDF(){
-        exportReportUseCase.exportSchedules("report_all");
-        System.out.println("PDF gerado com sucesso!");
-    }
+
 
     private static void gerarRelatoriosEmSunnyDay(){
         System.out.println("////////////");
@@ -617,16 +630,16 @@ public class Main {
         CPF invalidCPF = CPF.of("12e.344.77");
         Client invalidClient = new Client("João",invalidCPF,"16990001122",invalidEmail);
         createClientUseCase.insert(invalidClient);
-    }
+    }*/
 
     private static void mockData(){
         Service service1 = new Service("Corte básico", "Corte de cabelo masculino", 30.0,
-                "Masculino","Corte",0.0);
+                "Masculino","Corte");
         Service service2 = new Service("Barba", "Fazer a barba simples", 25.0,
-        "Masculino","Barba",0.0);
+        "Masculino","Barba");
         Service service3 = new Service("Corte e barba",
                 "Corte de cabelo e barba feita masculino", 40.0,
-                "Masculino","Cabelo e barba",0.0);
+                "Masculino","Cabelo e barba");
         Service service4 = new Service("Progressiva",
                 "Progressiva cabelo feminino", 120.0,
                 "Feminino","Cabelo",0.0);
@@ -650,32 +663,31 @@ public class Main {
 
         Email client1Email = Email.of("lucas@gmail.com");
         CPF client1Cpf = CPF.of("111.222.333-44");
-        Client client1 = new Client("Lucas",client1Cpf,"16998765432",client1Email);
+        ClientInputDTO client1 = new ClientInputDTO("Lucas",client1Cpf,"16998765432",client1Email);
 
         Email client2Email = Email.of("jorge@gmail.com");
         CPF client2Cpf = CPF.of("000.111.222-33");
-        Client client2 = new Client("Jorge",client2Cpf,"16998765431",client2Email);
+        ClientInputDTO client2 = new ClientInputDTO("Jorge",client2Cpf,"16998765431",client2Email);
 
         Email client3Email = Email.of("carloslinux@gmail.com");
         CPF client3Cpf = CPF.of("123.456.789-10");
-        Client client3 = new Client("Carlos",client3Cpf,"16998765430",client3Email);
+        ClientInputDTO client3 = new ClientInputDTO("Carlos",client3Cpf,"16998765430",client3Email);
 
         Email client4Email = Email.of("pablo@gmail.com");
         CPF client4Cpf = CPF.of("123.456.789-11");
-        Client client4 = new Client("Pablo",client4Cpf,"16998765432",client4Email);
+        ClientInputDTO client4 = new ClientInputDTO("Pablo",client4Cpf,"16998765432",client4Email);
 
         Email client5Email = Email.of("fabiobd@gmail.com");
         CPF client5Cpf = CPF.of("123.456.789-12");
-        Client client5 = new Client("Fábio",client5Cpf,"16998765432",client5Email);
+        ClientInputDTO client5 = new ClientInputDTO("Fábio",client5Cpf,"16998765432",client5Email);
 
         Email client6Email = Email.of("luciano@gmail.com");
         CPF client6Cpf = CPF.of("123.456.789-13");
-        Client client6 = new Client("Luciano",client6Cpf,"16988765432",client6Email,
-                ClientStatus.INACTIVE);
+        ClientInputDTO client6 = new ClientInputDTO("Luciano",client6Cpf,"16988765432",client6Email);
 
         Email client7Email = Email.of("bruno@gmail.com");
         CPF client7Cpf = CPF.of("123.456.789-18");
-        Client client7 = new Client("Bruno",client7Cpf,"16988765432",client7Email);
+        ClientInputDTO client7 = new ClientInputDTO("Bruno",client7Cpf,"16988765432",client7Email);
 
         createClientUseCase.insert(client1);
         createClientUseCase.insert(client2);
@@ -729,23 +741,22 @@ public class Main {
         createEmployeeUseCase.insert(employee6);
         createEmployeeUseCase.insert(employee7);
 
-        Employee employeeModel1 = findEmployeeUseCase.findOne(1).get();
-        Employee employeeModel2 = findEmployeeUseCase.findOne(2).get();
-        Employee employeeModel3 = findEmployeeUseCase.findOne(3).get();
-        Employee employeeModel4 = findEmployeeUseCase.findOne(4).get();
-        Employee employeeModel5 = findEmployeeUseCase.findOne(5).get();
-        Employee employeeModel6 = findEmployeeUseCase.findOne(6).get();
-        Employee employeeModel7 = findEmployeeUseCase.findOne(7).get();
-        inactivateEmployeeUseCase.inactivate(employeeModel6.getId());
+        EmployeeOutputDTO employeeModel1 = findEmployeeUseCase.findOne(1).get();
+        EmployeeOutputDTO employeeModel2 = findEmployeeUseCase.findOne(2).get();
+        EmployeeOutputDTO employeeModel3 = findEmployeeUseCase.findOne(3).get();
+        EmployeeOutputDTO employeeModel4 = findEmployeeUseCase.findOne(4).get();
+        EmployeeOutputDTO employeeModel5 = findEmployeeUseCase.findOne(5).get();
+        EmployeeOutputDTO employeeModel6 = findEmployeeUseCase.findOne(6).get();
+        EmployeeOutputDTO employeeModel7 = findEmployeeUseCase.findOne(7).get();
+        inactivateEmployeeUseCase.inactivate(employeeModel6.id());
 
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel1.id(), service1.getId());
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel2.id(),service2.getId());
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel3.id(),service3.getId());
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel4.id(),service4.getId());
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel5.id(),service5.getId());
 
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel1, service1);
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel2,service2);
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel3,service3);
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel4,service4);
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel5,service5);
-
-        Scheduling scheduling1 = new Scheduling(client1,employeeModel1,
+        /*Scheduling scheduling1 = new Scheduling(client1,employeeModel1,
                 LocalDateTime.of(2025,6,5,19,0),service1);
         Scheduling scheduling2 = new Scheduling(client2,employeeModel2,
                 LocalDateTime.of(2025,6,10,20,0),service2);
@@ -760,7 +771,8 @@ public class Main {
         createSchedulingUseCase.insert(scheduling2);
         createSchedulingUseCase.insert(scheduling3);
         createSchedulingUseCase.insert(scheduling4);
-        createSchedulingUseCase.insert(scheduling5);
+        createSchedulingUseCase.insert(scheduling5);*/
     }
- */
+}
+
 

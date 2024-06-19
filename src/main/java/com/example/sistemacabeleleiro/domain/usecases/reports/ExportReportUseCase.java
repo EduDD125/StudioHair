@@ -8,6 +8,7 @@ import org.apache.pdfbox.util.Matrix;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ExportReportUseCase {
@@ -63,6 +64,8 @@ public class ExportReportUseCase {
             document.addPage(page);
 
             try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
                 float fontSize = 12;
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, fontSize);
                 PDImageXObject logo = PDImageXObject.createFromFile("src/main/resources/com/example/sistemacabeleleiro/logo/Logo.png", document);
@@ -76,7 +79,7 @@ public class ExportReportUseCase {
                 float startY = logoY - 50;
 
                 for (Scheduling scheduling : schedules) {
-                    String text = "Date: " + scheduling.getRealizationDate().toString() +
+                    String text = "Date: " + scheduling.getRealizationDate().format(formatter) +
                             " | Employee: " + scheduling.getEmployee().getName() +
                             " | Service: " + scheduling.getService().getName() +
                             " | Client: " + scheduling.getClient().getName() +
