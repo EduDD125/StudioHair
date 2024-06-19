@@ -4,6 +4,7 @@ import com.example.sistemacabeleleiro.application.dtos.client.ClientInputDTO;
 import com.example.sistemacabeleleiro.application.dtos.client.ClientOutputDTO;
 import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeInputDTO;
 import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeOutputDTO;
+import com.example.sistemacabeleleiro.application.dtos.service.ServiceInputDTO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryClientDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryEmployeeDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemorySchedulingDAO;
@@ -633,25 +634,25 @@ public class Main {
     }*/
 
     private static void mockData(){
-        Service service1 = new Service("Corte básico", "Corte de cabelo masculino", 30.0,
+        ServiceInputDTO service1 = new ServiceInputDTO("Corte básico", "Corte de cabelo masculino", 30.0,
                 "Masculino","Corte");
-        Service service2 = new Service("Barba", "Fazer a barba simples", 25.0,
+        ServiceInputDTO service2 = new ServiceInputDTO("Barba", "Fazer a barba simples", 25.0,
         "Masculino","Barba");
-        Service service3 = new Service("Corte e barba",
+        ServiceInputDTO service3 = new ServiceInputDTO("Corte e barba",
                 "Corte de cabelo e barba feita masculino", 40.0,
                 "Masculino","Cabelo e barba");
-        Service service4 = new Service("Progressiva",
+        ServiceInputDTO service4 = new ServiceInputDTO("Progressiva",
                 "Progressiva cabelo feminino", 120.0,
-                "Feminino","Cabelo",0.0);
-        Service service5 = new Service("Chapinha",
+                "Feminino","Cabelo");
+        ServiceInputDTO service5 = new ServiceInputDTO("Chapinha",
                 "Chapinha simples cabelo feminino", 50.0,
-                "Feminino","Cabelo",0.0);
-        Service service6 = new Service("Coloração",
+                "Feminino","Cabelo");
+        ServiceInputDTO service6 = new ServiceInputDTO("Coloração",
                 "Coloração cabelo feminino", 70.0,
-                "Feminino", "Cabelo", 0.2);
-        Service service7 = new Service("Escova",
+                "Feminino", "Cabelo");
+        ServiceInputDTO service7 = new ServiceInputDTO("Escova",
                 "Escova simples cabelo feminino", 60.0,
-                "Feminino", "Cabelo", 0.1);
+                "Feminino", "Cabelo");
 
         createServiceUseCase.insert(service1);
         createServiceUseCase.insert(service2);
