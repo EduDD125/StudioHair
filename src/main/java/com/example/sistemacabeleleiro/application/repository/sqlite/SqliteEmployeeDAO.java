@@ -1,13 +1,12 @@
 package com.example.sistemacabeleleiro.application.repository.sqlite;
 
-import com.example.sistemacabeleleiro.domain.entities.client.ClientStatus;
 import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.email.Email;
 import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
 import com.example.sistemacabeleleiro.domain.entities.employee.EmployeeStatus;
 import com.example.sistemacabeleleiro.domain.entities.service.Service;
-import com.example.sistemacabeleleiro.domain.usecases.employee.EmployeeDAO;
-import com.example.sistemacabeleleiro.domain.usecases.service.ServiceDAO;
+import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
+import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

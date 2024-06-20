@@ -1,31 +1,29 @@
 package com.example.sistemacabeleleiro.application.main;
 
-import com.example.sistemacabeleleiro.application.dtos.client.ClientInputDTO;
-import com.example.sistemacabeleleiro.application.dtos.client.ClientOutputDTO;
-import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeInputDTO;
-import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeOutputDTO;
-import com.example.sistemacabeleleiro.application.dtos.service.ServiceInputDTO;
-import com.example.sistemacabeleleiro.application.dtos.service.ServiceOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.client.dto.ClientInputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.client.dto.ClientOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDAO;
+import com.example.sistemacabeleleiro.domain.usecases.client.usecases.*;
+import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeInputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceInputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceOutputDTO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryClientDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryEmployeeDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemorySchedulingDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryServiceDAO;
 import com.example.sistemacabeleleiro.application.repository.sqlite.DataBaseBuilder;
-import com.example.sistemacabeleleiro.domain.entities.client.Client;
-import com.example.sistemacabeleleiro.domain.entities.client.ClientStatus;
 import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.email.Email;
-import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
-import com.example.sistemacabeleleiro.domain.entities.service.Service;
-import com.example.sistemacabeleleiro.domain.usecases.client.*;
-import com.example.sistemacabeleleiro.domain.usecases.employee.*;
+import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
+import com.example.sistemacabeleleiro.domain.usecases.employee.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.reports.ExportReportUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.reports.GenerateReportUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.*;
-import com.example.sistemacabeleleiro.domain.usecases.service.*;
+import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
+import com.example.sistemacabeleleiro.domain.usecases.service.usecases.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class Main {

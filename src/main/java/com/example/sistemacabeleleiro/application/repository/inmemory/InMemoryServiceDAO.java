@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.application.repository.inmemory;
 
 import com.example.sistemacabeleleiro.domain.entities.service.Service;
-import com.example.sistemacabeleleiro.domain.usecases.service.ServiceDAO;
+import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
 
 import java.util.*;
 

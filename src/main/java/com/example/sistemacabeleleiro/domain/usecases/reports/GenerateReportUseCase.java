@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.domain.usecases.reports;
 
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
-import com.example.sistemacabeleleiro.domain.usecases.employee.EmployeeDAO;
+import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
 
