@@ -5,6 +5,7 @@ import com.example.sistemacabeleleiro.application.dtos.client.ClientOutputDTO;
 import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeInputDTO;
 import com.example.sistemacabeleleiro.application.dtos.employee.EmployeeOutputDTO;
 import com.example.sistemacabeleleiro.application.dtos.service.ServiceInputDTO;
+import com.example.sistemacabeleleiro.application.dtos.service.ServiceOutputDTO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryClientDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryEmployeeDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemorySchedulingDAO;
@@ -67,14 +68,14 @@ public class Main {
 
         List<ClientOutputDTO> clients = findClientUseCase.findAll();
         for(ClientOutputDTO c:clients){
-            System.out.println("/////");
+            System.out.println(c);
         }
         List<EmployeeOutputDTO> employees = findEmployeeUseCase.findAll();
         for(EmployeeOutputDTO e:employees){
             System.out.println(e);
         }
-        List<Service> services = findServiceUseCase.findAll();
-        for(Service s:services){
+        List<ServiceOutputDTO> services = findServiceUseCase.findAll();
+        for(ServiceOutputDTO s:services){
             System.out.println(s);
         }
 
@@ -751,11 +752,17 @@ public class Main {
         EmployeeOutputDTO employeeModel7 = findEmployeeUseCase.findOne(7).get();
         inactivateEmployeeUseCase.inactivate(employeeModel6.id());
 
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel1.id(), service1.getId());
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel2.id(),service2.getId());
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel3.id(),service3.getId());
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel4.id(),service4.getId());
-        addEmployeeExpertiseUseCase.addExpertise(employeeModel5.id(),service5.getId());
+        ServiceOutputDTO serviceModel1 = findServiceUseCase.findOne(1).get();
+        ServiceOutputDTO serviceModel2 = findServiceUseCase.findOne(2).get();
+        ServiceOutputDTO serviceModel3 = findServiceUseCase.findOne(3).get();
+        ServiceOutputDTO serviceModel4 = findServiceUseCase.findOne(4).get();
+        ServiceOutputDTO serviceModel5 = findServiceUseCase.findOne(5).get();
+
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel1.id(), serviceModel1.id());
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel2.id(),serviceModel2.id());
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel3.id(),serviceModel3.id());
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel4.id(),serviceModel4.id());
+        addEmployeeExpertiseUseCase.addExpertise(employeeModel5.id(),serviceModel5.id());
 
         /*Scheduling scheduling1 = new Scheduling(client1,employeeModel1,
                 LocalDateTime.of(2025,6,5,19,0),service1);
