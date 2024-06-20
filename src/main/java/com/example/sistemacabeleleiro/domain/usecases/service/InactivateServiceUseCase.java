@@ -13,20 +13,11 @@ public class InactivateServiceUseCase {
         this.serviceDAO = serviceDAO;
     }
 
-    public boolean inactivate(Service service){
-        Validator<Service> validator = new ServiceInputRequestValidator();
-        Notification notification = validator.validate(service);
+    public boolean inactivate(int id){
+        Service service = serviceDAO.findOne(id)
+                .orElseThrow(() -> new EntityNotFoundException("Service not found"));
 
-        if (notification.hasErros()){
-            throw new IllegalArgumentException(notification.errorMessage());
-        }
-
-        Integer id = service.getId();
-        if (serviceDAO.findOne(id).isEmpty()){
-            throw new EntityNotFoundException("Service not found.");
-        }
-
-        if (service.getStatus() == ServiceStatus.INACTIVE){
+        if (service.isInactive()){
             throw new IllegalArgumentException("Service is already inactive.");
         }
         return serviceDAO.inactivate(service);

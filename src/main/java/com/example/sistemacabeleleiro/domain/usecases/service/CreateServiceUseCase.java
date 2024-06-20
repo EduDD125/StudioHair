@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.domain.usecases.service;
 
+import com.example.sistemacabeleleiro.application.dtos.service.ServiceInputDTO;
 import com.example.sistemacabeleleiro.domain.entities.service.Service;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityAlreadyExistsException;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
@@ -12,16 +13,15 @@ public class CreateServiceUseCase {
         this.serviceDAO = serviceDAO;
     }
 
-    public Integer insert(Service service){
-        Validator<Service> validator = new ServiceInputRequestValidator();
-        Notification notification = validator.validate(service);
+    public Integer insert(ServiceInputDTO serviceInputDTO){
+        Validator<ServiceInputDTO> validator = new ServiceInputRequestValidator();
+        Notification notification = validator.validate(serviceInputDTO);
 
         if(notification.hasErros())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        Integer id = service.getId();
-        if(serviceDAO.findById(id).isPresent())
-            throw new EntityAlreadyExistsException("This service ID is already in use.");
+        Service service = new Service(serviceInputDTO.name(),serviceInputDTO.description(),
+                serviceInputDTO.price(),serviceInputDTO.category(),serviceInputDTO.subcategory());
         return serviceDAO.create(service);
     }
 }

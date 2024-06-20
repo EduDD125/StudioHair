@@ -1,7 +1,6 @@
 package com.example.sistemacabeleleiro.domain.entities.service;
 
 
-import com.example.sistemacabeleleiro.domain.entities.employee.EmployeeStatus;
 
 public class Service {
     private Integer id;

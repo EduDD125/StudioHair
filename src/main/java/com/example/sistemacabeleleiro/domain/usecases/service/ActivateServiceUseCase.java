@@ -13,20 +13,11 @@ public class ActivateServiceUseCase {
         this.serviceDAO = serviceDAO;
     }
 
-    public boolean activate(Service service){
-        Validator<Service> validator = new ServiceInputRequestValidator();
-        Notification notification = validator.validate(service);
+    public boolean activate(int id){
+        Service service = serviceDAO.findOne(id)
+                .orElseThrow(() -> new EntityNotFoundException("Service not found"));
 
-        if (notification.hasErros()){
-            throw new IllegalArgumentException(notification.errorMessage());
-        }
-
-        Integer id = service.getId();
-        if (serviceDAO.findOne(id).isEmpty()){
-            throw new EntityNotFoundException("Service not found.");
-        }
-
-        if (service.getStatus() == ServiceStatus.ACTIVE){
+        if (service.isActive()){
             throw new IllegalArgumentException("Service is already active.");
         }
         return serviceDAO.activate(service);

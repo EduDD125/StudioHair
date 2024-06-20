@@ -1,13 +1,12 @@
 package com.example.sistemacabeleleiro.domain.usecases.service;
 
-import com.example.sistemacabeleleiro.application.dtos.service.ServiceInputDTO;
-import com.example.sistemacabeleleiro.domain.entities.service.Service;
+import com.example.sistemacabeleleiro.application.dtos.service.ServiceUpdateDTO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;
 
-public class ServiceInputRequestValidator extends Validator<ServiceInputDTO> {
+public class ServiceUpdateRequestValidator extends Validator<ServiceUpdateDTO> {
     @Override
-    public Notification validate(ServiceInputDTO service) {
+    public Notification validate(ServiceUpdateDTO service) {
         Notification notification = new Notification();
 
         if(service == null ){
