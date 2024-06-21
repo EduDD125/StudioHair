@@ -56,7 +56,7 @@ public class FindSchedulingUseCase {
         return schedulingDAO.findByTimePeriod(startDate, endDate);
     }
 
-    public List<Scheduling> findAll(){
+    public static List<Scheduling> findAll(){
         return schedulingDAO.findAll();
     }
 }

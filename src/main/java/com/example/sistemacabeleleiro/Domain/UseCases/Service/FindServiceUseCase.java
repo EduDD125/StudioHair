@@ -18,7 +18,7 @@ public class FindServiceUseCase {
         return  serviceDAO.findOne(id);
     }
 
-    public List<Service> findAll(){
+    public static List<Service> findAll(){
         return serviceDAO.findAll();
     }
 

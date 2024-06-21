@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="526.0" prefWidth="973.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.Application.controller.ScheculeManagementUIController">
     <children>
-        <TableView fx:id="table" layoutX="27.0" layoutY="168.0" prefHeight="283.0" prefWidth="914.0">
+        <TableView fx:id="tableView" layoutX="27.0" layoutY="168.0" prefHeight="283.0" prefWidth="914.0">
             <columns>
                 <TableColumn fx:id="cClient" prefWidth="212.79999351501465" text="Client" />
                 <TableColumn fx:id="cEmployee" minWidth="6.20001220703125" prefWidth="224.80001831054688" text="Employee" />

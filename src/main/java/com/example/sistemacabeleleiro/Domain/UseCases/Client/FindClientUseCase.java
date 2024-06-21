@@ -30,7 +30,7 @@ public class FindClientUseCase {
         return clientDAO.findOneByName(name);
     }
 
-    public List<Client> findAll() {
+    public static List<Client> findAll() {
         return clientDAO.findAll();
     }
 }

@@ -28,7 +28,7 @@ public class FindEmployeeUseCase {
         }
         return employeeDAO.findByCpf(cpf);
     }
-    public List<Employee> findAll(){
+    public static List<Employee> findAll(){
         return employeeDAO.findAll();
     }
 }
