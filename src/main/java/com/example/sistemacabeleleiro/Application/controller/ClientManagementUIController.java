@@ -3,6 +3,7 @@ package com.example.sistemacabeleleiro.Application.controller;
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
 import com.example.sistemacabeleleiro.Domain.UseCases.Client.FindClientUseCase;
+import com.example.sistemacabeleleiro.Domain.UseCases.Client.RemoveClientUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.FindSchedulingUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,6 +59,11 @@ public class ClientManagementUIController {
     }
 
     public void deleteClient(ActionEvent actionEvent) {
+        Client selectedItem = tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            RemoveClientUseCase.remove(selectedItem);
+            loadDataAndShow();
+        }
     }
 
     public void editClient(ActionEvent actionEvent) {

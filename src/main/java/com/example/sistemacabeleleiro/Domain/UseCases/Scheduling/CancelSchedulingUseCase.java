@@ -15,7 +15,7 @@ public class CancelSchedulingUseCase {
 
     public CancelSchedulingUseCase(SchedulingDAO schedulingDAO){ this.schedulingDAO = schedulingDAO; }
 
-    public Integer cancel(Scheduling scheduling){
+    public static Integer cancel(Scheduling scheduling){
         Validator<Scheduling> validator = new SchedulingInputRequestValidator();
         Notification notification = validator.validate(scheduling);
 

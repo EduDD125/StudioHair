@@ -30,7 +30,7 @@ public class RemoveEmployeeUseCase {
 
         return employeeDAO.deleteByKey(id);
     }
-    public boolean remove(Employee employee){
+    public static boolean remove(Employee employee){
         if (employee == null || employeeDAO.findOne(employee.getId()).isEmpty()){
             throw new EntityNotFoundException("Employee not found");
         }

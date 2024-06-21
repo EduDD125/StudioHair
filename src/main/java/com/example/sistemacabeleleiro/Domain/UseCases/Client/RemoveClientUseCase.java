@@ -36,7 +36,7 @@ public class RemoveClientUseCase {
         return clientDAO.deleteByKey(id);
     }
 
-    public boolean remove(Client client) {
+    public static boolean remove(Client client) {
 
         if (client == null || clientDAO.findOne(client.getId()).isEmpty())
             throw new EntityNotFoundException("This client isn´t registered");

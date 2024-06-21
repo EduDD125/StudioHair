@@ -1,9 +1,13 @@
 package com.example.sistemacabeleleiro.Application.controller;
 
+import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
+import com.example.sistemacabeleleiro.Domain.Entities.Service.ServiceStatus;
+import com.example.sistemacabeleleiro.Domain.UseCases.Employee.RemoveEmployeeUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.FindSchedulingUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Service.FindServiceUseCase;
+import com.example.sistemacabeleleiro.Domain.UseCases.Service.RemoveServiceUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,6 +68,11 @@ public class ServiceManagementUIController {
     }
 
     public void deleteService(ActionEvent actionEvent) {
+        Service selectedItem = tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            RemoveServiceUseCase.remove(selectedItem);
+            loadDataAndShow();
+        }
     }
 
     public void editService(ActionEvent actionEvent) {

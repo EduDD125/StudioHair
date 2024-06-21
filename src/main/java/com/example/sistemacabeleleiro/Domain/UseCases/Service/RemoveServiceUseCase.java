@@ -45,7 +45,7 @@ public class RemoveServiceUseCase {
         return serviceDAO.deleteByKey(id);
     }
 
-    public boolean remove (Service service){
+    public static boolean remove(Service service){
         if(service == null || serviceDAO.findOne(service.getId()).isEmpty())
             throw new EntityNotFoundException("Service not found.");
 

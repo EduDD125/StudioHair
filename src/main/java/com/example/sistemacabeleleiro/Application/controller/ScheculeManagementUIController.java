@@ -5,6 +5,8 @@ import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
 import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.SchedulingStatus;
 import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
+import com.example.sistemacabeleleiro.Domain.UseCases.Employee.RemoveEmployeeUseCase;
+import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.CancelSchedulingUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Scheduling.FindSchedulingUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,7 +62,12 @@ public class ScheculeManagementUIController {
         tableData.addAll(schedules);
     }
 
-    public void deleteSchedule(ActionEvent actionEvent) {
+    public void cancelSchedule(ActionEvent actionEvent) {
+        Scheduling selectedItem = tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            CancelSchedulingUseCase.cancel(selectedItem);
+            loadDataAndShow();
+        }
     }
 
     public void editSchedule(ActionEvent actionEvent) {

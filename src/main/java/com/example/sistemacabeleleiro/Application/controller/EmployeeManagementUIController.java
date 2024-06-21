@@ -2,7 +2,9 @@ package com.example.sistemacabeleleiro.Application.controller;
 
 import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
 import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
+import com.example.sistemacabeleleiro.Domain.UseCases.Client.RemoveClientUseCase;
 import com.example.sistemacabeleleiro.Domain.UseCases.Employee.FindEmployeeUseCase;
+import com.example.sistemacabeleleiro.Domain.UseCases.Employee.RemoveEmployeeUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -63,6 +65,11 @@ public class EmployeeManagementUIController {
     }
 
     public void deleteEmployee(ActionEvent actionEvent) {
+        Employee selectedItem = tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            RemoveEmployeeUseCase.remove(selectedItem);
+            loadDataAndShow();
+        }
     }
 
     public void editEmployee(ActionEvent actionEvent) {
