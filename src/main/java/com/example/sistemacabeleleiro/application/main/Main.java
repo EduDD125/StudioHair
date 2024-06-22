@@ -38,6 +38,37 @@ public class Main {
         dbBuilder.buildDataBaseIfMissing();
     }
 
+    public static CreateClientUseCase createClientUseCase;
+    public static RemoveClientUseCase removeClientUseCase;
+    public static FindClientUseCase findClientUseCase;
+    public static UpdateClientUseCase updateClientUseCase;
+    public static ActivateClientUseCase activateClientUseCase;
+    public static InactivateClientUseCase inactivateClientUseCase;
+
+    public static ActivateEmployeeUseCase activateEmployeeUseCase;
+    public static AddEmployeeExpertiseUseCase addEmployeeExpertiseUseCase;
+    public static CreateEmployeeUseCase createEmployeeUseCase;
+    public static FindEmployeeUseCase findEmployeeUseCase;
+    public static InactivateEmployeeUseCase inactivateEmployeeUseCase;
+    public static RemoveEmployeeUseCase removeEmployeeUseCase;
+    public static RemoveExpertiseFromEmployeeUseCase removeExpertiseFromEmployeeUseCase;
+    public static UpdateEmployeeUseCase updateEmployeeUseCase;
+
+    public static CancelSchedulingUseCase cancelSchedulingUseCase;
+    public static CreateSchedulingUseCase createSchedulingUseCase;
+    public static FindSchedulingUseCase findSchedulingUseCase;
+    public static UpdateScheduleUseCase updateScheduleUseCase;
+
+    public static CreateServiceUseCase createServiceUseCase;
+    public static FindServiceUseCase findServiceUseCase;
+    public static RemoveServiceUseCase removeServiceUseCase;
+    public static UpdateServiceUseCase updateServiceUseCase;
+    public static ActivateServiceUseCase activateServiceUseCase;
+    public static InactivateServiceUseCase inactivateServiceUseCase;
+
+    public static GenerateReportUseCase generateReportUseCase;
+    public static ExportReportUseCase exportReportUseCase;
+
     private static void configureInjection() {
         ClientDAO clientDAO = new InMemoryClientDAO();
         EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
@@ -71,38 +102,7 @@ public class Main {
 
     }
 
-    /*private static CreateClientUseCase createClientUseCase;
-    private static RemoveClientUseCase removeClientUseCase;
-    private static FindClientUseCase findClientUseCase;
-    private static UpdateClientUseCase updateClientUseCase;
-    private static ActivateClientUseCase activateClientUseCase;
-    private static InactivateClientUseCase inactivateClientUseCase;
-
-    private static ActivateEmployeeUseCase activateEmployeeUseCase;
-    private static AddEmployeeExpertiseUseCase addEmployeeExpertiseUseCase;
-    private static CreateEmployeeUseCase createEmployeeUseCase;
-    private static FindEmployeeUseCase findEmployeeUseCase;
-    private static InactivateEmployeeUseCase inactivateEmployeeUseCase;
-    private static RemoveEmployeeUseCase removeEmployeeUseCase;
-    private static RemoveExpertiseFromEmployeeUseCase removeExpertiseFromEmployeeUseCase;
-    private static UpdateEmployeeUseCase updateEmployeeUseCase;
-
-    private static CancelSchedulingUseCase cancelSchedulingUseCase;
-    private static CreateSchedulingUseCase createSchedulingUseCase;
-    private static FindSchedulingUseCase findSchedulingUseCase;
-    private static UpdateScheduleUseCase updateScheduleUseCase;
-
-    private static CreateServiceUseCase createServiceUseCase;
-    private static FindServiceUseCase findServiceUseCase;
-    private static RemoveServiceUseCase removeServiceUseCase;
-    private static UpdateServiceUseCase updateServiceUseCase;
-    private static ActivateServiceUseCase activateServiceUseCase;
-    private static InactivateServiceUseCase inactivateServiceUseCase;
-
-    private static GenerateReportUseCase generateReportUseCase;
-    private static ExportReportUseCase exportReportUseCase;
-
-
+    /*
          TESTS OF SYSTEM USE CASES
 
         MOCK DE DADOS, CRIAÇÃO DE AGENDAMENTO NO "SUNNY DAY"
