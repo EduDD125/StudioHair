@@ -41,7 +41,7 @@ public class Main {
 
     public static ActivateEmployeeUseCase activateEmployeeUseCase;
     public static AddEmployeeExpertiseUseCase addEmployeeExpertiseUseCase;
-    public static CreateEmployeeUseCase createEmployeeUseCase;
+    public static  CreateEmployeeUseCase createEmployeeUseCase;
     public static FindEmployeeUseCase findEmployeeUseCase;
     public static InactivateEmployeeUseCase inactivateEmployeeUseCase;
     public static RemoveEmployeeUseCase removeEmployeeUseCase;
