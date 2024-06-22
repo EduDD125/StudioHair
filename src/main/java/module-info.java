@@ -6,6 +6,8 @@ module com.example.sistemacabeleleiro {
     requires sqlite.jdbc;
 
 
-    opens com.example.sistemacabeleleiro to javafx.fxml;
+    opens com.example.sistemacabeleleiro.application.controller to javafx.fxml;
+    opens com.example.sistemacabeleleiro.application.view to javafx.fxml;
+
     exports com.example.sistemacabeleleiro;
 }

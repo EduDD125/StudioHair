@@ -37,6 +37,6 @@ public class CreateEmployeeUseCase {
 
         return employeeDAO.create(employee);
     }
-    
+
     public record EmployeeDTO(){}
 }
