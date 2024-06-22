@@ -1,6 +1,7 @@
-package com.example.sistemacabeleleiro.domain.usecases.scheduling;
+package com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases;
 
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

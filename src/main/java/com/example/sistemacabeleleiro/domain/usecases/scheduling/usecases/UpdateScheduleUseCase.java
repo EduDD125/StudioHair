@@ -1,19 +1,16 @@
-package com.example.sistemacabeleleiro.domain.usecases.scheduling;
+package com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases;
 
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
-import com.example.sistemacabeleleiro.domain.entities.client.ClientStatus;
 import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
-import com.example.sistemacabeleleiro.domain.entities.employee.EmployeeStatus;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import com.example.sistemacabeleleiro.domain.entities.service.Service;
-import com.example.sistemacabeleleiro.domain.entities.service.ServiceStatus;
 import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDAO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingUpdateDTO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 

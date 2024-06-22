@@ -1,4 +1,4 @@
-package com.example.sistemacabeleleiro.domain.usecases.scheduling;
+package com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases;
 
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingUpdateDTO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;

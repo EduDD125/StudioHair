@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.domain.usecases.service.usecases;
 
 import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.SchedulingDAO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
 
