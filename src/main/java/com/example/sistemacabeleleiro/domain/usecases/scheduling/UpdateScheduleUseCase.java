@@ -9,13 +9,12 @@ import com.example.sistemacabeleleiro.domain.entities.service.Service;
 import com.example.sistemacabeleleiro.domain.entities.service.ServiceStatus;
 import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDAO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingUpdateDTO;
 import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
-import com.example.sistemacabeleleiro.domain.usecases.utils.DAO;
-import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
-import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
-import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;
+import com.example.sistemacabeleleiro.domain.usecases.utils.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 public class UpdateScheduleUseCase {
@@ -31,83 +30,69 @@ public class UpdateScheduleUseCase {
         this.serviceDAO = serviceDAO;
     }
 
-    public boolean update(Scheduling scheduling, Client clientToUpdate, Employee employeeToUpdate, Service serviceToUpdate, LocalDateTime dateToUpdate){
-        validateScheduling(scheduling);
+    public boolean update(SchedulingUpdateDTO schedulingUpdateDTO){
+        validateScheduling(schedulingUpdateDTO);
 
-        if(clientToUpdate == null || employeeToUpdate == null || serviceToUpdate == null || dateToUpdate == null){
-            throw new IllegalArgumentException("No parameter can be null.");
-        }
+        Scheduling scheduling = schedulingDAO.findOne(schedulingUpdateDTO.schedulingId())
+                .orElseThrow(() -> new EntityNotFoundException("Scheduling not found."));
 
-        updateClient(scheduling, clientToUpdate);
-        updateEmployee(scheduling, employeeToUpdate);
-        updateService(scheduling, serviceToUpdate);
-        updateDate(scheduling, dateToUpdate);
+        Client client = findEntityById(clientDAO,schedulingUpdateDTO.clientId(), "Client");
+        Employee employee = findEntityById(employeeDAO,schedulingUpdateDTO.employeeId(), "Employee");
+        Service service = findEntityById(serviceDAO,schedulingUpdateDTO.serviceId(), "Service");
+
+        validateEntities(client,employee,service);
+
+        scheduling.setClient(client);
+        scheduling.setEmployee(employee);
+        scheduling.setService(service);
+        scheduling.setRealizationDate(schedulingUpdateDTO.realizationDate());
+
+        validateSchedulingConflicts(scheduling);
 
         return schedulingDAO.update(scheduling);
     }
 
-    private void validateScheduling(Scheduling scheduling) {
-        Validator<Scheduling> validator = new SchedulingInputRequestValidator();
+    private void validateScheduling(SchedulingUpdateDTO scheduling) {
+        Validator<SchedulingUpdateDTO> validator = new SchedulingUpdateRequestValidator();
         Notification notification = validator.validate(scheduling);
 
         if (notification.hasErros()) {
             throw new IllegalArgumentException(notification.errorMessage());
         }
 
-        if (schedulingDAO.findOne(scheduling.getId()).isEmpty()) {
+        if (schedulingDAO.findOne(scheduling.schedulingId()).isEmpty()) {
             throw new EntityNotFoundException("Scheduling not found.");
+        }
+    }
+
+    private void validateEntities(Client client, Employee employee, Service service){
+        if (client.isInactive())
+            throw new IllegalArgumentException("Client is inactive. Reactivate to proceed with scheduling update.");
+        if (service.isInactive())
+            throw new IllegalArgumentException("Service is inactive. Reactivate to proceed with scheduling update.");
+        if (employee.isInactive() || !employee.getExpertise().contains(service))
+            throw new IllegalArgumentException("Employee is inactive or does not have this specialty.");
+
+
+    }
+
+    private void validateSchedulingConflicts(Scheduling scheduling){
+        List<Scheduling> clientSchedules = schedulingDAO.findByClient(scheduling.getClient().getId());
+        List<Scheduling> employeeSchedules = schedulingDAO.findByEmployee(scheduling.getEmployee().getId());
+
+        for (Scheduling existingScheduling: clientSchedules){
+            if (existingScheduling.getRealizationDate().equals(scheduling.getRealizationDate()))
+                throw new EntityAlreadyExistsException("The client has a schedule for this date and time.");
+        }
+
+        for (Scheduling existingScheduling: employeeSchedules){
+            if (existingScheduling.getRealizationDate().equals(scheduling.getRealizationDate()))
+                throw new EntityAlreadyExistsException("The employee has a schedule for this date and time.");
         }
     }
 
     private <T, K> T findEntityById(DAO<T, K> dao, K id, String entityName) {
         return dao.findOne(id)
                 .orElseThrow(() -> new EntityNotFoundException(entityName + " not found."));
-    }
-
-    public boolean updateClient(Scheduling schedulingToUpdate, Client clientToUpdate) {
-        validateScheduling(schedulingToUpdate);
-
-        Client client = findEntityById(clientDAO, clientToUpdate.getId(), "Client");
-        if (client == null || client.getStatus() == ClientStatus.INACTIVE) {
-            throw new IllegalArgumentException("This client is inactive. Reactivate to proceed with scheduling update.");
-        }
-
-        schedulingToUpdate.setClient(client);
-        return schedulingDAO.update(schedulingToUpdate);
-    }
-
-    public boolean updateEmployee(Scheduling schedulingToUpdate, Employee employeeToUpdate) {
-        validateScheduling(schedulingToUpdate);
-
-        Employee employee = findEntityById(employeeDAO, employeeToUpdate.getId(), "Employee");
-        if (employee == null || employee.getStatus() == EmployeeStatus.INACTIVE || !employee.getExpertise().contains(schedulingToUpdate.getService())) {
-            throw new IllegalArgumentException("This employee is inactive or does not have the required expertise.");
-        }
-
-        schedulingToUpdate.setEmployee(employee);
-        return schedulingDAO.update(schedulingToUpdate);
-    }
-
-    public boolean updateService(Scheduling schedulingToUpdate, Service serviceToUpdate) {
-        validateScheduling(schedulingToUpdate);
-
-        Service service = findEntityById(serviceDAO, serviceToUpdate.getId(), "Service");
-        if (service == null || service.getStatus() == ServiceStatus.INACTIVE || !schedulingToUpdate.getEmployee().getExpertise().contains(service)) {
-            throw new IllegalArgumentException("This service is inactive or the employee does not have the required expertise.");
-        }
-
-        schedulingToUpdate.setService(service);
-        return schedulingDAO.update(schedulingToUpdate);
-    }
-
-    public boolean updateDate(Scheduling schedulingToUpdate, LocalDateTime dateToUpdate) {
-        validateScheduling(schedulingToUpdate);
-
-        if (dateToUpdate == null || dateToUpdate.isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("The scheduling date cannot be in the past.");
-        }
-
-        schedulingToUpdate.setRealizationDate(dateToUpdate);
-        return schedulingDAO.update(schedulingToUpdate);
     }
 }
