@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.application.repository.inmemory;
 
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.SchedulingDAO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -6,6 +6,11 @@ import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDA
 import com.example.sistemacabeleleiro.domain.usecases.client.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeInputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.CancelSchedulingUseCase;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.CreateSchedulingUseCase;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.FindSchedulingUseCase;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.UpdateScheduleUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceInputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceOutputDTO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryClientDAO;
@@ -20,7 +25,6 @@ import com.example.sistemacabeleleiro.domain.usecases.employee.repository.Employ
 import com.example.sistemacabeleleiro.domain.usecases.employee.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.reports.ExportReportUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.reports.GenerateReportUseCase;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.*;
 import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
 import com.example.sistemacabeleleiro.domain.usecases.service.usecases.*;
 

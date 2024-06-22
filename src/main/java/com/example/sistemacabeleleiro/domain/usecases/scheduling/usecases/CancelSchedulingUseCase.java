@@ -1,10 +1,9 @@
-package com.example.sistemacabeleleiro.domain.usecases.scheduling;
+package com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases;
 
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.SchedulingStatus;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
-import com.example.sistemacabeleleiro.domain.usecases.utils.Notification;
-import com.example.sistemacabeleleiro.domain.usecases.utils.Validator;
 
 public class CancelSchedulingUseCase {
     private SchedulingDAO schedulingDAO;
