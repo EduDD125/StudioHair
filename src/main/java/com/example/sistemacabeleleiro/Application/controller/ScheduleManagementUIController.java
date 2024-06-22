@@ -1,9 +1,6 @@
 package com.example.sistemacabeleleiro.application.controller;
 
-import com.example.sistemacabeleleiro.Domain.Entities.Client.Client;
-import com.example.sistemacabeleleiro.Domain.Entities.Employee.Employee;
-import com.example.sistemacabeleleiro.Domain.Entities.Schedulling.Scheduling;
-import com.example.sistemacabeleleiro.Domain.Entities.Service.Service;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
 
-public class ScheculeManagementUIController {
+public class ScheduleManagementUIController {
 
     @FXML
     private TableView<Scheduling> tableView;
