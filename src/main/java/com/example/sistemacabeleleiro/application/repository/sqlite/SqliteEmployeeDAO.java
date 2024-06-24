@@ -19,7 +19,7 @@ public class SqliteEmployeeDAO implements EmployeeDAO {
 
     private final ServiceDAO serviceDAO;
 
-    public SqliteEmployeeDAO(ServiceDAO serviceDAO) {
+    public SqliteEmployeeDAO() {
         this.serviceDAO = serviceDAO;
     }
 
