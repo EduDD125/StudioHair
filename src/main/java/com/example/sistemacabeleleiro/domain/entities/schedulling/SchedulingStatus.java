@@ -25,3 +25,4 @@ public enum SchedulingStatus {
                 .orElseThrow(IllegalArgumentException::new);
     }
 }
+

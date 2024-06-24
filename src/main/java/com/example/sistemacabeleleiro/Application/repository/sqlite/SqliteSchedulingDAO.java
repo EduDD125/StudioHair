@@ -3,14 +3,15 @@ package com.example.sistemacabeleleiro.application.repository.sqlite;
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
-import com.example.sistemacabeleleiro.domain.entities.schedulling.SchedulingStatus;
 
+import com.example.sistemacabeleleiro.domain.entities.schedulling.SchedulingStatus;
 import com.example.sistemacabeleleiro.domain.entities.service.Service;
 import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDAO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
+
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,13 +28,6 @@ public class SqliteSchedulingDAO implements SchedulingDAO {
     ClientDAO clientDAO;
     EmployeeDAO employeeDAO;
     ServiceDAO serviceDAO;
-
-    public SqliteSchedulingDAO(ClientDAO clientDAO, EmployeeDAO employeeDAO, ServiceDAO serviceDAO) {
-        this.clientDAO = clientDAO;
-        this.employeeDAO = employeeDAO;
-        this.serviceDAO = serviceDAO;
-    }
-
 
     private Client getClient(int id){
         Client client = clientDAO.findOne(id)
@@ -76,7 +70,7 @@ public class SqliteSchedulingDAO implements SchedulingDAO {
                 dateTime,
                 SchedulingStatus.toEnum(rs.getString("status")),
                 service
-                );
+        );
     }
 
     @Override
