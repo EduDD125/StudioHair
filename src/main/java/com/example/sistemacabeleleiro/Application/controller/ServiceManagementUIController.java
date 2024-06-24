@@ -1,9 +1,12 @@
 package com.example.sistemacabeleleiro.application.controller;
 
+import com.example.sistemacabeleleiro.application.main.Main;
 import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import com.example.sistemacabeleleiro.domain.entities.service.Service;
 import com.example.sistemacabeleleiro.domain.entities.service.ServiceStatus;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceOutputDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,23 +20,23 @@ import java.util.List;
 public class ServiceManagementUIController {
 
     @FXML
-    private TableView<Service> tableView;
+    private TableView<ServiceOutputDTO> tableView;
     @FXML
-    private TableColumn<Scheduling, Integer> cName;
+    private TableColumn<ServiceOutputDTO, Integer> cName;
     @FXML
-    private TableColumn<Scheduling, Integer> cDiscription;
+    private TableColumn<ServiceOutputDTO, Integer> cDiscription;
     @FXML
-    private TableColumn<Scheduling, Integer> cPrice;
+    private TableColumn<ServiceOutputDTO, Integer> cPrice;
     @FXML
-    private TableColumn<Scheduling, Integer> cCategory;
+    private TableColumn<ServiceOutputDTO, Integer> cCategory;
     @FXML
-    private TableColumn<Scheduling, Integer> cSubCategory;
+    private TableColumn<ServiceOutputDTO, Integer> cSubCategory;
     @FXML
-    private TableColumn<Scheduling, Integer> cDiscount;
+    private TableColumn<ServiceOutputDTO, Integer> cDiscount;
     @FXML
-    private TableColumn<Scheduling, Integer> cStatus;
+    private TableColumn<ServiceOutputDTO, Integer> cStatus;
 
-    ObservableList<Service> tableData;
+    ObservableList<ServiceOutputDTO> tableData;
 
     @FXML
     private void initialize() {
@@ -58,15 +61,15 @@ public class ServiceManagementUIController {
     }
 
     private void loadDataAndShow() {
-        List<Service> services = FindServiceUseCase.findAll();
+        List<ServiceOutputDTO> services = Main.findServiceUseCase.findAll();
         tableData.clear();
         tableData.addAll(services);
     }
 
     public void deleteService(ActionEvent actionEvent) {
-        Service selectedItem = tableView.getSelectionModel().getSelectedItem();
+        ServiceOutputDTO selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            RemoveServiceUseCase.remove(selectedItem);
+            Main.removeServiceUseCase.remove(selectedItem.id());
             loadDataAndShow();
         }
     }

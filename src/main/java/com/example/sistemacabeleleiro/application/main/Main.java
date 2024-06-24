@@ -6,6 +6,7 @@ import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDA
 import com.example.sistemacabeleleiro.domain.usecases.client.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeInputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.CancelSchedulingUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.CreateSchedulingUseCase;
@@ -81,8 +82,8 @@ public class Main {
             System.out.println(s);
         }
 
-        List<Scheduling> schedules = findSchedulingUseCase.findAll();
-        for (Scheduling s:schedules){
+        List<SchedulingOutputDTO> schedules = findSchedulingUseCase.findAll();
+        for (SchedulingOutputDTO s:schedules){
             System.out.println(s);
         }
 

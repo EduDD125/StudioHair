@@ -1,7 +1,7 @@
 package com.example.sistemacabeleleiro.application.controller;
 
-import com.example.sistemacabeleleiro.domain.entities.client.Client;
-import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
+import com.example.sistemacabeleleiro.application.main.Main;
+import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeOutputDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,23 +15,23 @@ import java.util.List;
 public class EmployeeManagementUIController {
 
     @FXML
-    private TableView<Employee> tableView;
+    private TableView<EmployeeOutputDTO> tableView;
     @FXML
-    private TableColumn<Employee, Integer> cName;
+    private TableColumn<EmployeeOutputDTO, Integer> cName;
     @FXML
-    private TableColumn<Employee, Integer> cCPF;
+    private TableColumn<EmployeeOutputDTO, Integer> cCPF;
     @FXML
-    private TableColumn<Employee, Integer> cExpertise;
+    private TableColumn<EmployeeOutputDTO, Integer> cExpertise;
     @FXML
-    private TableColumn<Employee, Integer> cPhone;
+    private TableColumn<EmployeeOutputDTO, Integer> cPhone;
     @FXML
-    private TableColumn<Employee, Integer> cEmail;
+    private TableColumn<EmployeeOutputDTO, Integer> cEmail;
     @FXML
-    private TableColumn<Employee, Integer> cBirthDate;
+    private TableColumn<EmployeeOutputDTO, Integer> cBirthDate;
     @FXML
-    private TableColumn<Employee, Integer> cStatus;
+    private TableColumn<EmployeeOutputDTO, Integer> cStatus;
 
-    ObservableList<Employee> tableData;
+    ObservableList<EmployeeOutputDTO> tableData;
 
     @FXML
     private void initialize() {
@@ -56,15 +56,15 @@ public class EmployeeManagementUIController {
     }
 
     private void loadDataAndShow() {
-        List<Employee> employees = FindEmployeeUseCase.findAll();
+        List<EmployeeOutputDTO> employees = Main.findEmployeeUseCase.findAll();
         tableData.clear();
         tableData.addAll(employees);
     }
 
     public void deleteEmployee(ActionEvent actionEvent) {
-        Employee selectedItem = tableView.getSelectionModel().getSelectedItem();
+        EmployeeOutputDTO selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            RemoveEmployeeUseCase.remove(selectedItem);
+            Main.removeEmployeeUseCase.remove(selectedItem.id());
             loadDataAndShow();
         }
     }

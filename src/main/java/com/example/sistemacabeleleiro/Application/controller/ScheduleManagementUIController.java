@@ -1,6 +1,7 @@
 package com.example.sistemacabeleleiro.application.controller;
 
-import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
+import com.example.sistemacabeleleiro.application.main.Main;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,19 +15,19 @@ import java.util.List;
 public class ScheduleManagementUIController {
 
     @FXML
-    private TableView<Scheduling> tableView;
+    private TableView<SchedulingOutputDTO> tableView;
     @FXML
-    private TableColumn<Scheduling, Integer> cClient;
+    private TableColumn<SchedulingOutputDTO, Integer> cClient;
     @FXML
-    private TableColumn<Scheduling, Integer> cEmployee;
+    private TableColumn<SchedulingOutputDTO, Integer> cEmployee;
     @FXML
-    private TableColumn<Scheduling, Integer> cRealizationDate;
+    private TableColumn<SchedulingOutputDTO, Integer> cRealizationDate;
     @FXML
-    private TableColumn<Scheduling, Integer> cService;
+    private TableColumn<SchedulingOutputDTO, Integer> cService;
     @FXML
-    private TableColumn<Scheduling, Integer> cStatus;
+    private TableColumn<SchedulingOutputDTO, Integer> cStatus;
 
-    ObservableList<Scheduling> tableData;
+    ObservableList<SchedulingOutputDTO> tableData;
 
     @FXML
     private void initialize() {
@@ -49,15 +50,15 @@ public class ScheduleManagementUIController {
     }
 
     private void loadDataAndShow() {
-        List<Scheduling> schedules = FindSchedulingUseCase.findAll();
+        List<SchedulingOutputDTO> schedules = Main.findSchedulingUseCase.findAll();
         tableData.clear();
         tableData.addAll(schedules);
     }
 
     public void cancelSchedule(ActionEvent actionEvent) {
-        Scheduling selectedItem = tableView.getSelectionModel().getSelectedItem();
+        SchedulingOutputDTO selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            CancelSchedulingUseCase.cancel(selectedItem);
+            Main.cancelSchedulingUseCase.cancel(selectedItem.id());
             loadDataAndShow();
         }
     }

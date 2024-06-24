@@ -1,4 +1,4 @@
-package com.example.sistemacabeleleiro.application.view;
+package com.example.sistemacabeleleiro;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

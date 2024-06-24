@@ -1,7 +1,8 @@
 package com.example.sistemacabeleleiro.application.controller;
 
-import com.example.sistemacabeleleiro.domain.entities.client.Client;
-import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
+import com.example.sistemacabeleleiro.application.main.Main;
+import com.example.sistemacabeleleiro.domain.usecases.client.dto.ClientOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.client.usecases.FindClientUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,19 +16,19 @@ import java.util.List;
 public class ClientManagementUIController {
 
     @FXML
-    private TableView<Client> tableView;
+    private TableView<ClientOutputDTO> tableView;
     @FXML
-    private TableColumn<Client, Integer> cName;
+    private TableColumn<ClientOutputDTO, Integer> cName;
     @FXML
-    private TableColumn<Client, Integer> cCPF;
+    private TableColumn<ClientOutputDTO, Integer> cCPF;
     @FXML
-    private TableColumn<Client, Integer> cPhone;
+    private TableColumn<ClientOutputDTO, Integer> cPhone;
     @FXML
-    private TableColumn<Client, Integer> cEmail;
+    private TableColumn<ClientOutputDTO, Integer> cEmail;
     @FXML
-    private TableColumn<Client, Integer> cStatus;
+    private TableColumn<ClientOutputDTO, Integer> cStatus;
 
-    ObservableList<Client> tableData;
+    ObservableList<ClientOutputDTO> tableData;
 
     @FXML
     private void initialize() {
@@ -50,15 +51,15 @@ public class ClientManagementUIController {
     }
 
     private void loadDataAndShow() {
-        List<Client> clients = FindClientUseCase.findAll();
+        List<ClientOutputDTO> clients = Main.findClientUseCase.findAll();
         tableData.clear();
         tableData.addAll(clients);
     }
 
     public void deleteClient(ActionEvent actionEvent) {
-        Client selectedItem = tableView.getSelectionModel().getSelectedItem();
+        ClientOutputDTO selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            RemoveClientUseCase.remove(selectedItem);
+            Main.removeClientUseCase.remove(selectedItem.id());
             loadDataAndShow();
         }
     }
