@@ -15,7 +15,7 @@ public class FindClientUseCase {
 
     public FindClientUseCase(ClientDAO clientDAO) {this.clientDAO = clientDAO;}
 
-    public Optional<ClientOutputDTO> findOne(int id){
+    public static Optional<ClientOutputDTO> findOne(int id){
         return clientDAO.findOne(id).map(this::mapToDTO);
     }
 

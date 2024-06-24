@@ -3,7 +3,7 @@ package com.example.sistemacabeleleiro.domain.usecases.client.usecases;
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
 import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDAO;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.SchedulingDAO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.utils.EntityNotFoundException;
 
 import java.util.List;

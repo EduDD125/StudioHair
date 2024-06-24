@@ -1,5 +1,7 @@
 package com.example.sistemacabeleleiro.domain.entities.schedulling;
 
+import java.util.Arrays;
+
 public enum SchedulingStatus {
     SCHEDULED("Agendado"),
     CANCELED ("Cancelado"),
@@ -15,4 +17,12 @@ public enum SchedulingStatus {
     public String toString() {
         return label;
     }
+
+    public static SchedulingStatus toEnum(String value){
+        return Arrays.stream(SchedulingStatus.values())
+                .filter(c -> value.equals(c.toString()))
+                .findAny()
+                .orElseThrow(IllegalArgumentException::new);
+    }
 }
+

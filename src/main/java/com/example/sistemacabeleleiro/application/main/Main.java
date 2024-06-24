@@ -6,6 +6,12 @@ import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDA
 import com.example.sistemacabeleleiro.domain.usecases.client.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeInputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.CancelSchedulingUseCase;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.CreateSchedulingUseCase;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.FindSchedulingUseCase;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.UpdateScheduleUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceInputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceOutputDTO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryClientDAO;
@@ -20,7 +26,6 @@ import com.example.sistemacabeleleiro.domain.usecases.employee.repository.Employ
 import com.example.sistemacabeleleiro.domain.usecases.employee.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.reports.ExportReportUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.reports.GenerateReportUseCase;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.*;
 import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
 import com.example.sistemacabeleleiro.domain.usecases.service.usecases.*;
 
@@ -37,7 +42,7 @@ public class Main {
 
     public static ActivateEmployeeUseCase activateEmployeeUseCase;
     public static AddEmployeeExpertiseUseCase addEmployeeExpertiseUseCase;
-    public static CreateEmployeeUseCase createEmployeeUseCase;
+    public static  CreateEmployeeUseCase createEmployeeUseCase;
     public static FindEmployeeUseCase findEmployeeUseCase;
     public static InactivateEmployeeUseCase inactivateEmployeeUseCase;
     public static RemoveEmployeeUseCase removeEmployeeUseCase;
@@ -77,8 +82,8 @@ public class Main {
             System.out.println(s);
         }
 
-        List<Scheduling> schedules = findSchedulingUseCase.findAll();
-        for (Scheduling s:schedules){
+        List<SchedulingOutputDTO> schedules = findSchedulingUseCase.findAll();
+        for (SchedulingOutputDTO s:schedules){
             System.out.println(s);
         }
 

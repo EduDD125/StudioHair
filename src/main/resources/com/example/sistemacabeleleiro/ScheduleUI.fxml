@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="368.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.Application.controller.SchedulesController">
+    <children>
+        <Label layoutX="72.0" layoutY="81.0" text="Client:" />
+        <TextField layoutX="119.0" layoutY="77.0" prefHeight="26.0" prefWidth="452.0" />
+        <Label layoutX="52.0" layoutY="129.0" text="Employee:" />
+        <Label layoutX="303.0" layoutY="178.0" text="Price:" />
+        <Label layoutX="73.0" layoutY="225.0" text="Status:" />
+        <TextField layoutX="346.0" layoutY="174.0" prefHeight="26.0" prefWidth="226.0" />
+        <TextField layoutX="119.0" layoutY="125.0" prefHeight="26.0" prefWidth="452.0" />
+        <ChoiceBox layoutX="122.0" layoutY="219.0" prefHeight="26.0" prefWidth="154.0" />
+        <Button layoutX="394.0" layoutY="315.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Cancel" />
+        <Button layoutX="498.0" layoutY="315.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" text="Save" />
+        <Label layoutX="17.0" layoutY="16.0" text="#################################   Schedule Area   #################################" />
+        <Label layoutX="27.0" layoutY="177.0" text="realizationDate:" />
+        <TextField layoutX="122.0" layoutY="173.0" prefHeight="26.0" prefWidth="154.0" />
+      <Label layoutX="294.0" layoutY="224.0" text="Service:" />
+      <ComboBox layoutX="346.0" layoutY="220.0" prefHeight="26.0" prefWidth="226.0" />
+    </children>
+</AnchorPane>
