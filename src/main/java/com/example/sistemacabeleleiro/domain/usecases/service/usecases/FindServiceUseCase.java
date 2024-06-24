@@ -15,7 +15,7 @@ public class FindServiceUseCase {
         this.serviceDAO = serviceDAO;
     }
 
-    public Optional<ServiceOutputDTO> findOne(int id){
+    public static Optional<ServiceOutputDTO> findOne(int id){
         return  serviceDAO.findOne(id).map(this::mapToDTO);
     }
 
