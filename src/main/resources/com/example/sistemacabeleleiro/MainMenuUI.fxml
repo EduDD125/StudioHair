@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="141.0" prefWidth="208.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.Application.controller.MainMenuUIController">
+<AnchorPane prefHeight="141.0" prefWidth="208.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.application.controller.MainMenuUIController">
 
    <children>
       <Button fx:id="schedulesButton" layoutX="16.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToSchedulesUIScene" prefHeight="26.0" prefWidth="80.0" text="Schedules" />
