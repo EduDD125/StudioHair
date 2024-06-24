@@ -81,7 +81,7 @@ public class Main {
         removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO, schedulingDAO);
         removeExpertiseFromEmployeeUseCase = new RemoveExpertiseFromEmployeeUseCase(employeeDAO, serviceDAO);
 
-        cancelSchedulingUseCase = new cncelSchedulingUseCase(schedulingDAO);
+        cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
         createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
         findSchedulingUseCase = new FindSchedulingUseCase(schedulingDAO);
         updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
