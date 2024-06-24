@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.application.main;
 
+import com.example.sistemacabeleleiro.application.repository.sqlite.*;
 import com.example.sistemacabeleleiro.domain.usecases.client.dto.ClientInputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.client.dto.ClientOutputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDAO;
@@ -18,7 +19,6 @@ import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryCl
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryEmployeeDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemorySchedulingDAO;
 import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryServiceDAO;
-import com.example.sistemacabeleleiro.application.repository.sqlite.DataBaseBuilder;
 import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
 import com.example.sistemacabeleleiro.domain.entities.email.Email;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
@@ -67,30 +67,6 @@ public class Main {
     public static void main(String[] args) {
         configureInjection();
         setupDatabase();
-        mockData();
-
-        List<ClientOutputDTO> clients = findClientUseCase.findAll();
-        for(ClientOutputDTO c:clients){
-            System.out.println(c);
-        }
-        List<EmployeeOutputDTO> employees = findEmployeeUseCase.findAll();
-        for(EmployeeOutputDTO e:employees){
-            System.out.println(e);
-        }
-        List<ServiceOutputDTO> services = findServiceUseCase.findAll();
-        for(ServiceOutputDTO s:services){
-            System.out.println(s);
-        }
-
-        List<SchedulingOutputDTO> schedules = findSchedulingUseCase.findAll();
-        for (SchedulingOutputDTO s:schedules){
-            System.out.println(s);
-        }
-
-        System.out.println("-- CASOS DE TESTE --");
-
-        // CASOS DE TESTE PARA RELATÓRIOS
-        gerarPDF();
     }
     private static void setupDatabase() {
         DataBaseBuilder dbBuilder = new DataBaseBuilder();
@@ -98,10 +74,10 @@ public class Main {
     }
 
     private static void configureInjection() {
-        ClientDAO clientDAO = new InMemoryClientDAO();
-        EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
-        SchedulingDAO schedulingDAO = new InMemorySchedulingDAO();
-        ServiceDAO serviceDAO = new InMemoryServiceDAO();
+        ClientDAO clientDAO = new SqliteClientDAO();
+        EmployeeDAO employeeDAO = new SqliteEmployeeDAO();
+        SchedulingDAO schedulingDAO = new SqliteSchedulingDAO();
+        ServiceDAO serviceDAO = new SqliteServiceDAO();
 
         createClientUseCase = new CreateClientUseCase(clientDAO,employeeDAO);
         removeClientUseCase = new RemoveClientUseCase(clientDAO,schedulingDAO);
@@ -137,7 +113,7 @@ public class Main {
 
     }
 
-         //TESTS OF SYSTEM USE CASES
+         /*TESTS OF SYSTEM USE CASES
 
         //MOCK DE DADOS, CRIAÇÃO DE AGENDAMENTO NO "SUNNY DAY"
         {
@@ -204,7 +180,7 @@ public class Main {
         alterarAgendamentoClienteInativo();
         alterarAgendamentoFuncionarioInativo();
         alterarAgendamentoServicoInativo();
-        alterarAgendamentoDataInvalida();*/
+        alterarAgendamentoDataInvalida();
 }
 
     private static void gerarPDF(){
@@ -634,7 +610,7 @@ public class Main {
         createClientUseCase.insert(invalidClient);
     }*/
 
-    private static void mockData(){
+    /*private static void mockData(){
         ServiceInputDTO service1 = new ServiceInputDTO("Corte básico", "Corte de cabelo masculino", 30.0,
                 "Masculino","Corte");
         ServiceInputDTO service2 = new ServiceInputDTO("Barba", "Fazer a barba simples", 25.0,
@@ -779,8 +755,10 @@ public class Main {
         createSchedulingUseCase.insert(scheduling2);
         createSchedulingUseCase.insert(scheduling3);
         createSchedulingUseCase.insert(scheduling4);
-        createSchedulingUseCase.insert(scheduling5);*/
+        createSchedulingUseCase.insert(scheduling5); /*
     }
+    /*
+     */
 }
 
 

@@ -17,11 +17,7 @@ import java.util.Optional;
 
 public class SqliteEmployeeDAO implements EmployeeDAO {
 
-    private final ServiceDAO serviceDAO;
-
-    public SqliteEmployeeDAO(ServiceDAO serviceDAO) {
-        this.serviceDAO = serviceDAO;
-    }
+    private ServiceDAO serviceDAO;
 
     @Override
     public Integer create(Employee employee) {
