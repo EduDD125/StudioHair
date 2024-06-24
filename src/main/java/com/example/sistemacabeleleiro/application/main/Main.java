@@ -6,15 +6,27 @@ import com.example.sistemacabeleleiro.application.repository.sqlite.SqliteServic
 import com.example.sistemacabeleleiro.application.repository.sqlite.SqliteSchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDAO;
 import com.example.sistemacabeleleiro.domain.usecases.client.usecases.*;
-import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
-import com.example.sistemacabeleleiro.domain.usecases.employee.usecases.*;
+import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeInputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.*;
-import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
-import com.example.sistemacabeleleiro.domain.usecases.service.usecases.*;
+import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceInputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceOutputDTO;
+import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryClientDAO;
+import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryEmployeeDAO;
+import com.example.sistemacabeleleiro.application.repository.inmemory.InMemorySchedulingDAO;
+import com.example.sistemacabeleleiro.application.repository.inmemory.InMemoryServiceDAO;
+import com.example.sistemacabeleleiro.application.repository.sqlite.DataBaseBuilder;
+import com.example.sistemacabeleleiro.domain.entities.cpf.CPF;
+import com.example.sistemacabeleleiro.domain.entities.email.Email;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
+import com.example.sistemacabeleleiro.domain.usecases.employee.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.reports.ExportReportUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.reports.GenerateReportUseCase;
-import com.example.sistemacabeleleiro.application.repository.sqlite.DataBaseBuilder;
+import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
+import com.example.sistemacabeleleiro.domain.usecases.service.usecases.*;
 
 public class Main {
 
