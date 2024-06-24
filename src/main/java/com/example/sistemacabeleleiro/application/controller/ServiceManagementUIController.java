@@ -1,10 +1,9 @@
 package com.example.sistemacabeleleiro.application.controller;
 
 import com.example.sistemacabeleleiro.application.main.Main;
-import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
-import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
-import com.example.sistemacabeleleiro.domain.entities.service.Service;
-import com.example.sistemacabeleleiro.domain.entities.service.ServiceStatus;
+import com.example.sistemacabeleleiro.domain.entities.employee.*;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.*;
+import com.example.sistemacabeleleiro.domain.entities.service.*;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceOutputDTO;
 import javafx.collections.FXCollections;

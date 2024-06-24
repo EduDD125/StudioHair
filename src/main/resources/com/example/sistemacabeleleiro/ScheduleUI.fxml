@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="368.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.Application.controller.SchedulesController">
+<AnchorPane prefHeight="368.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.application.controller.SchedulesController">
     <children>
         <Label layoutX="72.0" layoutY="81.0" text="Client:" />
         <TextField layoutX="119.0" layoutY="77.0" prefHeight="26.0" prefWidth="452.0" />

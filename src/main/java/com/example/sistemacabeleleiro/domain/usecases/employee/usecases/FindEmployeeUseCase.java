@@ -16,7 +16,7 @@ public class FindEmployeeUseCase {
     public FindEmployeeUseCase(EmployeeDAO employeeDAO) {
         this.employeeDAO = employeeDAO;
     }
-    public static Optional<EmployeeOutputDTO> findOne(int id){
+    public Optional<EmployeeOutputDTO> findOne(int id){
         return employeeDAO.findOne(id).map(this::mapToDTO);
     }
     public Optional<EmployeeOutputDTO> findOneByCpf(CPF cpf){
