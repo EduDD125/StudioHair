@@ -44,6 +44,7 @@ public class ClientController {
     private void initialize(){
         txtId.setDisable(true);
         choiceStatus.setItems(FXCollections.observableArrayList(ClientStatus.values()));
+        choiceStatus.setDisable(true);
     }
     public void saveOrUpdate(ActionEvent event) {
         getEntityFromView();

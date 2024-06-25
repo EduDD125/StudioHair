@@ -42,6 +42,7 @@ public class ServiceController {
     private void initialize(){
         txtId.setDisable(true);
         choiceStatus.setItems(FXCollections.observableArrayList(ServiceStatus.values()));
+        choiceStatus.setDisable(true);
     }
 
     public void saveOrUpdate(ActionEvent event) {

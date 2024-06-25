@@ -12,11 +12,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceManagementUIController {
+
+    @FXML
+    private TextField txtMinPrice;
+    @FXML
+    private TextField txtMaxPrice;
+    @FXML
+    private TextField txtCategory;
+    @FXML
+    private TextField txtDiscount;
 
     @FXML
     private TableView<ServiceOutputDTO> tableView;
@@ -85,6 +96,42 @@ public class ServiceManagementUIController {
         ApplicationView.setRoot("ServiceUI");
     }
 
+    public void inactivateService(ActionEvent event) {
+        ServiceOutputDTO selectedItem = tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null){
+            Main.inactivateServiceUseCase.inactivate(selectedItem.id());
+            loadDataAndShow();
+        }
+    }
+
+    public void activateService(ActionEvent event) {
+        ServiceOutputDTO selectedItem = tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null){
+            Main.activateServiceUseCase.activate(selectedItem.id());
+            loadDataAndShow();
+        }
+    }
+
+    public void findServices(ActionEvent event) {
+        List<ServiceOutputDTO> servicesList = new ArrayList<>();
+        if (!txtMinPrice.getText().isEmpty() && !txtMaxPrice.getText().isEmpty()){
+            servicesList = Main.findServiceUseCase.findByPriceRange
+                    (Double.parseDouble(txtMinPrice.getText()), Double.parseDouble(txtMaxPrice.getText()));
+        }else{
+            if (!txtCategory.getText().isEmpty()){
+                servicesList = Main.findServiceUseCase.findByCategory(txtCategory.getText());
+            }else{
+                if (!txtDiscount.getText().isEmpty()){
+                    servicesList = Main.findServiceUseCase.findByDiscount(Double.parseDouble(txtDiscount.getText()));
+                }
+            }
+        }
+        if (!servicesList.isEmpty()){
+            tableData.clear();
+            tableData.addAll(servicesList);
+        }
+
+    }
     private void showServiceInMode(UIMode mode) throws IOException {
         ServiceOutputDTO selectedService = tableView.getSelectionModel().getSelectedItem();
         if (selectedService != null){
@@ -93,10 +140,12 @@ public class ServiceManagementUIController {
             controller.setService(selectedService,mode);
         }
     }
-    public void goBackToMainMenu(ActionEvent actionEvent) throws IOException{
-        ApplicationView.setRoot("MainMenuUI");
+
+    public void refresh(ActionEvent event) {
+        loadDataAndShow();
     }
 
-    public void findServices(ActionEvent event) {
+    public void goBackToMainMenu(ActionEvent actionEvent) throws IOException{
+        ApplicationView.setRoot("MainMenuUI");
     }
 }

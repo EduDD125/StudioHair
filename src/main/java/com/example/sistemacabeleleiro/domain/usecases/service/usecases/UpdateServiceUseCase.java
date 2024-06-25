@@ -24,6 +24,12 @@ public class UpdateServiceUseCase {
 
             Service service = serviceDAO.findOne(id)
                     .orElseThrow(()-> new EntityNotFoundException("Service not found"));
+
+            service.setName(serviceUpdateDTO.name());
+            service.setDescription(serviceUpdateDTO.description());
+            service.setPrice(serviceUpdateDTO.price());
+            service.setCategory(serviceUpdateDTO.category());
+            service.setSubCategory(serviceUpdateDTO.subcategory());
             return serviceDAO.update(service);
         }
 

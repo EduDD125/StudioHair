@@ -31,7 +31,7 @@ public class RemoveClientUseCase {
         }
 
         if (client.isActive()) {
-            throw new IllegalArgumentException("Can't delete an active employee");
+            throw new IllegalArgumentException("Can't delete an active client");
         }
     }
 

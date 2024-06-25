@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.domain.usecases.service.usecases;
 
+import com.example.sistemacabeleleiro.domain.entities.service.Service;
 import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
 import com.example.sistemacabeleleiro.domain.usecases.service.repository.ServiceDAO;
@@ -21,6 +22,11 @@ public class RemoveServiceUseCase {
     public boolean remove(int id){
         if(serviceDAO.findOne(id).isEmpty())
             throw new EntityNotFoundException("Service not found.");
+
+        Service service = serviceDAO.findOne(id).get();
+        if (service.isActive()){
+            throw new IllegalArgumentException("Can't delete an active service");
+        }
 
         if (hasSchedulingsForService(id)) {
             throw new IllegalStateException("Cannot delete service with existing schedules.");
