@@ -12,8 +12,13 @@ public class ConnectionFactory implements AutoCloseable {
     private static PreparedStatement preparedStatement;
     private static Statement statement;
 
-    public static Connection createConnection() throws SQLException {
-        instantiateConnectionIfNull();
+    public static Connection createConnection(){
+        try {
+            instantiateConnectionIfNull();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         return connection;
     }
 

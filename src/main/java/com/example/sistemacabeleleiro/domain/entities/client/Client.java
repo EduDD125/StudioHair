@@ -78,8 +78,8 @@ public class Client {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email.setValue(email);
+    public void setEmail(Email email) {
+        this.email = email;
     }
 
     public ClientStatus getStatus() {

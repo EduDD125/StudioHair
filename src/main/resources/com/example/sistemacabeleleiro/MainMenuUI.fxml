@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="141.0" prefWidth="208.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.application.controller.MainMenuUIController">
+<AnchorPane prefHeight="369.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.application.controller.MainMenuUIController">
 
    <children>
-      <Button fx:id="schedulesButton" layoutX="16.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToSchedulesUIScene" prefHeight="26.0" prefWidth="80.0" text="Schedules" />
-      <Button fx:id="clientsButton" layoutX="17.0" layoutY="94.0" mnemonicParsing="false" onAction="#goToClientsUIScene" prefHeight="26.0" prefWidth="80.0" text="Clients" />
-      <Button fx:id="servicesButton" layoutX="113.0" layoutY="93.0" mnemonicParsing="false" onAction="#goToServicesUIScene" prefHeight="26.0" prefWidth="80.0" text="Services" />
-      <Button fx:id="smployeesButton" layoutX="112.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToEmployeesUIScene" prefHeight="26.0" prefWidth="80.0" text="Employees" />
-      <Label layoutX="11.0" layoutY="15.0" text="###### ---- MenuArea----######" />
+      <Button fx:id="schedulesButton" layoutX="48.0" layoutY="107.0" mnemonicParsing="false" onAction="#goToSchedulesUIScene" prefHeight="26.0" prefWidth="80.0" text="Schedules" />
+      <Button fx:id="clientsButton" layoutX="48.0" layoutY="231.0" mnemonicParsing="false" onAction="#goToClientsUIScene" prefHeight="26.0" prefWidth="80.0" text="Clients" />
+      <Button fx:id="servicesButton" layoutX="408.0" layoutY="231.0" mnemonicParsing="false" onAction="#goToServicesUIScene" prefHeight="26.0" prefWidth="80.0" text="Services" />
+      <Button fx:id="smployeesButton" layoutX="408.0" layoutY="107.0" mnemonicParsing="false" onAction="#goToEmployeesUIScene" prefHeight="26.0" prefWidth="80.0" text="Employees" />
+      <ImageView fx:id="imgLogo" fitHeight="240.0" fitWidth="282.0" layoutX="137.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

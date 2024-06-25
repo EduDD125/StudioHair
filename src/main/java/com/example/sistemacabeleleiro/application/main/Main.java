@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.application.main;
 
+import com.example.sistemacabeleleiro.ApplicationView;
 import com.example.sistemacabeleleiro.application.repository.sqlite.*;
 import com.example.sistemacabeleleiro.domain.usecases.client.dto.ClientInputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.client.dto.ClientOutputDTO;
@@ -66,7 +67,8 @@ public class Main {
 
     public static void main(String[] args) {
         configureInjection();
-        setupDatabase();
+        //setupDatabase();
+        ApplicationView.main(args);
     }
     private static void setupDatabase() {
         DataBaseBuilder dbBuilder = new DataBaseBuilder();
