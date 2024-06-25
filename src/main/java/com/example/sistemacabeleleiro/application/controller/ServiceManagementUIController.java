@@ -1,19 +1,19 @@
 package com.example.sistemacabeleleiro.application.controller;
 
+import com.example.sistemacabeleleiro.ApplicationView;
 import com.example.sistemacabeleleiro.application.main.Main;
-import com.example.sistemacabeleleiro.domain.entities.employee.*;
-import com.example.sistemacabeleleiro.domain.entities.schedulling.*;
-import com.example.sistemacabeleleiro.domain.entities.service.*;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.service.dto.ServiceOutputDTO;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ServiceManagementUIController {
@@ -21,19 +21,19 @@ public class ServiceManagementUIController {
     @FXML
     private TableView<ServiceOutputDTO> tableView;
     @FXML
-    private TableColumn<ServiceOutputDTO, Integer> cName;
+    private TableColumn<ServiceOutputDTO, Number> cId;
     @FXML
-    private TableColumn<ServiceOutputDTO, Integer> cDiscription;
+    private TableColumn<ServiceOutputDTO, String> cName;
     @FXML
-    private TableColumn<ServiceOutputDTO, Integer> cPrice;
+    private TableColumn<ServiceOutputDTO, String> cDescription;
     @FXML
-    private TableColumn<ServiceOutputDTO, Integer> cCategory;
+    private TableColumn<ServiceOutputDTO, Number> cPrice;
     @FXML
-    private TableColumn<ServiceOutputDTO, Integer> cSubCategory;
+    private TableColumn<ServiceOutputDTO, String> cCategory;
     @FXML
-    private TableColumn<ServiceOutputDTO, Integer> cDiscount;
+    private TableColumn<ServiceOutputDTO, String> cSubCategory;
     @FXML
-    private TableColumn<ServiceOutputDTO, Integer> cStatus;
+    private TableColumn<ServiceOutputDTO, String> cStatus;
 
     ObservableList<ServiceOutputDTO> tableData;
 
@@ -50,13 +50,13 @@ public class ServiceManagementUIController {
     }
 
     private void bindColumnsToValueSource() {
-        cName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        cDiscription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        cPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        cCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-        cSubCategory.setCellValueFactory(new PropertyValueFactory<>("subCategory"));
-        cDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
-        cStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        cId.setCellValueFactory(p -> new SimpleIntegerProperty(p.getValue().id()));
+        cName.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().name()));
+        cDescription.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().description()));
+        cPrice.setCellValueFactory(p -> new SimpleDoubleProperty(p.getValue().price()));
+        cCategory.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().category()));
+        cSubCategory.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().subcategory()));
+        cStatus.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().status().name()));
     }
 
     private void loadDataAndShow() {
@@ -73,15 +73,30 @@ public class ServiceManagementUIController {
         }
     }
 
-    public void editService(ActionEvent actionEvent) {
+    public void editService(ActionEvent actionEvent) throws IOException{
+        showServiceInMode(UIMode.UPDATE);
     }
 
-    public void detailService(ActionEvent actionEvent) {
+    public void detailService(ActionEvent actionEvent) throws IOException{
+        showServiceInMode(UIMode.VIEW);
     }
 
-    public void registerService(ActionEvent actionEvent) {
+    public void registerService(ActionEvent actionEvent) throws IOException{
+        ApplicationView.setRoot("ServiceUI");
     }
 
-    public void goBackToMainMenu(ActionEvent actionEvent) {
+    private void showServiceInMode(UIMode mode) throws IOException {
+        ServiceOutputDTO selectedService = tableView.getSelectionModel().getSelectedItem();
+        if (selectedService != null){
+            ApplicationView.setRoot("ServiceUI");
+            ServiceController controller = (ServiceController) ApplicationView.getController();
+            controller.setService(selectedService,mode);
+        }
+    }
+    public void goBackToMainMenu(ActionEvent actionEvent) throws IOException{
+        ApplicationView.setRoot("MainMenuUI");
+    }
+
+    public void findServices(ActionEvent event) {
     }
 }
