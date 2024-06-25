@@ -72,7 +72,7 @@
             <id>default-cli</id>
             <configuration>
               <!-- <mainClass>com.example.sistemacabeleleiro/com.example.sistemacabeleleiro.application.view.ApplicationView</mainClass> -->
-              <mainClass>com.example.sistemacabeleleiro.ApplicationView</mainClass>
+              <mainClass>com.example.sistemacabeleleiro.WindowLoader</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
