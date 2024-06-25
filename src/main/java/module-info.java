@@ -8,6 +8,7 @@ module com.example.sistemacabeleleiro {
 
     opens com.example.sistemacabeleleiro to javafx.fxml;
     opens com.example.sistemacabeleleiro.application.controller to javafx.fxml;
+    opens com.example.sistemacabeleleiro.domain.usecases.client.dto;
 
     exports com.example.sistemacabeleleiro;
 }

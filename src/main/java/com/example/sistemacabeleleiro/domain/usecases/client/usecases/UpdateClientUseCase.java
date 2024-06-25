@@ -23,6 +23,11 @@ public class UpdateClientUseCase {
 
         Client client = clientDAO.findOne(id)
                 .orElseThrow(()-> new EntityNotFoundException("Client not found"));
+
+        client.setName(clientUpdateDTO.name());
+        client.setCpf(clientUpdateDTO.cpf());
+        client.setPhone(clientUpdateDTO.phone());
+        client.setEmail(clientUpdateDTO.email());
         return clientDAO.update(client);
     }
 }

@@ -107,7 +107,7 @@ public class SqliteClientDAO implements ClientDAO {
 
     @Override
     public boolean update(Client client) {
-        String sql = "UPDATE Cliente SET name = ?, cpf = ?, phone = ?, email = ?, status = ? WHERE id = ?";
+        String sql = "UPDATE Client SET name = ?, cpf = ?, phone = ?, email = ?, status = ? WHERE id = ?";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
             stmt.setString(1, client.getName());

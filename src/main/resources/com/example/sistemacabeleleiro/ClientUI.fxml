@@ -6,17 +6,19 @@
 <AnchorPane prefHeight="267.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.application.controller.ClientController">
    <children>
       <Label layoutX="27.0" layoutY="81.0" text="Name:" />
-      <TextField fx:id="nameTextInput" layoutX="70.0" layoutY="77.0" prefHeight="26.0" prefWidth="474.0" />
+      <TextField fx:id="txtName" layoutX="70.0" layoutY="77.0" prefHeight="26.0" prefWidth="474.0" />
       <Label layoutX="35.0" layoutY="124.0" text="CPF:" />
       <Label layoutX="261.0" layoutY="122.0" text="Phone:" />
       <Label layoutX="27.0" layoutY="174.0" text="Email:" />
       <Label layoutX="261.0" layoutY="174.0" text="Status:" />
-      <TextField fx:id="emailTextInput" layoutX="68.0" layoutY="171.0" prefHeight="26.0" prefWidth="184.0" />
-      <TextField fx:id="phoneTextInput" layoutX="309.0" layoutY="119.0" prefHeight="26.0" prefWidth="235.0" />
-      <TextField layoutX="68.0" layoutY="119.0" prefHeight="26.0" prefWidth="184.0" />
-      <ChoiceBox fx:id="statusChoiceBox" layoutX="308.0" layoutY="171.0" prefHeight="26.0" prefWidth="235.0" />
-      <Button fx:id="cancelButton" layoutX="364.0" layoutY="230.0" mnemonicParsing="false" onAction="#backToPreviousScene" prefHeight="26.0" prefWidth="78.0" text="Cancel" />
-      <Button fx:id="saveButton" layoutX="466.0" layoutY="230.0" mnemonicParsing="false" onAction="#saveOrUpdate" prefHeight="26.0" prefWidth="77.0" text="Save" />
-      <Label layoutX="17.0" layoutY="16.0" text="################################   Cleinte Area   ################################" />
+      <TextField fx:id="txtEmail" layoutX="68.0" layoutY="171.0" prefHeight="26.0" prefWidth="184.0" />
+      <TextField fx:id="txtPhone" layoutX="309.0" layoutY="119.0" prefHeight="26.0" prefWidth="235.0" />
+      <TextField fx:id="txtCpf" layoutX="68.0" layoutY="119.0" prefHeight="26.0" prefWidth="184.0" />
+      <ChoiceBox fx:id="choiceStatus" layoutX="308.0" layoutY="171.0" prefHeight="26.0" prefWidth="235.0" />
+      <Button fx:id="btnCancel" layoutX="364.0" layoutY="230.0" mnemonicParsing="false" onAction="#backToPreviousScene" prefHeight="26.0" prefWidth="78.0" text="Cancel" />
+      <Button fx:id="btnSave" layoutX="466.0" layoutY="230.0" mnemonicParsing="false" onAction="#saveOrUpdate" prefHeight="26.0" prefWidth="77.0" text="Save" />
+      <Label layoutX="17.0" layoutY="16.0" text="################################   Client Area   ################################" />
+      <Label layoutX="35.0" layoutY="231.0" text="ID:" />
+      <TextField fx:id="txtId" layoutX="70.0" layoutY="226.0" prefHeight="26.0" prefWidth="184.0" />
    </children>
 </AnchorPane>
