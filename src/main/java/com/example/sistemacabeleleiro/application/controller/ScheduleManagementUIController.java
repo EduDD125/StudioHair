@@ -1,5 +1,6 @@
 package com.example.sistemacabeleleiro.application.controller;
 
+import com.example.sistemacabeleleiro.ApplicationView;
 import com.example.sistemacabeleleiro.application.main.Main;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ScheduleManagementUIController {
@@ -62,16 +64,31 @@ public class ScheduleManagementUIController {
             loadDataAndShow();
         }
     }
-
-    public void editSchedule(ActionEvent actionEvent) {
+    public void editSchedule(ActionEvent actionEvent) throws IOException {
+        showScheduleInMode(UIMode.UPDATE);
     }
 
-    public void detailSchedule(ActionEvent actionEvent) {
+    public void detailSchedule(ActionEvent actionEvent) throws IOException {
+        showScheduleInMode(UIMode.VIEW);
     }
 
-    public void registerSchedule(ActionEvent actionEvent) {
+    public void registerSchedule(ActionEvent actionEvent) throws IOException {
+        ApplicationView.setRoot("ScheduleUI");
     }
 
-    public void goBackToMainMenu(ActionEvent actionEvent) {
+    private void showScheduleInMode(UIMode mode) throws IOException {
+        SchedulingOutputDTO selectedSchedule = tableView.getSelectionModel().getSelectedItem();
+        if (selectedSchedule != null) {
+            ApplicationView.setRoot("ScheduleUI");
+            SchedulesController controller = (SchedulesController) ApplicationView.getController();
+            controller.setSchedule(selectedSchedule, mode);
+        }
+    }
+
+    public void goBackToMainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationView.setRoot("MainMenuUI");
+    }
+
+    public void filterSchedules(ActionEvent actionEvent) {
     }
 }

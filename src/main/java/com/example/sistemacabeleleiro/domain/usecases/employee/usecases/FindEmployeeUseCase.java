@@ -29,6 +29,13 @@ public class FindEmployeeUseCase {
         return employeeDAO.findByCpf(cpf).map(this::mapToDTO);
     }
 
+    public Optional<EmployeeOutputDTO> findOneByName(String name){
+        if (Validator.nullOrEmpty(name)){
+            throw new IllegalArgumentException("Name can't be null or empty");
+        }
+        return employeeDAO.findByName(name).map(this::mapToDTO);
+    }
+
     public List<EmployeeOutputDTO> findAll(){
         List<Employee> employees = employeeDAO.findAll();
         return employees.stream().map(this::mapToDTO).collect(Collectors.toList());

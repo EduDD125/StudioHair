@@ -5,6 +5,7 @@ import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
 import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryEmployeeDAO implements EmployeeDAO {
 
@@ -59,6 +60,13 @@ public class InMemoryEmployeeDAO implements EmployeeDAO {
     public Optional<Employee> findByCpf(CPF cpf) {
         return db.values().stream().filter(employee -> employee.getCpf().equals(cpf)).findAny();
     }
+
+    @Override
+    public Optional<Employee> findByName(String name) {
+        return db.values().stream().filter(employee -> employee.getName().equals(name)).findAny();
+    }
+
+
     @Override
     public Optional<Employee> findOne(Integer key) {
         if(db.containsKey(key))

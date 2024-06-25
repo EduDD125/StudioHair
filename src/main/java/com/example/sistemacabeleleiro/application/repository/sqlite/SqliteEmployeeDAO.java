@@ -93,6 +93,23 @@ public class SqliteEmployeeDAO implements EmployeeDAO {
     }
 
     @Override
+    public Optional<Employee> findByName(String name) {
+        String sql = "SELECT * FROM Employee WHERE name = ?";
+        Employee employee = null;
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                employee = resultSetToEntity(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(employee);
+    }
+
+    @Override
     public List<Employee> findAll() {
         String sql = "SELECT * FROM Employee";
         List<Employee> employees = new ArrayList<>();
