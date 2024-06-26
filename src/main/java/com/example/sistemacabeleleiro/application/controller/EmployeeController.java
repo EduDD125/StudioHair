@@ -18,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class EmployeeController {
 
@@ -79,7 +80,7 @@ public class EmployeeController {
     private void getEntityFromView() {
         if (employee == null) {
             int id = -1;
-            if (employee.id() != 0) {
+            if (!Objects.isNull(employee)) {
                 id = employee.id();
             }
             employee = new EmployeeOutputDTO(
