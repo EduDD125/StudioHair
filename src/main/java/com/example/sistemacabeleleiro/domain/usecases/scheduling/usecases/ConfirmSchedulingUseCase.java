@@ -12,14 +12,14 @@ public class ConfirmSchedulingUseCase {
         this.schedulingDAO = schedulingDAO;
     }
 
-    private boolean confirm(int id){
+    public Integer confirm(int id){
         Scheduling scheduling = schedulingDAO.findOne(id)
                 .orElseThrow(() -> new EntityNotFoundException("Scheduling not found"));
 
         validateScheduling(scheduling);
 
         scheduling.execute();
-        return schedulingDAO.update(scheduling);
+        return schedulingDAO.confirm(scheduling);
     }
 
     private void validateScheduling(Scheduling scheduling){

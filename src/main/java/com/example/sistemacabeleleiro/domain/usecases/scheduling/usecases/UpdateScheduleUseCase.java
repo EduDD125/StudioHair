@@ -3,6 +3,7 @@ package com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases;
 import com.example.sistemacabeleleiro.domain.entities.client.Client;
 import com.example.sistemacabeleleiro.domain.entities.employee.Employee;
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.entities.schedulling.SchedulingStatus;
 import com.example.sistemacabeleleiro.domain.entities.service.Service;
 import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDAO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
@@ -32,6 +33,10 @@ public class UpdateScheduleUseCase {
 
         Scheduling scheduling = schedulingDAO.findOne(schedulingUpdateDTO.schedulingId())
                 .orElseThrow(() -> new EntityNotFoundException("Scheduling not found."));
+
+        if (!scheduling.getStatus().equals(SchedulingStatus.SCHEDULED))
+            throw new IllegalArgumentException
+                    ("It is not possible to update an schedule that has already been canceled or made");
 
         Client client = findEntityById(clientDAO,schedulingUpdateDTO.clientId(), "Client");
         Employee employee = findEntityById(employeeDAO,schedulingUpdateDTO.employeeId(), "Employee");
@@ -78,12 +83,14 @@ public class UpdateScheduleUseCase {
         List<Scheduling> employeeSchedules = schedulingDAO.findByEmployee(scheduling.getEmployee().getId());
 
         for (Scheduling existingScheduling: clientSchedules){
-            if (existingScheduling.getRealizationDate().equals(scheduling.getRealizationDate()))
+            if (existingScheduling.getRealizationDate().equals(scheduling.getRealizationDate()) &&
+            existingScheduling.getStatus().equals(SchedulingStatus.SCHEDULED))
                 throw new EntityAlreadyExistsException("The client has a schedule for this date and time.");
         }
 
         for (Scheduling existingScheduling: employeeSchedules){
-            if (existingScheduling.getRealizationDate().equals(scheduling.getRealizationDate()))
+            if (existingScheduling.getRealizationDate().equals(scheduling.getRealizationDate()) &&
+            existingScheduling.getStatus().equals(SchedulingStatus.SCHEDULED))
                 throw new EntityAlreadyExistsException("The employee has a schedule for this date and time.");
         }
     }

@@ -68,14 +68,19 @@ public class SchedulesController {
 
         List<ServiceOutputDTO> services = Main.findServiceUseCase.findAll();
         comboService.setItems(FXCollections.observableArrayList(services));
+
+        configureCreateMode();
     }
 
     public void saveOrUpdate(ActionEvent event) {
         getEntityFromView();
+
         boolean newSchedule = Main.findSchedulingUseCase.findOne(schedule.id()).isEmpty();
+
         ClientOutputDTO client = (ClientOutputDTO) comboClient.getSelectionModel().getSelectedItem();
         EmployeeOutputDTO employee = (EmployeeOutputDTO) comboEmployee.getSelectionModel().getSelectedItem();
         ServiceOutputDTO service = (ServiceOutputDTO) comboService.getSelectionModel().getSelectedItem();
+
         if (newSchedule){
             SchedulingInputDTO schedulingInput = new SchedulingInputDTO(
                    client.id(),
@@ -83,9 +88,15 @@ public class SchedulesController {
                     service.id(),
                     getExactDateTime().get()
             );
+            try{
+                Integer result = Main.createSchedulingUseCase.insert(schedulingInput);
+                if (result != null)
+                    showSuccessMessage("Schedule created successfully!");
+            }catch (Exception e){
+                e.printStackTrace();
+                showErrorMessage(e.getMessage());
+            }
 
-            Main.createSchedulingUseCase.insert(schedulingInput);
-            showSuccessMessage("Schedule created successfully!");
         }else{
             SchedulingUpdateDTO schedulingUpdate = new SchedulingUpdateDTO(
                     Integer.parseInt(txtId.getText()),
@@ -94,9 +105,40 @@ public class SchedulesController {
                     service.id(),
                     getExactDateTime().get()
             );
+            try{
+                boolean result = Main.updateScheduleUseCase.update(schedulingUpdate);
+                if (result)
+                    showSuccessMessage("Schedule updated successfully!");
+            }catch (Exception e){
+                e.printStackTrace();
+                showErrorMessage(e.getMessage());
+            }
+        }
+    }
 
-            Main.updateScheduleUseCase.update(schedulingUpdate);
-            showSuccessMessage("Schedule updated successfully!");
+    public void cancelSchedule(ActionEvent event) {
+        getEntityFromView();
+        try{
+            int result = Main.cancelSchedulingUseCase.cancel(schedule.id());
+            if (result != 0)
+                showSuccessMessage("Schedule canceled successfully!");
+
+        }catch (Exception e){
+            e.printStackTrace();
+            showErrorMessage(e.getMessage());
+        }
+    }
+
+    public void confirmSchedule(ActionEvent event) {
+        getEntityFromView();
+        try{
+            int result = Main.confirmSchedulingUseCase.confirm(schedule.id());
+            if (result != 0)
+                showSuccessMessage("Schedule confirmed successfully!");
+
+        }catch (Exception e){
+            e.printStackTrace();
+            showErrorMessage(e.getMessage());
         }
     }
 
@@ -149,17 +191,26 @@ public class SchedulesController {
         this.schedule = schedule;
         setEntityIntoView();
 
-        configureViewMode();
+        if (mode == UIMode.VIEW)
+            configureViewMode();
     }
     private void setEntityIntoView(){
+        ClientOutputDTO client = Main.findClientUseCase.findOne(schedule.clientId()).get();
+        EmployeeOutputDTO employee = Main.findEmployeeUseCase.findOne(schedule.employeeId()).get();
+        ServiceOutputDTO service = Main.findServiceUseCase.findOne(schedule.serviceId()).get();
         txtId.setText(String.valueOf(schedule.id()));
-        comboClient.setValue(schedule.clientName());
-        comboEmployee.setValue(schedule.employeeName());
-        comboService.setValue(schedule.serviceName());
+        choiceStatus.setValue(schedule.status());
+        comboClient.setValue(client);
+        comboEmployee.setValue(employee);
+        comboService.setValue(service);
         txtPrice.setText(String.valueOf(schedule.totalValue()));
         txtDate.setValue(schedule.realizationDate().toLocalDate());
         txtHour.setText(String.valueOf(schedule.realizationDate().toLocalTime()));
-        choiceStatus.setValue(schedule.status());
+    }
+
+    private void configureCreateMode(){
+        btnCancel.setVisible(false);
+        btnConfirm.setVisible(false);
     }
 
     private void configureViewMode(){
@@ -170,22 +221,27 @@ public class SchedulesController {
         comboClient.setDisable(true);
         comboEmployee.setDisable(true);
         comboService.setDisable(true);
+        btnCancel.setVisible(true);
+        btnConfirm.setVisible(true);
     }
 
-    public void cancelSchedule(ActionEvent event) {
-    }
-
-    public void confirmSchedule(ActionEvent event) {
-    }
 
     private void showSuccessMessage(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Success");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
 
         returnToPreviousScene();
+    }
+
+    private void showErrorMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
     private void returnToPreviousScene(){
         try {
