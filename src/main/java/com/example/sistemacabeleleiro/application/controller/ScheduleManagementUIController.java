@@ -2,8 +2,6 @@ package com.example.sistemacabeleleiro.application.controller;
 
 import com.example.sistemacabeleleiro.ApplicationView;
 import com.example.sistemacabeleleiro.application.main.Main;
-import com.example.sistemacabeleleiro.domain.usecases.client.dto.ClientOutputDTO;
-import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeOutputDTO;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -77,8 +75,11 @@ public class ScheduleManagementUIController {
                 .map(c -> c.name()).toList();
         List<String> employees = Main.findEmployeeUseCase.findAll().stream()
                 .map(e -> e.name()).toList();
+        List<String> services = Main.findServiceUseCase.findAll().stream()
+                        .map(s -> s.name()).toList();
         comboClient.setItems(FXCollections.observableArrayList(clients));
         comboEmployee.setItems(FXCollections.observableArrayList(employees));
+        comboService.setItems(FXCollections.observableArrayList(services));
 
     }
 

@@ -246,14 +246,14 @@ public class SqliteSchedulingDAO implements SchedulingDAO {
 
     @Override
     public boolean update(Scheduling scheduling) {
-        String sql = "UPDATE Scheduling SET idClient = ?, idEmployee = ?, realizationDate = ?, status = ?, idService = ? WHERE id = ?";
+        String sql = "UPDATE Scheduling SET idClient = ?, idEmployee = ?, realizationDate = ?, idService = ? WHERE id = ?";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
             stmt.setInt(1, scheduling.getClient().getId());
             stmt.setInt(2, scheduling.getEmployee().getId());
             stmt.setString(3, scheduling.getRealizationDate().toString());
-            stmt.setString(4, scheduling.getStatus().toString());
-            stmt.setInt(5, scheduling.getService().getId());
+            stmt.setInt(4, scheduling.getService().getId());
+            stmt.setInt(5, scheduling.getId());
             stmt.execute();
 
             return true;
@@ -279,6 +279,21 @@ public class SqliteSchedulingDAO implements SchedulingDAO {
         }
     }
 
+    @Override
+    public Integer confirm(Scheduling scheduling) {
+        String sql = "UPDATE Scheduling SET status = ? WHERE id = ?";
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, SchedulingStatus.PROVIDED.toString());
+            stmt.setInt(2, scheduling.getId());
+            stmt.execute();
+
+            return 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
 
     @Override

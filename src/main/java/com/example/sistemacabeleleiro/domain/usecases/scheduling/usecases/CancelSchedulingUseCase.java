@@ -12,14 +12,14 @@ public class CancelSchedulingUseCase {
         this.schedulingDAO = schedulingDAO;
     }
 
-    public boolean cancel(int id) {
+    public Integer cancel(int id) {
         Scheduling scheduling = schedulingDAO.findOne(id)
                 .orElseThrow(() -> new EntityNotFoundException("Scheduling not found"));
 
         validateScheduling(scheduling);
 
         scheduling.cancel();
-        return schedulingDAO.update(scheduling);
+        return schedulingDAO.cancel(scheduling);
     }
 
     private void validateScheduling(Scheduling scheduling) {

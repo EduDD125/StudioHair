@@ -13,10 +13,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,8 +54,34 @@ public class EmployeeManagementUIController {
     private void bindTableToItensList() {
         tableData = FXCollections.observableArrayList();
         tableView.setItems(tableData);
+
         List<ServiceOutputDTO> services = Main.findServiceUseCase.findAll();
         comboExpertise.setItems(FXCollections.observableArrayList(services));
+        comboExpertise.setCellFactory(cell -> new ListCell<ServiceOutputDTO>(){
+            @Override
+            protected void updateItem(ServiceOutputDTO item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    setText(item.name());
+                } else {
+                    setText(null);
+                }
+            }
+        });
+        comboExpertise.setConverter(new StringConverter<ServiceOutputDTO>() {
+            @Override
+            public String toString(ServiceOutputDTO service) {
+                return service == null ? null : service.name();
+            }
+
+            @Override
+            public ServiceOutputDTO fromString(String string) {
+                return services.stream()
+                        .filter(service -> service.name().equals(string))
+                        .findFirst()
+                        .orElse(null);
+            }
+        });
 
     }
 

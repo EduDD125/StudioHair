@@ -38,6 +38,11 @@ public class InMemorySchedulingDAO implements SchedulingDAO {
     }
 
     @Override
+    public Integer confirm(Scheduling schedule) {
+        return null;
+    }
+
+    @Override
     public boolean deleteByKey(Integer key) {
         if(db.containsKey(key)){
             db.remove(key);

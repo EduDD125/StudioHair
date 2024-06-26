@@ -5,10 +5,7 @@ import com.example.sistemacabeleleiro.application.repository.sqlite.*;
 import com.example.sistemacabeleleiro.domain.usecases.client.repository.ClientDAO;
 import com.example.sistemacabeleleiro.domain.usecases.client.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.repository.SchedulingDAO;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.CancelSchedulingUseCase;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.CreateSchedulingUseCase;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.FindSchedulingUseCase;
-import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.UpdateScheduleUseCase;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.employee.repository.EmployeeDAO;
 import com.example.sistemacabeleleiro.domain.usecases.employee.usecases.*;
 import com.example.sistemacabeleleiro.domain.usecases.reports.ExportReportUseCase;
@@ -36,6 +33,7 @@ public class Main {
     public static UpdateEmployeeUseCase updateEmployeeUseCase;
 
     public static CancelSchedulingUseCase cancelSchedulingUseCase;
+    public static ConfirmSchedulingUseCase confirmSchedulingUseCase;
     public static CreateSchedulingUseCase createSchedulingUseCase;
     public static FindSchedulingUseCase findSchedulingUseCase;
     public static UpdateScheduleUseCase updateScheduleUseCase;
@@ -84,6 +82,7 @@ public class Main {
         removeExpertiseFromEmployeeUseCase = new RemoveExpertiseFromEmployeeUseCase(employeeDAO, serviceDAO);
 
         cancelSchedulingUseCase = new CancelSchedulingUseCase(schedulingDAO);
+        confirmSchedulingUseCase = new ConfirmSchedulingUseCase(schedulingDAO);
         createSchedulingUseCase = new CreateSchedulingUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
         findSchedulingUseCase = new FindSchedulingUseCase(schedulingDAO);
         updateScheduleUseCase = new UpdateScheduleUseCase(schedulingDAO, clientDAO, employeeDAO, serviceDAO);
