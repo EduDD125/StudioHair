@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class FindClientUseCase {
-    private ClientDAO clientDAO;
+    private static ClientDAO clientDAO;
 
     public FindClientUseCase(ClientDAO clientDAO) {this.clientDAO = clientDAO;}
 

@@ -1,6 +1,10 @@
 package com.example.sistemacabeleleiro.domain.usecases.reports;
 
 import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
+import com.example.sistemacabeleleiro.domain.entities.service.Service;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
+import com.example.sistemacabeleleiro.domain.usecases.scheduling.usecases.FindSchedulingUseCase;
+import com.example.sistemacabeleleiro.domain.usecases.service.usecases.FindServiceUseCase;
 import org.apache.pdfbox.pdmodel.*;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
@@ -58,7 +62,7 @@ public class ExportReportUseCase {
         generatePDF(fileName, schedules);
     }
 
-    private void generatePDF(String fileName, List<Scheduling> schedules) {
+    public void generatePDF(String fileName, List<Scheduling> schedules) {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
             document.addPage(page);
@@ -79,11 +83,12 @@ public class ExportReportUseCase {
                 float startY = logoY - 50;
 
                 for (Scheduling scheduling : schedules) {
-                    String text = "Date: " + scheduling.getRealizationDate().format(formatter) +
+
+                    String text = "Date: " + scheduling.getRealizationDate() +
                             " | Employee: " + scheduling.getEmployee().getName() +
                             " | Service: " + scheduling.getService().getName() +
                             " | Client: " + scheduling.getClient().getName() +
-                            " | Value: " + scheduling.getService().getValueOfService().toString();
+                            " | Value: " + scheduling.getService().getPrice();
 
                     float textWidth = PDType1Font.HELVETICA.getStringWidth(text) / 1000 * fontSize;
                     float textX = (pageWidth - textWidth) / 2;
@@ -98,6 +103,52 @@ public class ExportReportUseCase {
             }
 
             document.save("src/main/resources/com/example/sistemacabeleleiro/reports/" + fileName + ".pdf");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void generatePDF2(String fileName, List<SchedulingOutputDTO> schedules) {
+        try (PDDocument document = new PDDocument()) {
+            PDPage page = new PDPage();
+            document.addPage(page);
+
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+                float fontSize = 12;
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, fontSize);
+                PDImageXObject logo = PDImageXObject.createFromFile("src/main/resources/com/example/sistemacabeleleiro/logo/Logo.png", document);
+                float logoWidth = logo.getWidth() / 5;
+                float logoHeight = logo.getHeight() / 5;
+                float pageWidth = page.getMediaBox().getWidth();
+                float logoX = (pageWidth - logoWidth) / 2;
+                float logoY = page.getMediaBox().getHeight() - logoHeight - 20;
+                contentStream.drawImage(logo, logoX, logoY, logoWidth, logoHeight);
+
+                float startY = logoY - 50;
+
+                for (SchedulingOutputDTO scheduling : schedules) {
+
+                    String text = "Date: " + scheduling.realizationDate() +
+                            " | Employee: " + scheduling.employeeName() +
+                            " | Service: " + scheduling.serviceName() +
+                            " | Client: " + scheduling.clientName() ;
+                    System.out.println(text);
+
+                    float textWidth = PDType1Font.HELVETICA.getStringWidth(text) / 1000 * fontSize;
+                    float textX = (pageWidth - textWidth) / 2;
+
+                    contentStream.beginText();
+                    contentStream.setTextMatrix(Matrix.getTranslateInstance(textX, startY));
+                    contentStream.showText(text);
+                    contentStream.endText();
+
+                    startY -= fontSize + 25;
+                }
+            }
+
+            document.save("src/main/resources/com/example/sistemacabeleleiro/" + fileName + ".pdf");
 
         } catch (IOException e) {
             e.printStackTrace();
