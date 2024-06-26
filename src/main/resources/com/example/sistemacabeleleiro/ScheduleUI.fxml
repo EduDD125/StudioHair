@@ -5,20 +5,25 @@
 
 <AnchorPane prefHeight="368.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemacabeleleiro.application.controller.SchedulesController">
     <children>
-        <Label layoutX="72.0" layoutY="81.0" text="Client:" />
-        <TextField layoutX="119.0" layoutY="77.0" prefHeight="26.0" prefWidth="452.0" />
-        <Label layoutX="52.0" layoutY="129.0" text="Employee:" />
-        <Label layoutX="303.0" layoutY="178.0" text="Price:" />
-        <Label layoutX="73.0" layoutY="225.0" text="Status:" />
-        <TextField layoutX="346.0" layoutY="174.0" prefHeight="26.0" prefWidth="226.0" />
-        <TextField layoutX="119.0" layoutY="125.0" prefHeight="26.0" prefWidth="452.0" />
-        <ChoiceBox layoutX="122.0" layoutY="219.0" prefHeight="26.0" prefWidth="154.0" />
-        <Button layoutX="394.0" layoutY="315.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Cancel" />
-        <Button layoutX="498.0" layoutY="315.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" text="Save" />
+        <Label layoutX="20.0" layoutY="54.0" text="Client:" />
+        <Label layoutX="334.0" layoutY="54.0" text="Employee:" />
+        <Label layoutX="332.0" layoutY="212.0" text="Price:" />
+        <Label layoutX="19.0" layoutY="212.0" text="Status:" />
+        <TextField fx:id="txtPrice" layoutX="336.0" layoutY="233.0" prefHeight="26.0" prefWidth="226.0" />
+        <ChoiceBox fx:id="choiceStatus" layoutX="19.0" layoutY="233.0" prefHeight="26.0" prefWidth="154.0" />
+        <Button fx:id="btnReturn" layoutX="394.0" layoutY="315.0" mnemonicParsing="false" onAction="#goBackToMenu" prefHeight="26.0" prefWidth="78.0" text="Return" />
+        <Button fx:id="btnSave" layoutX="498.0" layoutY="315.0" mnemonicParsing="false" onAction="#saveOrUpdate" prefHeight="26.0" prefWidth="77.0" text="Save" />
         <Label layoutX="17.0" layoutY="16.0" text="#################################   Schedule Area   #################################" />
-        <Label layoutX="27.0" layoutY="177.0" text="realizationDate:" />
-        <TextField layoutX="122.0" layoutY="173.0" prefHeight="26.0" prefWidth="154.0" />
-      <Label layoutX="294.0" layoutY="224.0" text="Service:" />
-      <ComboBox layoutX="346.0" layoutY="220.0" prefHeight="26.0" prefWidth="226.0" />
+        <Label layoutX="16.0" layoutY="133.0" text="Realization Date:" />
+      <Label layoutX="336.0" layoutY="133.0" text="Service:" />
+      <ComboBox fx:id="comboService" layoutX="336.0" layoutY="156.0" prefHeight="26.0" prefWidth="226.0" />
+      <ComboBox fx:id="comboClient" layoutX="20.0" layoutY="77.0" prefHeight="26.0" prefWidth="226.0" />
+      <ComboBox fx:id="comboEmployee" layoutX="336.0" layoutY="77.0" prefHeight="26.0" prefWidth="226.0" />
+      <DatePicker fx:id="txtDate" layoutX="14.0" layoutY="156.0" />
+      <TextField fx:id="txtHour" layoutX="199.0" layoutY="156.0" prefHeight="26.0" prefWidth="55.0" />
+      <Button fx:id="btnCancel" layoutX="56.0" layoutY="283.0" mnemonicParsing="false" onAction="#cancelSchedule" prefHeight="26.0" prefWidth="154.0" text="Cancel Schedule" />
+      <Button fx:id="btnConfirm" layoutX="56.0" layoutY="321.0" mnemonicParsing="false" onAction="#confirmSchedule" prefHeight="26.0" prefWidth="154.0" text="Confirm Schedule" />
+      <Label layoutX="261.0" layoutY="212.0" text="ID:" />
+      <TextField fx:id="txtId" layoutX="237.0" layoutY="233.0" prefHeight="26.0" prefWidth="62.0" />
     </children>
 </AnchorPane>
