@@ -26,6 +26,12 @@ public class UpdateEmployeeUseCase {
 
         Employee employee = employeeDAO.findOne(id)
                 .orElseThrow(()-> new EntityNotFoundException("Employee not found"));
+
+        employee.setName(employeeUpdateDTO.name());
+        employee.setCpf(employeeUpdateDTO.cpf());
+        employee.setPhone(employeeUpdateDTO.phone());
+        employee.setEmail(employeeUpdateDTO.email());
+        employee.setDateOfBirth(employeeUpdateDTO.dateOfBirth());
         return employeeDAO.update(employee);
     }
 }
