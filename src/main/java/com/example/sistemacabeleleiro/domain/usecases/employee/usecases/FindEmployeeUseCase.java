@@ -36,6 +36,7 @@ public class FindEmployeeUseCase {
 
     private EmployeeOutputDTO mapToDTO(Employee employee){
         return new EmployeeOutputDTO(employee.getId(), employee.getName(),employee.getCpf(),
-                employee.getPhone(), employee.getEmail(), employee.getDateOfBirth(),employee.getStatus());
+                employee.getPhone(), employee.getEmail(), employee.getDateOfBirth(),employee.getStatus(),
+                employee.getExpertise().stream().map(p->p.getName()).toList());
     }
 }

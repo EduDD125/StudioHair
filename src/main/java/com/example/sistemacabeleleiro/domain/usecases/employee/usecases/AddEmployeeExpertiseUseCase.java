@@ -30,6 +30,6 @@ public class AddEmployeeExpertiseUseCase {
             throw new IllegalArgumentException("Can not add an inactive service to employee expertise");
 
         employee.addExpertise(service);
-        return employeeDAO.update(employee);
+        return employeeDAO.addExpertise(employeeId,serviceId);
     }
 }

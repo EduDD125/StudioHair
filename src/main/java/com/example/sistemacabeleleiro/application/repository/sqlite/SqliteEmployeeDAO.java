@@ -17,11 +17,11 @@ import java.util.Optional;
 
 public class SqliteEmployeeDAO implements EmployeeDAO {
 
-    private ServiceDAO serviceDAO;
+    private ServiceDAO serviceDAO = new SqliteServiceDAO();
 
     @Override
     public Integer create(Employee employee) {
-        String sqlEmployee = "INSERT INTO Employee(name, cpf, phone, email, date_of_birth, status) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlEmployee = "INSERT INTO Employee(name, cpf, phone, email, dateOfBirth, status) VALUES (?, ?, ?, ?, ?, ?)";
         String sqlExpertise = "INSERT INTO Expertise(employee_id, service_id) VALUES (?, ?)";
 
         try {
@@ -111,7 +111,7 @@ public class SqliteEmployeeDAO implements EmployeeDAO {
 
     @Override
     public boolean update(Employee employee) {
-        String sql = "UPDATE Employee SET name = ?, cpf = ?, phone = ?, email = ?, date_of_birth = ?, status = ? WHERE id = ?";
+        String sql = "UPDATE Employee SET name = ?, cpf = ?, phone = ?, email = ?, dateOfBirth = ?, status = ? WHERE id = ?";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
             stmt.setString(1, employee.getName());
@@ -183,6 +183,38 @@ public class SqliteEmployeeDAO implements EmployeeDAO {
         }
     }
 
+    @Override
+    public boolean addExpertise(Integer employeeID, Integer serviceId) {
+        String sql = "INSERT INTO Expertise (employee_id, service_id) VALUES (?, ?)";
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
+            stmt.setInt(1, employeeID);
+            stmt.setInt(2, serviceId);
+            stmt.executeUpdate();
+
+            return true;
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean removeExpertise(Integer employeeID, Integer serviceId) {
+        String sql = "DELETE FROM Expertise WHERE employee_id = ? AND service_id = ?";
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
+            stmt.setInt(1, employeeID);
+            stmt.setInt(2, serviceId);
+            stmt.executeUpdate();
+
+            return true;
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private Employee resultSetToEntity(ResultSet rs) throws SQLException {
         return new Employee(
                 rs.getInt("id"),
@@ -191,7 +223,7 @@ public class SqliteEmployeeDAO implements EmployeeDAO {
                 getEmployeeExpertise(rs.getInt("id")),
                 rs.getString("phone"),
                 Email.of(rs.getString("email")),
-                rs.getString("date_of_birth"),
+                rs.getString("dateOfBirth"),
                 EmployeeStatus.toEnum(rs.getString("status"))
         );
     }

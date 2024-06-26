@@ -56,6 +56,16 @@ public class InMemoryEmployeeDAO implements EmployeeDAO {
     }
 
     @Override
+    public boolean addExpertise(Integer employeeID, Integer serviceId) {
+        return false;
+    }
+
+    @Override
+    public boolean removeExpertise(Integer employeeID, Integer serviceId) {
+        return false;
+    }
+
+    @Override
     public Optional<Employee> findByCpf(CPF cpf) {
         return db.values().stream().filter(employee -> employee.getCpf().equals(cpf)).findAny();
     }

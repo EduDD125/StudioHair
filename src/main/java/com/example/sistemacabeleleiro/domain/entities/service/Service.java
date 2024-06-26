@@ -1,6 +1,7 @@
 package com.example.sistemacabeleleiro.domain.entities.service;
 
 
+import java.util.Objects;
 
 public class Service {
     private Integer id;
@@ -162,5 +163,18 @@ public class Service {
                 ", discount=" + discount +
                 ", status=" + status +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Service service = (Service) o;
+        return id == service.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
