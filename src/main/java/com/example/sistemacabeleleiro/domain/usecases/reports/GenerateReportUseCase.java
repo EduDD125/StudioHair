@@ -13,11 +13,6 @@ public class GenerateReportUseCase {
     private SchedulingDAO schedulingDAO;
     private EmployeeDAO employeeDAO;
 
-    public GenerateReportUseCase() {
-        this.schedulingDAO = null;
-        this.employeeDAO = null;
-    }
-
     public GenerateReportUseCase(SchedulingDAO schedulingDAO, EmployeeDAO employeeDAO) {
         this.schedulingDAO = schedulingDAO;
         this.employeeDAO = employeeDAO;

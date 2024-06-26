@@ -2,14 +2,6 @@ package com.example.sistemacabeleleiro.application.controller;
 
 import com.example.sistemacabeleleiro.ApplicationView;
 import com.example.sistemacabeleleiro.application.main.Main;
-import com.example.sistemacabeleleiro.domain.entities.client.Client;
-import com.example.sistemacabeleleiro.domain.entities.schedulling.Scheduling;
-import com.example.sistemacabeleleiro.domain.usecases.client.dto.ClientOutputDTO;
-import com.example.sistemacabeleleiro.domain.usecases.client.usecases.FindClientUseCase;
-import com.example.sistemacabeleleiro.domain.usecases.employee.dto.EmployeeOutputDTO;
-import com.example.sistemacabeleleiro.domain.usecases.employee.usecases.FindEmployeeUseCase;
-import com.example.sistemacabeleleiro.domain.usecases.reports.ExportReportUseCase;
-import com.example.sistemacabeleleiro.domain.usecases.reports.GenerateReportUseCase;
 import com.example.sistemacabeleleiro.domain.usecases.scheduling.dto.SchedulingOutputDTO;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -195,13 +187,5 @@ public class ScheduleManagementUIController {
         ApplicationView.setRoot("MainMenuUI");
     }
 
-    public void createRerport(ActionEvent actionEvent) {
 
-        GenerateReportUseCase generateReportUseCase = new GenerateReportUseCase();
-
-
-        // Exibir ou exportar o relatório conforme necessário
-        ExportReportUseCase exportReportUseCase = new ExportReportUseCase(generateReportUseCase);
-        exportReportUseCase.generatePDF2("report", tableData);
-    }
 }
