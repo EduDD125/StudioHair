@@ -13,4 +13,6 @@ public interface EmployeeDAO extends DAO<Employee,Integer> {
     List<Employee> findAll();
     boolean inactivate(Employee employee);
     boolean activate(Employee employee);
+    boolean addExpertise(Integer employeeID, Integer serviceId);
+    boolean removeExpertise(Integer employeeID, Integer serviceId);
 }

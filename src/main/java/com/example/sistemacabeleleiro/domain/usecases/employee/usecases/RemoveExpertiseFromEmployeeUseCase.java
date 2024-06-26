@@ -26,7 +26,10 @@ public class RemoveExpertiseFromEmployeeUseCase {
         if (!employee.getExpertise().contains(service))
             throw new IllegalArgumentException("Employee does not have this specialty");
 
-        employee.removeExpertise(service);
-        return employeeDAO.update(employee);
+        boolean result = employeeDAO.removeExpertise(employeeId, serviceId);
+        if (result) {
+            employee.removeExpertise(service);
+        }
+        return result;
     }
 }
