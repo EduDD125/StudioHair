@@ -25,9 +25,9 @@ import java.util.Optional;
 
 public class SqliteSchedulingDAO implements SchedulingDAO {
 
-    ClientDAO clientDAO;
-    EmployeeDAO employeeDAO;
-    ServiceDAO serviceDAO;
+    private ClientDAO clientDAO = new SqliteClientDAO();
+    private EmployeeDAO employeeDAO = new SqliteEmployeeDAO();
+    private ServiceDAO serviceDAO = new SqliteServiceDAO();
 
     private Client getClient(int id){
         Client client = clientDAO.findOne(id)
@@ -53,7 +53,7 @@ public class SqliteSchedulingDAO implements SchedulingDAO {
     private Scheduling resultSetToEntity(ResultSet rs) throws SQLException {
         int clientId = rs.getInt("idClient");
         int employeeId = rs.getInt("idEmployee");
-        int serviceId = rs.getInt("idClient");
+        int serviceId = rs.getInt("idService");
 
         Client client = getClient(clientId);
         Employee employee = getEmployee(employeeId);

@@ -61,6 +61,7 @@ public class FindSchedulingUseCase {
                 scheduling.getEmployee().getName(),
                 scheduling.getService().getId(),
                 scheduling.getService().getName(),
+                scheduling.getService().getValueOfService(),
                 scheduling.getRealizationDate(),
                 scheduling.getStatus()
         );
