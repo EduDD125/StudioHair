@@ -41,5 +41,6 @@
       <ComboBox fx:id="comboClient" layoutX="137.0" layoutY="79.0" prefWidth="150.0" />
       <ComboBox fx:id="comboEmployee" layoutX="137.0" layoutY="113.0" prefWidth="150.0" />
       <TextField fx:id="txtHour" layoutX="834.0" layoutY="113.0" prefHeight="25.0" prefWidth="55.0" />
+      <Button fx:id="createReportButton" layoutX="483.0" layoutY="480.0" mnemonicParsing="false" onAction="#createRerport" text="create report" />
     </children>
 </AnchorPane>
